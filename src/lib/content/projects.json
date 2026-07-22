@@ -1,0 +1,47 @@
+[
+  {
+    "id": "autismind",
+    "name": "AutisMind AI",
+    "description": "Intelligent healthcare system designed to assist in developmental monitoring and behavioral trend prediction.",
+    "role": "Independent Creator",
+    "technologies": ["React", "TypeScript", "Python", "Scikit-Learn", "FastAPI"],
+    "challenge": "Providing clinical-grade behavioral predictions under strict privacy constraints and lightweight memory profiles.",
+    "solution": "Built offline-capable inference workflows using compiled light models running locally inside sandbox worker threads.",
+    "narrative": {
+      "problem": "Traditional behavioral tools are subjective and require complex, expensive setups. AI tools require remote APIs that present user privacy risks.",
+      "architecture": "Configured a sandboxed evaluation runtime that loads quantized prediction matrices locally, keeping patient information fully on the client device.",
+      "decisions": "Selected local inference over server-side models to meet HIPAA-grade privacy constraints and eliminate remote network points of failure.",
+      "metrics": "100% offline predictability with sub-50ms execution delay."
+    }
+  },
+  {
+    "id": "terasight",
+    "name": "TeraSight / PrithviQ",
+    "description": "AI-powered environmental intelligence platform turning satellite and environmental imagery into actionable analytics.",
+    "role": "Lead Architect & Engineer",
+    "technologies": ["Next.js", "TypeScript", "Python", "PyTorch", "FastAPI", "PostgreSQL"],
+    "challenge": "Processing high-resolution spatial imagery and delivering sub-second visual updates on client maps without browser bottlenecks.",
+    "solution": "Decoupled rendering from data ingestion, using custom multi-threaded Python workers for image tiling and rendering tiles on demand.",
+    "narrative": {
+      "problem": "Satellite imagery datasets are massive and non-standardized. Statically rendering these on web maps causes high latency, blocking client execution threads.",
+      "architecture": "Implemented a tile-on-demand strategy. A Python (FastAPI) ingestion pipeline splits and normalizes spatial formats, feeding custom R3F map overlays that lazy-load coordinates based on viewport bounds.",
+      "decisions": "Chose FastAPI for CPU-bound image operations due to its async speed, and Next.js App Router to fetch metadata frames cleanly.",
+      "metrics": "Achieved sub-200ms render speeds for custom map layers."
+    }
+  },
+  {
+    "id": "campuswap",
+    "name": "CampuSwap",
+    "description": "Student-focused marketplace providing peer-to-peer textbook and resource transactions with integrated search routing.",
+    "role": "Creator & Full-stack Developer",
+    "technologies": ["Next.js", "Node.js", "Express", "MongoDB", "Socket.io"],
+    "challenge": "Designing a reliable real-time transaction negotiation framework with low database connection overhead under high peak traffic.",
+    "solution": "Implemented cached socket mappings in-memory and unified API requests with optimistic updates on the client UI.",
+    "narrative": {
+      "problem": "University marketplaces suffer from high transaction drops due to slow message delivery and stale item listings.",
+      "architecture": "Engineered a real-time negotiation engine using WebSocket clusters alongside optimistic client states to give instant UI feedback.",
+      "decisions": "Chose Document-oriented schemas for highly flexible item specifications and set up strict index filters to optimize queries.",
+      "metrics": "Reduced message latency to <15ms with 99.9% delivery rate."
+    }
+  }
+]

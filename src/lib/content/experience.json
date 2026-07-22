@@ -1,0 +1,34 @@
+[
+  {
+    "company": "QRaptor",
+    "role": "AI Engineering Intern",
+    "period": "Jun 2025 - Present",
+    "location": "Remote",
+    "metrics": {
+      "metric1": "Automated pipelines for AI integrations",
+      "metric2": "Designed scalable API frameworks"
+    },
+    "atmosphere": "analytical",
+    "technologies": ["Python", "Vertex AI", "FastAPI", "TypeScript"],
+    "details": [
+      "Designed and developed key services for QRaptor, an AI-native app builder platform.",
+      "Optimized model pipeline orchestration to scale workflow automations and decision-making logic."
+    ]
+  },
+  {
+    "company": "RideAbit",
+    "role": "Software Engineering Intern",
+    "period": "Jan 2025 - May 2025",
+    "location": "Chennai, TN",
+    "metrics": {
+      "metric1": "Optimized React Native rendering performance",
+      "metric2": "Streamlined backend API payload sizing"
+    },
+    "atmosphere": "kinetic",
+    "technologies": ["React Native", "TypeScript", "Node.js", "Express"],
+    "details": [
+      "Collaborated with the core engineering team to develop high-performance transportation tools.",
+      "Built resilient client features and integrated real-time location metrics with server APIs."
+    ]
+  }
+]

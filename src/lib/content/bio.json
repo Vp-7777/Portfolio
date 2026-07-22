@@ -1,0 +1,44 @@
+{
+  "name": "Vishal Patel",
+  "specialization": "Artificial Intelligence & Machine Learning",
+  "cgpa": "9.70",
+  "location": "Chennai, India",
+  "email": "vishal17305@gmail.com",
+  "github": "https://github.com/Vp-7777",
+  "linkedin": "https://linkedin.com/in/vishalp7777",
+  "tagline": "Engineering repeatable, reliable systems that bridge AI decision pipelines and visual software experiences.",
+  "philosophy": [
+    {
+      "step": "Observe",
+      "description": "Understand systemic inefficiencies and patterns in existing environments."
+    },
+    {
+      "step": "Research",
+      "description": "Examine state-of-the-art architectures and alternative algorithmic solutions."
+    },
+    {
+      "step": "Architect",
+      "description": "Map logical dependencies, schema constraints, and pipeline layouts."
+    },
+    {
+      "step": "Experiment",
+      "description": "Prototype models and sandbox endpoints to validate system assumptions."
+    },
+    {
+      "step": "Build",
+      "description": "Write clean, type-safe, and modular code optimized for performance."
+    },
+    {
+      "step": "Deploy",
+      "description": "Ship containerized services with continuous telemetry and monitoring."
+    },
+    {
+      "step": "Iterate",
+      "description": "Refine throughput, reduce response latencies, and prune parameters."
+    },
+    {
+      "step": "Learn",
+      "description": "Incorporate feedback loops and update systemic parameters."
+    }
+  ]
+}
