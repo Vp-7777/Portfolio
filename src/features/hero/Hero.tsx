@@ -1,57 +1,50 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { View } from "@react-three/drei";
 import {
   MapPin,
   Wifi,
-  Cpu,
-  GraduationCap,
   GitFork,
   AtSign,
+  Mail,
   ArrowDown,
   ChevronRight,
+  Download,
   Sparkles,
-  Activity,
-  Layers,
 } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
 import { HeroScene } from "./HeroScene";
-import { BentoTile } from "@/features/ui/BentoTile";
-import { useCountUp } from "@/lib/hooks/useCountUp";
 import bioData from "@/lib/content/bio.json";
 
 const techItems = [
-  "TypeScript",
-  "React",
-  "Next.js",
+  "PyTorch",
+  "React 19",
+  "Next.js 16",
   "Python",
   "FastAPI",
-  "PyTorch",
-  "Node.js",
-  "GSAP",
   "Three.js",
+  "TypeScript",
+  "GSAP",
   "PostgreSQL",
-  "Tailwind CSS",
-  "Zustand",
   "Docker",
   "Vector DBs",
   "LangChain",
+  "Tailwind CSS",
+  "Zustand",
   "ONNX Runtime",
 ];
 
 const marqueeList = [...techItems, ...techItems, ...techItems];
 
 export function Hero() {
+  const setCursorVariant = useSystemStore((state) => state.setCursorVariant);
+  const setCursorLabel = useSystemStore((state) => state.setCursorLabel);
   const setHasConstructed = useSystemStore((state) => state.setHasConstructed);
   const hasConstructed = useSystemStore((state) => state.hasConstructed);
 
   const [mounted, setMounted] = useState(false);
-
-  const { displayValue: cgpaValue, elementRef: cgpaRef } = useCountUp("9.70", {
-    end: 9.7,
-    decimals: 2,
-  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -63,258 +56,169 @@ export function Hero() {
     return () => clearTimeout(timer);
   }, [hasConstructed, setHasConstructed]);
 
+  const handleMouseEnter = (label: string) => {
+    setCursorVariant("hover");
+    setCursorLabel(label);
+  };
+
+  const handleMouseLeave = () => {
+    setCursorVariant("default");
+    setCursorLabel(null);
+  };
+
   return (
     <section
       data-chapter="hero"
-      className="relative w-full min-h-screen bg-[#020108] overflow-hidden flex flex-col pt-20 pb-6"
+      className="relative w-full min-h-screen bg-[#020108] overflow-hidden flex flex-col justify-between pt-24 pb-8"
       style={{
         opacity: mounted ? 1 : 0,
         transition: "opacity 0.8s ease",
       }}
     >
-      {/* 3D WebGL Background (Particle + Aurora dual layer) */}
+      {/* 3D WebGL Background Canvas (Neural Graph + Particle Starfield + Aurora Mesh) */}
       <div className="absolute inset-0 z-canvas pointer-events-none opacity-80">
         <View className="w-full h-full">
           <HeroScene />
         </View>
       </div>
 
-      {/* Background ambient light blobs */}
+      {/* Background ambient glowing blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[700px] h-[700px] rounded-full bg-purple-900/20 blur-[180px]" />
-        <div className="absolute bottom-[-15%] right-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-900/20 blur-[160px]" />
+        <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] rounded-full bg-purple-900/20 blur-[180px]" />
+        <div className="absolute top-[30%] right-[15%] w-[500px] h-[500px] rounded-full bg-cyan-900/20 blur-[160px]" />
       </div>
 
-      {/* ─── Top Telemetry Bar ─── */}
-      <div className="flex justify-between items-center text-xs text-muted font-sans font-medium px-6 md:px-14 pb-4 relative z-base select-none">
-        <div className="flex items-center gap-2">
-          <MapPin size={13} className="text-cyan-400" />
-          <span className="text-foreground/90">{bioData.location}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <Wifi size={12} className="text-emerald-400" />
-          <span className="text-emerald-400 font-semibold tracking-wide">Available for Work</span>
-        </div>
+      {/* ─── Floating Social Sidebar (Left Side) ─── */}
+      <div className="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 z-hover flex-col gap-5 items-center">
+        <div className="w-[1px] h-16 bg-gradient-to-b from-transparent to-border-subtle" />
+
+        <a
+          href="https://github.com/Vp-7777"
+          target="_blank"
+          rel="noreferrer"
+          onMouseEnter={() => handleMouseEnter("GitHub")}
+          onMouseLeave={handleMouseLeave}
+          className="p-3 rounded-full border border-border-subtle/60 bg-surface-1/50 backdrop-blur-md text-muted hover:text-cyan-300 hover:border-cyan-400/50 hover:bg-surface-2 transition-all duration-300 group cursor-pointer"
+        >
+          <GitFork size={16} className="group-hover:scale-110 transition-transform" />
+        </a>
+
+        <a
+          href="https://linkedin.com/in/vishalp7777"
+          target="_blank"
+          rel="noreferrer"
+          onMouseEnter={() => handleMouseEnter("LinkedIn")}
+          onMouseLeave={handleMouseLeave}
+          className="p-3 rounded-full border border-border-subtle/60 bg-surface-1/50 backdrop-blur-md text-muted hover:text-cyan-300 hover:border-cyan-400/50 hover:bg-surface-2 transition-all duration-300 group cursor-pointer"
+        >
+          <AtSign size={16} className="group-hover:scale-110 transition-transform" />
+        </a>
+
+        <a
+          href="mailto:vishal17305@gmail.com"
+          onMouseEnter={() => handleMouseEnter("Email")}
+          onMouseLeave={handleMouseLeave}
+          className="p-3 rounded-full border border-border-subtle/60 bg-surface-1/50 backdrop-blur-md text-muted hover:text-cyan-300 hover:border-cyan-400/50 hover:bg-surface-2 transition-all duration-300 group cursor-pointer"
+        >
+          <Mail size={16} className="group-hover:scale-110 transition-transform" />
+        </a>
+
+        <div className="w-[1px] h-16 bg-gradient-to-t from-transparent to-border-subtle" />
       </div>
 
-      {/* ─── Bento Grid Section ─── */}
-      <div className="flex-1 max-w-7xl mx-auto w-full px-6 md:px-14 py-2 relative z-base select-none grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
-        {/* TILE 1: Main Title & Tagline (Large Tile - 8 cols) */}
-        <BentoTile
-          glowColor="purple"
-          cursorLabel="Vishal Patel"
-          className="md:col-span-8 flex flex-col justify-between space-y-6 min-h-[310px]"
-        >
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10">
-              <Sparkles size={13} className="text-cyan-400" />
-              <span>AI & Machine Learning Systems Engineer</span>
-            </div>
-
-            <h1
-              className="font-display font-extrabold tracking-tight uppercase leading-[0.9] pt-1"
-              style={{
-                fontSize: "clamp(2.8rem, 6.5vw, 5.8rem)",
-                background:
-                  "linear-gradient(135deg, #ffffff 0%, #c084fc 40%, #22d3ee 80%, #ffffff 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              {bioData.name}
-            </h1>
-
-            <p className="text-muted text-sm md:text-base max-w-xl leading-relaxed font-sans font-normal">
-              {bioData.tagline}
-            </p>
+      {/* ─── Main Hero Content ─── */}
+      <div className="max-w-6xl mx-auto w-full px-6 md:px-14 flex flex-col items-center text-center space-y-8 relative z-base select-none my-auto">
+        
+        {/* Profile Image Arch Container (Inspired by Reference Screenshot) */}
+        <div className="relative group">
+          {/* Orbital glowing ring tag */}
+          <div className="absolute -top-3 -right-6 z-20 hidden md:inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-400/40 bg-emerald-950/60 backdrop-blur-md text-[10px] font-sans font-semibold text-emerald-300 uppercase tracking-wider shadow-[0_0_15px_rgba(52,211,153,0.25)]">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Available for Work · Chennai</span>
           </div>
 
-          {/* CTA Row */}
-          <div className="flex flex-wrap gap-3 pt-2">
-            <a
-              href={`mailto:${bioData.email}`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-sans text-xs font-semibold uppercase tracking-wider text-white cursor-pointer transition-all duration-300 hover:scale-[1.03]"
-              style={{
-                background: "linear-gradient(135deg, #9333ea, #6366f1)",
-                boxShadow: "0 4px 20px rgba(147,51,234,0.4)",
-              }}
-            >
-              <ChevronRight size={14} />
-              Get In Touch
-            </a>
-            <a
-              href={bioData.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-medium tracking-wider text-muted border border-border-subtle hover:border-purple-500/50 hover:text-white bg-surface-1/60 backdrop-blur-sm cursor-pointer transition-all duration-300 uppercase"
-            >
-              <GitFork size={13} />
-              GitHub
-            </a>
-            <a
-              href={bioData.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-medium tracking-wider text-muted border border-border-subtle hover:border-purple-500/50 hover:text-white bg-surface-1/60 backdrop-blur-sm cursor-pointer transition-all duration-300 uppercase"
-            >
-              <AtSign size={13} />
-              LinkedIn
-            </a>
-          </div>
-        </BentoTile>
+          {/* Decorative coil ring gradient around arch */}
+          <div className="absolute -inset-2.5 rounded-[90px] bg-gradient-to-tr from-purple-600 via-cyan-400 to-indigo-600 opacity-40 blur-xl group-hover:opacity-70 transition-opacity duration-500 pointer-events-none" />
 
-        {/* TILE 2: Academic Calibration Tile (4 cols) */}
-        <BentoTile
-          glowColor="amber"
-          cursorLabel="CGPA 9.70"
-          className="md:col-span-4 flex flex-col justify-between space-y-4 min-h-[310px]"
-        >
-          <div className="flex justify-between items-center border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
-            <span className="flex items-center gap-1.5 text-amber-400">
-              <GraduationCap size={14} />
-              Academic Performance
-            </span>
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          {/* Stylized Profile Arch Frame */}
+          <div className="relative w-44 h-56 md:w-56 md:h-72 rounded-t-[110px] rounded-b-[40px] overflow-hidden border-2 border-white/20 bg-surface-1/60 backdrop-blur-xl shadow-[0_10px_50px_rgba(147,51,234,0.3)] transition-transform duration-500 group-hover:scale-[1.02]">
+            <Image
+              src="/profile.png"
+              alt="Vishal Patel"
+              fill
+              priority
+              className="object-cover object-top filter grayscale contrast-105 group-hover:grayscale-0 transition-all duration-700"
+            />
+            {/* Ambient vignette gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020108] via-transparent to-transparent opacity-60" />
+          </div>
+        </div>
+
+        {/* Hero Typography */}
+        <div className="space-y-4 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 font-sans text-xs font-semibold tracking-wide uppercase">
+            <Sparkles size={13} className="text-cyan-400" />
+            <span>AI & Machine Learning Systems Engineer</span>
           </div>
 
-          <div ref={cgpaRef} className="space-y-1 my-auto">
-            <span className="font-sans text-xs text-muted font-medium uppercase tracking-wider block">
-              Cumulative GPA
-            </span>
-            <div className="font-display font-extrabold text-5xl md:text-6xl text-amber-400 tracking-tight">
-              {cgpaValue}
-            </div>
-            <p className="text-xs text-muted font-sans leading-relaxed pt-1 font-normal">
-              Computer Science & Engineering specialization in Artificial Intelligence & Machine Learning.
-            </p>
-          </div>
+          <h1
+            className="font-display font-extrabold tracking-tight uppercase leading-[0.9]"
+            style={{
+              fontSize: "clamp(3rem, 7vw, 6.5rem)",
+              background:
+                "linear-gradient(135deg, #ffffff 0%, #c084fc 40%, #22d3ee 85%, #ffffff 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            {bioData.name}
+          </h1>
 
-          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 flex justify-between font-medium">
-            <span>Location: Chennai</span>
-            <span>Status: Active</span>
-          </div>
-        </BentoTile>
+          <p className="text-muted text-base md:text-xl max-w-2xl mx-auto leading-relaxed font-sans font-normal">
+            Engineering repeatable, reliable systems that bridge AI decision pipelines
+            and high-performance visual software experiences.
+          </p>
+        </div>
 
-        {/* TILE 3: Core Tech Stack Grid (4 cols) */}
-        <BentoTile
-          glowColor="cyan"
-          cursorLabel="Core Technologies"
-          className="md:col-span-4 flex flex-col justify-between space-y-4"
-        >
-          <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
-            <span className="flex items-center gap-1.5 text-cyan-400">
-              <Cpu size={14} />
-              Core Technologies
-            </span>
-            <span className="text-cyan-400">16 Tools</span>
-          </div>
+        {/* Action Button Row */}
+        <div className="flex flex-wrap justify-center items-center gap-4 pt-2">
+          <a
+            href={`mailto:${bioData.email}`}
+            onMouseEnter={() => handleMouseEnter("Contact Me")}
+            onMouseLeave={handleMouseLeave}
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-sans text-xs font-bold uppercase tracking-wider text-white cursor-pointer transition-all duration-300 hover:scale-105"
+            style={{
+              background: "linear-gradient(135deg, #9333ea, #22d3ee)",
+              boxShadow: "0 6px 25px rgba(147,51,234,0.45)",
+            }}
+          >
+            <ChevronRight size={15} />
+            Get In Touch
+          </a>
 
-          <div className="grid grid-cols-2 gap-2 font-sans text-xs text-muted/90 py-1">
-            {techItems.slice(0, 8).map((tech) => (
-              <div
-                key={tech}
-                className="px-3 py-2 rounded-lg bg-surface-2/60 border border-border-subtle/60 text-xs font-medium flex items-center gap-2 hover:border-cyan-500/40 hover:text-white transition-colors duration-200"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80" />
-                {tech}
-              </div>
-            ))}
-          </div>
+          <a
+            href="#"
+            onMouseEnter={() => handleMouseEnter("Download Resume")}
+            onMouseLeave={handleMouseLeave}
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-sans text-xs font-semibold uppercase tracking-wider text-white border border-border-subtle/80 bg-surface-1/60 backdrop-blur-md hover:border-cyan-400/50 hover:bg-surface-2 transition-all duration-300 cursor-pointer"
+          >
+            <Download size={14} className="text-cyan-400" />
+            Download Resume
+          </a>
+        </div>
 
-          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 font-medium">
-            Production & Research Ready
-          </div>
-        </BentoTile>
-
-        {/* TILE 4: Live Systems Status & Focus (4 cols) */}
-        <BentoTile
-          glowColor="purple"
-          cursorLabel="System Metrics"
-          className="md:col-span-4 flex flex-col justify-between space-y-4"
-        >
-          <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
-            <span className="flex items-center gap-1.5 text-purple-400">
-              <Activity size={14} />
-              System Metrics
-            </span>
-            <span className="w-2 h-2 rounded-full bg-purple-500 animate-ping" />
-          </div>
-
-          <div className="space-y-2.5 font-sans text-xs">
-            <div className="flex justify-between items-center p-2.5 rounded-lg bg-surface-2/50 border border-border-subtle/40">
-              <span className="text-muted text-xs font-medium">Models Tested</span>
-              <span className="text-white font-bold">10+ Systems</span>
-            </div>
-            <div className="flex justify-between items-center p-2.5 rounded-lg bg-surface-2/50 border border-border-subtle/40">
-              <span className="text-muted text-xs font-medium">Public Repos</span>
-              <span className="text-cyan-400 font-bold">12+ Repositories</span>
-            </div>
-            <div className="flex justify-between items-center p-2.5 rounded-lg bg-surface-2/50 border border-border-subtle/40">
-              <span className="text-muted text-xs font-medium">Latency Target</span>
-              <span className="text-emerald-400 font-bold">&lt; 50ms Inference</span>
-            </div>
-          </div>
-
-          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 font-medium">
-            Continuous Optimization
-          </div>
-        </BentoTile>
-
-        {/* TILE 5: Featured Projects Highlight (4 cols) */}
-        <BentoTile
-          glowColor="cyan"
-          cursorLabel="Featured Projects"
-          className="md:col-span-4 flex flex-col justify-between space-y-4"
-        >
-          <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
-            <span className="flex items-center gap-1.5 text-cyan-400">
-              <Layers size={14} />
-              Featured Projects
-            </span>
-            <span className="text-xs text-cyan-400 font-bold">03 Deployed</span>
-          </div>
-
-          <div className="space-y-2.5 font-sans text-xs">
-            <div className="p-2.5 rounded-lg bg-surface-2/60 border border-border-subtle/50 space-y-1">
-              <div className="flex justify-between text-white font-bold">
-                <span>AutisMind AI</span>
-                <span className="text-[10px] text-purple-300 font-medium uppercase">Healthcare AI</span>
-              </div>
-              <p className="text-xs font-sans text-muted leading-tight font-normal">
-                Offline-capable developmental monitoring inference pipeline.
-              </p>
-            </div>
-
-            <div className="p-2.5 rounded-lg bg-surface-2/60 border border-border-subtle/50 space-y-1">
-              <div className="flex justify-between text-white font-bold">
-                <span>TeraSight / PrithviQ</span>
-                <span className="text-[10px] text-cyan-300 font-medium uppercase">Spatial AI</span>
-              </div>
-              <p className="text-xs font-sans text-muted leading-tight font-normal">
-                Satellite environmental intelligence tile rendering engine.
-              </p>
-            </div>
-          </div>
-
-          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 font-medium">
-            Explore Details Below
-          </div>
-        </BentoTile>
       </div>
 
       {/* ─── Scroll Cue ─── */}
-      <div className="flex items-center justify-center pt-3 pb-1 relative z-base select-none">
-        <div className="flex flex-col items-center gap-1.5 text-muted/60 font-sans text-xs font-medium tracking-wide animate-bounce">
-          <ArrowDown size={14} />
-          <span>Scroll to Explore</span>
-        </div>
+      <div className="flex flex-col items-center justify-center gap-1.5 text-muted/60 font-sans text-xs font-medium tracking-wide animate-bounce relative z-base select-none py-2">
+        <ArrowDown size={14} />
+        <span>Scroll to Explore</span>
       </div>
 
-      {/* ─── Infinite Technology Marquee ─── */}
+      {/* ─── Bottom Brand & Tech Marquee ─── */}
       <div className="w-full flex flex-col relative z-base mt-auto">
-        <div className="w-full overflow-hidden border-t border-b border-border-subtle/50 bg-surface-1/30 backdrop-blur-sm py-3 relative">
+        <div className="w-full overflow-hidden border-t border-b border-border-subtle/50 bg-surface-1/30 backdrop-blur-sm py-3.5 relative">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#020108] to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#020108] to-transparent z-10 pointer-events-none" />
 
@@ -322,7 +226,7 @@ export function Hero() {
             {marqueeList.map((item, idx) => (
               <span
                 key={idx}
-                className="font-sans text-xs font-medium text-muted/70 tracking-wider uppercase mx-8 inline-flex items-center gap-3 select-none"
+                className="font-sans text-xs font-semibold text-muted/70 tracking-widest uppercase mx-8 inline-flex items-center gap-3 select-none"
               >
                 <span className="text-cyan-400/80 text-[7px]">◆</span>
                 {item}

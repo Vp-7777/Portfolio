@@ -1,5 +1,4 @@
 import { Hero } from "@/features/hero/Hero";
-import { PhilosophySection } from "@/features/philosophy/PhilosophySection";
 import { ExperienceSection } from "@/features/experience/ExperienceSection";
 import { ProjectsSection } from "@/features/projects/ProjectsSection";
 import { GrowthSection } from "@/features/growth/GrowthSection";
@@ -11,7 +10,6 @@ export default function Home() {
   return (
     <main className="relative bg-background">
       <Hero />
-      <PhilosophySection />
       <ExperienceSection />
       <ProjectsSection />
       <GrowthSection />

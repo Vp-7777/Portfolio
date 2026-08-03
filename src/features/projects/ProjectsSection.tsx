@@ -7,6 +7,7 @@ import { ProjectsScene } from "./ProjectsScene";
 import { Button } from "@/features/ui/Button";
 import { ProjectDetail } from "./ProjectDetail";
 import { BentoTile } from "@/features/ui/BentoTile";
+import { ProjectSimulator } from "./ProjectSimulator";
 import projectsData from "@/lib/content/projects.json";
 
 export function ProjectsSection() {
@@ -123,10 +124,13 @@ export function ProjectsSection() {
                 {project.description}
               </p>
 
+              {/* Interactive Simulator */}
+              <ProjectSimulator projectId={project.id} />
+
               {/* Metrics Badge & Tech Tags Row */}
               <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-border-subtle/50 relative z-base">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-2/80 border border-amber-500/30 text-amber-300 font-mono text-xs font-bold uppercase">
-                  <span>BENCHMARK //</span>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-2/80 border border-amber-500/30 text-amber-300 font-sans text-xs font-bold uppercase">
+                  <span>Key Metric:</span>
                   <span className="text-white">{project.narrative.metrics}</span>
                 </div>
 
@@ -134,7 +138,7 @@ export function ProjectsSection() {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-[9px] font-mono text-muted px-3 py-1.5 border border-border-subtle/60 bg-surface-2/60 uppercase rounded-lg hover:border-cyan-400/50 hover:text-white transition-colors duration-200"
+                      className="text-xs font-sans font-medium text-muted px-3 py-1.5 border border-border-subtle/60 bg-surface-2/60 uppercase rounded-lg hover:border-cyan-400/50 hover:text-white transition-colors duration-200"
                     >
                       {tech}
                     </span>

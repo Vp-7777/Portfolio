@@ -180,15 +180,48 @@ export function ContactSection() {
               className="p-8 rounded-2xl border border-border-subtle/60 bg-surface-1/40 backdrop-blur-xl space-y-6 relative"
               style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}
             >
-              <div className="flex items-center justify-between border-b border-border-subtle/50 pb-4 font-mono text-[10px] text-accent tracking-widest uppercase">
-                <span>[ FORM // TRANSMISSION_TERMINAL ]</span>
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <div className="flex items-center justify-between border-b border-border-subtle/50 pb-4 font-sans text-xs font-semibold text-cyan-400 tracking-wide uppercase">
+                <span>Send a Direct Message</span>
+                <span className="flex items-center gap-2 text-emerald-400 font-bold text-[11px]">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  Avg Response: &lt; 2 Hours
+                </span>
               </div>
 
-              <div className="space-y-4 font-mono text-xs">
+              {/* Quick Topic Chips */}
+              <div className="space-y-2 select-none">
+                <span className="text-muted/80 uppercase font-sans font-semibold text-xs block">
+                  Quick Message Templates:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, message: "Hi Vishal, I'd like to discuss a project collaboration or hiring opportunity!" })}
+                    className="px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 font-sans text-xs text-purple-300 hover:bg-purple-500/20 transition-colors cursor-pointer font-medium"
+                  >
+                    💼 Hire / Project
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, message: "Hi Vishal, I want to consult on AI & Machine Learning system architecture." })}
+                    className="px-3 py-1.5 rounded-lg border border-cyan-500/30 bg-cyan-500/10 font-sans text-xs text-cyan-300 hover:bg-cyan-500/20 transition-colors cursor-pointer font-medium"
+                  >
+                    🤖 AI Architecture
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, message: "Hi Vishal, just reaching out to connect!" })}
+                    className="px-3 py-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 font-sans text-xs text-amber-300 hover:bg-amber-500/20 transition-colors cursor-pointer font-medium"
+                  >
+                    ⚡ Quick Connect
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-4 font-sans text-xs">
                 <div className="space-y-2">
-                  <label className="text-muted/80 uppercase tracking-widest block text-[10px]">
-                    01 // SENDER NAME
+                  <label className="text-muted/90 font-semibold uppercase tracking-wider block">
+                    Your Name
                   </label>
                   <input
                     type="text"

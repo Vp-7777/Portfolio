@@ -4,24 +4,23 @@ import { useState } from "react";
 import { useLenis } from "lenis/react";
 import {
   Zap,
-  Brain,
   Briefcase,
   FolderKanban,
   TrendingUp,
   Telescope,
   Send,
+  Download,
 } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { id: "hero",       label: "Home",       index: "00", Icon: Zap },
-  { id: "philosophy", label: "Philosophy", index: "01", Icon: Brain },
-  { id: "experience", label: "Experience", index: "02", Icon: Briefcase },
-  { id: "projects",   label: "Projects",   index: "03", Icon: FolderKanban },
-  { id: "growth",     label: "Growth",     index: "04", Icon: TrendingUp },
-  { id: "forward",    label: "Outlook",    index: "05", Icon: Telescope },
-  { id: "connect",    label: "Connect",    index: "06", Icon: Send },
+  { id: "hero",       label: "Home",       Icon: Zap },
+  { id: "experience", label: "Experience", Icon: Briefcase },
+  { id: "projects",   label: "Projects",   Icon: FolderKanban },
+  { id: "growth",     label: "Growth",     Icon: TrendingUp },
+  { id: "forward",    label: "Outlook",    Icon: Telescope },
+  { id: "connect",    label: "Connect",    Icon: Send },
 ];
 
 export function Navbar() {
@@ -131,6 +130,19 @@ export function Navbar() {
           })}
         </nav>
 
+        {/* Action Button: Download CV */}
+        <div className="hidden md:flex items-center">
+          <a
+            href="#"
+            onMouseEnter={() => handleMouseEnter("Download CV")}
+            onMouseLeave={handleMouseLeave}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-sans text-xs font-semibold uppercase tracking-wider text-white border border-border-subtle hover:border-cyan-400/50 hover:bg-surface-2 transition-all duration-300 shadow-md cursor-pointer"
+          >
+            <Download size={13} className="text-cyan-400" />
+            <span>Download CV</span>
+          </a>
+        </div>
+
         {/* Mobile: just icon row */}
         <nav className="flex md:hidden items-center gap-1">
           {navLinks.map((link) => {
@@ -141,7 +153,7 @@ export function Navbar() {
                 onClick={() => handleScroll(link.id)}
                 className={cn(
                   "p-2 rounded-lg transition-all duration-300 cursor-pointer focus:outline-none",
-                  isActive ? "text-accent bg-accent/10" : "text-muted/60 hover:text-foreground"
+                  isActive ? "text-cyan-400 bg-cyan-400/10" : "text-muted/60 hover:text-white"
                 )}
               >
                 <link.Icon size={13} />

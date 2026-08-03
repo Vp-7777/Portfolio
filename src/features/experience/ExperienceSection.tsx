@@ -145,14 +145,14 @@ export function ExperienceSection() {
                 {/* Meta details */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-border-subtle/50 pb-6 relative z-base select-none">
                   <div className="space-y-1.5">
-                    <h3 className="font-display text-3xl md:text-4xl text-foreground font-bold uppercase tracking-tight">
+                    <h3 className="font-display text-3xl md:text-4xl text-white font-bold uppercase tracking-tight">
                       {item.role}
                     </h3>
-                    <p className="font-mono text-xs text-accent tracking-widest uppercase">
-                      {item.company} <span className="text-muted">{"//"}</span> {item.location}
+                    <p className="font-sans text-sm font-semibold text-cyan-400 tracking-wide uppercase">
+                      {item.company} · <span className="text-muted/80">{item.location}</span>
                     </p>
                   </div>
-                  <div className="font-mono text-xs text-muted tracking-widest uppercase bg-surface-2/80 px-4 py-2 border border-border-subtle rounded-lg whitespace-nowrap">
+                  <div className="font-sans text-xs font-semibold text-purple-300 tracking-wider uppercase bg-purple-500/10 px-4 py-2 border border-purple-500/30 rounded-lg whitespace-nowrap">
                     {item.period}
                   </div>
                 </div>
@@ -163,14 +163,14 @@ export function ExperienceSection() {
                 </div>
 
                 {/* Grid performance telemetry */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-border-subtle/50 font-mono text-xs text-muted relative z-base">
-                  <div className="space-y-1.5 p-3 rounded-lg bg-surface-2/60 border border-border-subtle/40">
-                    <span className="text-amber-400 text-[10px] tracking-widest uppercase">BENCHMARK.01 //</span>
-                    <p className="text-amber-300 font-bold tracking-wide">{item.metrics.metric1}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-border-subtle/50 font-sans text-xs text-muted relative z-base">
+                  <div className="space-y-1.5 p-4 rounded-xl bg-surface-2/60 border border-amber-500/30">
+                    <span className="text-amber-400 font-semibold text-xs uppercase tracking-wider block">Impact Metric 01</span>
+                    <p className="text-amber-300 font-bold text-sm leading-snug">{item.metrics.metric1}</p>
                   </div>
-                  <div className="space-y-1.5 p-3 rounded-lg bg-surface-2/60 border border-border-subtle/40">
-                    <span className="text-cyan-400 text-[10px] tracking-widest uppercase">BENCHMARK.02 //</span>
-                    <p className="text-cyan-300 font-bold tracking-wide">{item.metrics.metric2}</p>
+                  <div className="space-y-1.5 p-4 rounded-xl bg-surface-2/60 border border-cyan-500/30">
+                    <span className="text-cyan-400 font-semibold text-xs uppercase tracking-wider block">Impact Metric 02</span>
+                    <p className="text-cyan-300 font-bold text-sm leading-snug">{item.metrics.metric2}</p>
                   </div>
                 </div>
 
@@ -179,7 +179,7 @@ export function ExperienceSection() {
                   {item.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 font-mono text-[9px] border border-border-subtle/70 bg-surface-2/70 text-muted uppercase rounded-lg hover:border-cyan-400/40 hover:text-white transition-colors duration-200"
+                      className="px-3.5 py-1.5 font-sans text-xs font-medium border border-border-subtle/70 bg-surface-2/70 text-muted uppercase rounded-lg hover:border-cyan-400/50 hover:text-white transition-colors duration-200"
                     >
                       {tech}
                     </span>

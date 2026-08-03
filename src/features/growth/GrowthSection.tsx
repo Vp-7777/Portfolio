@@ -15,28 +15,28 @@ if (typeof window !== "undefined") {
 const metrics = [
   {
     index: "01",
-    title: "ACADEMIC CALIBRATION",
+    title: "Academic Score",
     value: "9.70",
     unit: "CGPA",
     desc: "Computer Science Engineering with specialized focus in Artificial Intelligence and Machine Learning models.",
   },
   {
     index: "02",
-    title: "MODEL ORCHESTRATION",
+    title: "AI & ML Models",
     value: "10+",
     unit: "SYSTEMS",
     desc: "Engineered and sandbox tested models ranging from offline prediction engines to distributed computer vision pipelines.",
   },
   {
     index: "03",
-    title: "CODE OWNERSHIP",
+    title: "Open Source Code",
     value: "12+",
     unit: "PUBLIC REPOS",
     desc: "Maintained active repositories featuring full-stack applications, ML notebooks, and custom system tools.",
   },
   {
     index: "04",
-    title: "CONTINUOUS FEEDBACK",
+    title: "Code Quality",
     value: "100%",
     unit: "REFACTOR RATE",
     desc: "Iterative design philosophy ensuring algorithms and layouts are continuously benchmarked and calibrated.",
@@ -75,8 +75,8 @@ function MetricCardItem({
       }}
     >
       <div className="space-y-4 relative z-base">
-        <span className="font-mono text-[10px] text-muted/70 block tracking-widest uppercase">
-          PARAM.{m.index} {"//"} {m.title}
+        <span className="font-sans text-xs font-semibold text-purple-300 block tracking-wide uppercase">
+          0{m.index} · {m.title}
         </span>
 
         {/* Large metric value with amber gradient */}
@@ -87,7 +87,7 @@ function MetricCardItem({
           }}
         >
           {displayValue}
-          <span className="text-base font-mono font-normal text-cyan-400 ml-2">{m.unit}</span>
+          <span className="text-base font-sans font-semibold text-cyan-400 ml-2">{m.unit}</span>
         </div>
       </div>
 
@@ -139,7 +139,7 @@ export function GrowthSection() {
 
   const handleMouseEnter = (title: string) => {
     setCursorVariant("hover");
-    setCursorLabel(`BENCHMARK // ${title}`);
+    setCursorLabel(title);
   };
 
   const handleMouseLeave = () => {
@@ -176,7 +176,7 @@ export function GrowthSection() {
               backgroundClip: "text",
             }}
           >
-            CONTINUOUSLY{" "}
+            EVOLVING &{" "}
             <span
               className="italic font-light"
               style={{
@@ -186,12 +186,12 @@ export function GrowthSection() {
                 backgroundClip: "text",
               }}
             >
-              RE-CALIBRATING
+              GROWING
             </span>
           </h2>
           <p className="text-muted text-base leading-relaxed max-w-md font-sans">
-            Engineering is not a stationary state; it is a trajectory. Metrics and benchmarks
-            demonstrating the continuous development and expansion of system parameters.
+            Metrics and key milestones demonstrating continuous technical development
+            and expansion across algorithms and systems.
           </p>
         </div>
 
@@ -212,11 +212,11 @@ export function GrowthSection() {
 
         {/* Profile section header */}
         <div className="pt-4 space-y-2 select-none border-t border-border-subtle/50">
-          <div className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase">
-            [ PARAMETERS // VERIFIED PROFILE INDEX ]
+          <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-cyan-300 tracking-wide border border-cyan-500/30 rounded-full px-3.5 py-1 bg-cyan-500/10 uppercase mb-2">
+            Verified Links & Accounts
           </div>
           <h3 className="text-2xl md:text-3xl font-display font-bold uppercase tracking-tight text-foreground">
-            INTELLIGENT PROFILE TELEMETRY
+            ONLINE PRESENCE & PROFILES
           </h3>
         </div>
 
