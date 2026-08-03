@@ -1,21 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { View } from "@react-three/drei";
 import {
   MapPin,
   Wifi,
-  Code2,
   Cpu,
   GraduationCap,
   GitFork,
   AtSign,
   ArrowDown,
   ChevronRight,
+  Sparkles,
+  Activity,
+  Layers,
 } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
 import { HeroScene } from "./HeroScene";
+import { BentoTile } from "@/features/ui/BentoTile";
+import { useCountUp } from "@/lib/hooks/useCountUp";
 import bioData from "@/lib/content/bio.json";
 
 const techItems = [
@@ -40,132 +43,112 @@ const techItems = [
 const marqueeList = [...techItems, ...techItems, ...techItems];
 
 export function Hero() {
-  const setCursorVariant = useSystemStore((state) => state.setCursorVariant);
-  const setCursorLabel = useSystemStore((state) => state.setCursorLabel);
   const setHasConstructed = useSystemStore((state) => state.setHasConstructed);
   const hasConstructed = useSystemStore((state) => state.hasConstructed);
 
-  // Track mount so we can trigger CSS animation
   const [mounted, setMounted] = useState(false);
 
+  const { displayValue: cgpaValue, elementRef: cgpaRef } = useCountUp("9.70", {
+    end: 9.7,
+    decimals: 2,
+  });
+
   useEffect(() => {
-    // Small delay so CSS transition runs after hydration
     const timer = setTimeout(() => {
       setMounted(true);
-      // Mark system as constructed after hero animation
       if (!hasConstructed) {
-        setTimeout(() => setHasConstructed(true), 1800);
+        setTimeout(() => setHasConstructed(true), 1400);
       }
     }, 100);
     return () => clearTimeout(timer);
   }, [hasConstructed, setHasConstructed]);
 
-  const handleMouseEnter = (label: string) => {
-    setCursorVariant("hover");
-    setCursorLabel(label);
-  };
-
-  const handleMouseLeave = () => {
-    setCursorVariant("default");
-    setCursorLabel(null);
-  };
-
   return (
     <section
       data-chapter="hero"
-      className="relative w-full min-h-screen bg-background overflow-hidden flex flex-col"
+      className="relative w-full min-h-screen bg-[#020108] overflow-hidden flex flex-col pt-20 pb-6"
       style={{
         opacity: mounted ? 1 : 0,
         transition: "opacity 0.8s ease",
       }}
     >
-      {/* 3D WebGL Particle Starfield */}
-      <div className="absolute inset-0 z-canvas pointer-events-none opacity-65">
+      {/* 3D WebGL Background (Particle + Aurora dual layer) */}
+      <div className="absolute inset-0 z-canvas pointer-events-none opacity-80">
         <View className="w-full h-full">
           <HeroScene />
         </View>
       </div>
 
-      {/* Layered background nebula blobs */}
+      {/* Background ambient light blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[700px] h-[700px] rounded-full bg-purple-700 opacity-[0.18] blur-[180px]" />
-        <div className="absolute bottom-[-15%] right-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-600 opacity-[0.18] blur-[160px]" />
-        <div className="absolute top-[45%] left-[45%] w-[400px] h-[400px] rounded-full bg-violet-900 opacity-[0.12] blur-[130px] -translate-x-1/2" />
+        <div className="absolute top-[-10%] left-[-10%] w-[700px] h-[700px] rounded-full bg-purple-900/20 blur-[180px]" />
+        <div className="absolute bottom-[-15%] right-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-900/20 blur-[160px]" />
       </div>
 
-      {/* ─── Top telemetry bar ─── */}
-      <div className="flex justify-between items-center font-mono text-[10px] text-muted tracking-widest uppercase px-8 md:px-14 pt-28 pb-0 relative z-base">
+      {/* ─── Top Telemetry Bar ─── */}
+      <div className="flex justify-between items-center text-xs text-muted font-sans font-medium px-6 md:px-14 pb-4 relative z-base select-none">
         <div className="flex items-center gap-2">
-          <MapPin size={11} className="text-accent" />
-          <span><span className="text-accent">LOCATION //</span> Chennai, TN — India</span>
+          <MapPin size={13} className="text-cyan-400" />
+          <span className="text-foreground/90">{bioData.location}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <Wifi size={10} className="text-emerald-400" />
-          STATUS // ONLINE
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <Wifi size={12} className="text-emerald-400" />
+          <span className="text-emerald-400 font-semibold tracking-wide">Available for Work</span>
         </div>
       </div>
 
-      {/* ─── Main hero body ─── */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center px-8 md:px-14 py-12 relative z-base">
+      {/* ─── Bento Grid Section ─── */}
+      <div className="flex-1 max-w-7xl mx-auto w-full px-6 md:px-14 py-2 relative z-base select-none grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+        {/* TILE 1: Main Title & Tagline (Large Tile - 8 cols) */}
+        <BentoTile
+          glowColor="purple"
+          cursorLabel="Vishal Patel"
+          className="md:col-span-8 flex flex-col justify-between space-y-6 min-h-[310px]"
+        >
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10">
+              <Sparkles size={13} className="text-cyan-400" />
+              <span>AI & Machine Learning Systems Engineer</span>
+            </div>
 
-        {/* Left: Text content */}
-        <div className="lg:col-span-7 space-y-7 select-none">
-          {/* Overline badge */}
-          <div className="inline-flex items-center gap-2 font-mono text-[10px] text-accent tracking-[0.3em] uppercase border border-accent/25 rounded-full px-4 py-1.5 bg-accent/5">
-            <Code2 size={10} className="text-accent" />
-            SYSTEM // INITIALIZED — DEVELOPER PORTFOLIO
-          </div>
-
-          {/* Large gradient name */}
-          <h1
-            className="font-display font-extrabold tracking-tight uppercase leading-[0.88]"
-            style={{
-              fontSize: "clamp(3.5rem, 9vw, 8.5rem)",
-              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 40%, #818cf8 75%, #e2e8f0 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            {bioData.name}
-          </h1>
-
-          {/* Specialisation pill */}
-          <div className="flex items-center gap-3">
-            <div className="h-[1px] w-8 bg-accent/50" />
-            <span className="font-mono text-xs text-accent tracking-widest uppercase">
-              {bioData.specialization}
-            </span>
-          </div>
-
-          {/* Tagline */}
-          <p className="text-muted text-base md:text-lg max-w-xl leading-relaxed font-sans">
-            {bioData.tagline}
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 pt-2">
-            <a
-              href={`mailto:${bioData.email}`}
-              onMouseEnter={() => handleMouseEnter("SEND // MAIL")}
-              onMouseLeave={handleMouseLeave}
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-mono text-xs tracking-widest uppercase text-background font-semibold cursor-pointer transition-all duration-300 hover:scale-[1.03]"
+            <h1
+              className="font-display font-extrabold tracking-tight uppercase leading-[0.9] pt-1"
               style={{
-                background: "linear-gradient(135deg, #a855f7, #6366f1)",
-                boxShadow: "0 4px 24px rgba(168,85,247,0.35)",
+                fontSize: "clamp(2.8rem, 6.5vw, 5.8rem)",
+                background:
+                  "linear-gradient(135deg, #ffffff 0%, #c084fc 40%, #22d3ee 80%, #ffffff 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
               }}
             >
-              <ChevronRight size={13} />
+              {bioData.name}
+            </h1>
+
+            <p className="text-muted text-sm md:text-base max-w-xl leading-relaxed font-sans font-normal">
+              {bioData.tagline}
+            </p>
+          </div>
+
+          {/* CTA Row */}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <a
+              href={`mailto:${bioData.email}`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-sans text-xs font-semibold uppercase tracking-wider text-white cursor-pointer transition-all duration-300 hover:scale-[1.03]"
+              style={{
+                background: "linear-gradient(135deg, #9333ea, #6366f1)",
+                boxShadow: "0 4px 20px rgba(147,51,234,0.4)",
+              }}
+            >
+              <ChevronRight size={14} />
               Get In Touch
             </a>
             <a
               href={bioData.github}
               target="_blank"
               rel="noreferrer"
-              onMouseEnter={() => handleMouseEnter("LINK // GITHUB")}
-              onMouseLeave={handleMouseLeave}
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-mono text-xs tracking-widest uppercase text-muted border border-border-subtle hover:border-accent/50 hover:text-foreground bg-surface-1/60 backdrop-blur-sm cursor-pointer transition-all duration-300"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-medium tracking-wider text-muted border border-border-subtle hover:border-purple-500/50 hover:text-white bg-surface-1/60 backdrop-blur-sm cursor-pointer transition-all duration-300 uppercase"
             >
               <GitFork size={13} />
               GitHub
@@ -174,130 +157,174 @@ export function Hero() {
               href={bioData.linkedin}
               target="_blank"
               rel="noreferrer"
-              onMouseEnter={() => handleMouseEnter("LINK // LINKEDIN")}
-              onMouseLeave={handleMouseLeave}
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-mono text-xs tracking-widest uppercase text-muted border border-border-subtle hover:border-accent/50 hover:text-foreground bg-surface-1/60 backdrop-blur-sm cursor-pointer transition-all duration-300"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-medium tracking-wider text-muted border border-border-subtle hover:border-purple-500/50 hover:text-white bg-surface-1/60 backdrop-blur-sm cursor-pointer transition-all duration-300 uppercase"
             >
               <AtSign size={13} />
               LinkedIn
             </a>
           </div>
-        </div>
+        </BentoTile>
 
-        {/* Right: Profile Card */}
-        <div className="lg:col-span-5 flex flex-col gap-6">
+        {/* TILE 2: Academic Calibration Tile (4 cols) */}
+        <BentoTile
+          glowColor="amber"
+          cursorLabel="CGPA 9.70"
+          className="md:col-span-4 flex flex-col justify-between space-y-4 min-h-[310px]"
+        >
+          <div className="flex justify-between items-center border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
+            <span className="flex items-center gap-1.5 text-amber-400">
+              <GraduationCap size={14} />
+              Academic Performance
+            </span>
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          </div>
 
-          {/* Profile photo card */}
-          <div
-            onMouseEnter={() => handleMouseEnter("PROFILE // VISHAL PATEL")}
-            onMouseLeave={handleMouseLeave}
-            className="relative rounded-2xl overflow-hidden border border-purple-900/40 bg-surface-1/50 backdrop-blur-xl group cursor-default"
-            style={{
-              boxShadow: "0 8px 60px rgba(168,85,247,0.12), 0 0 0 1px rgba(168,85,247,0.06)",
-            }}
-          >
-            {/* Top gradient line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/60 to-transparent z-10" />
+          <div ref={cgpaRef} className="space-y-1 my-auto">
+            <span className="font-sans text-xs text-muted font-medium uppercase tracking-wider block">
+              Cumulative GPA
+            </span>
+            <div className="font-display font-extrabold text-5xl md:text-6xl text-amber-400 tracking-tight">
+              {cgpaValue}
+            </div>
+            <p className="text-xs text-muted font-sans leading-relaxed pt-1 font-normal">
+              Computer Science & Engineering specialization in Artificial Intelligence & Machine Learning.
+            </p>
+          </div>
 
-            {/* Profile image */}
-            <div className="relative w-full aspect-[4/3] overflow-hidden">
-              <Image
-                src="/profile.png"
-                alt="Vishal Patel — AI & ML Engineer"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                priority
-              />
-              {/* Bottom gradient overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-surface-1 via-surface-1/60 to-transparent" />
+          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 flex justify-between font-medium">
+            <span>Location: Chennai</span>
+            <span>Status: Active</span>
+          </div>
+        </BentoTile>
+
+        {/* TILE 3: Core Tech Stack Grid (4 cols) */}
+        <BentoTile
+          glowColor="cyan"
+          cursorLabel="Core Technologies"
+          className="md:col-span-4 flex flex-col justify-between space-y-4"
+        >
+          <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
+            <span className="flex items-center gap-1.5 text-cyan-400">
+              <Cpu size={14} />
+              Core Technologies
+            </span>
+            <span className="text-cyan-400">16 Tools</span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 font-sans text-xs text-muted/90 py-1">
+            {techItems.slice(0, 8).map((tech) => (
+              <div
+                key={tech}
+                className="px-3 py-2 rounded-lg bg-surface-2/60 border border-border-subtle/60 text-xs font-medium flex items-center gap-2 hover:border-cyan-500/40 hover:text-white transition-colors duration-200"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80" />
+                {tech}
+              </div>
+            ))}
+          </div>
+
+          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 font-medium">
+            Production & Research Ready
+          </div>
+        </BentoTile>
+
+        {/* TILE 4: Live Systems Status & Focus (4 cols) */}
+        <BentoTile
+          glowColor="purple"
+          cursorLabel="System Metrics"
+          className="md:col-span-4 flex flex-col justify-between space-y-4"
+        >
+          <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
+            <span className="flex items-center gap-1.5 text-purple-400">
+              <Activity size={14} />
+              System Metrics
+            </span>
+            <span className="w-2 h-2 rounded-full bg-purple-500 animate-ping" />
+          </div>
+
+          <div className="space-y-2.5 font-sans text-xs">
+            <div className="flex justify-between items-center p-2.5 rounded-lg bg-surface-2/50 border border-border-subtle/40">
+              <span className="text-muted text-xs font-medium">Models Tested</span>
+              <span className="text-white font-bold">10+ Systems</span>
+            </div>
+            <div className="flex justify-between items-center p-2.5 rounded-lg bg-surface-2/50 border border-border-subtle/40">
+              <span className="text-muted text-xs font-medium">Public Repos</span>
+              <span className="text-cyan-400 font-bold">12+ Repositories</span>
+            </div>
+            <div className="flex justify-between items-center p-2.5 rounded-lg bg-surface-2/50 border border-border-subtle/40">
+              <span className="text-muted text-xs font-medium">Latency Target</span>
+              <span className="text-emerald-400 font-bold">&lt; 50ms Inference</span>
+            </div>
+          </div>
+
+          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 font-medium">
+            Continuous Optimization
+          </div>
+        </BentoTile>
+
+        {/* TILE 5: Featured Projects Highlight (4 cols) */}
+        <BentoTile
+          glowColor="cyan"
+          cursorLabel="Featured Projects"
+          className="md:col-span-4 flex flex-col justify-between space-y-4"
+        >
+          <div className="flex items-center justify-between border-b border-border-subtle/60 pb-3 font-sans text-xs font-semibold text-muted tracking-wider uppercase">
+            <span className="flex items-center gap-1.5 text-cyan-400">
+              <Layers size={14} />
+              Featured Projects
+            </span>
+            <span className="text-xs text-cyan-400 font-bold">03 Deployed</span>
+          </div>
+
+          <div className="space-y-2.5 font-sans text-xs">
+            <div className="p-2.5 rounded-lg bg-surface-2/60 border border-border-subtle/50 space-y-1">
+              <div className="flex justify-between text-white font-bold">
+                <span>AutisMind AI</span>
+                <span className="text-[10px] text-purple-300 font-medium uppercase">Healthcare AI</span>
+              </div>
+              <p className="text-xs font-sans text-muted leading-tight font-normal">
+                Offline-capable developmental monitoring inference pipeline.
+              </p>
             </div>
 
-            {/* Name overlay on image */}
-            <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
-              <p className="font-display font-bold text-2xl text-white uppercase tracking-tight">
-                {bioData.name}
-              </p>
-              <p className="font-mono text-[10px] text-accent tracking-widest uppercase mt-1">
-                AI & ML Systems Engineer // Chennai
+            <div className="p-2.5 rounded-lg bg-surface-2/60 border border-border-subtle/50 space-y-1">
+              <div className="flex justify-between text-white font-bold">
+                <span>TeraSight / PrithviQ</span>
+                <span className="text-[10px] text-cyan-300 font-medium uppercase">Spatial AI</span>
+              </div>
+              <p className="text-xs font-sans text-muted leading-tight font-normal">
+                Satellite environmental intelligence tile rendering engine.
               </p>
             </div>
           </div>
 
-          {/* Telemetry stats card */}
-          <div
-            onMouseEnter={() => handleMouseEnter("TELEMETRY // CALIBRATED")}
-            onMouseLeave={handleMouseLeave}
-            className="relative rounded-xl border border-purple-900/40 bg-surface-1/50 backdrop-blur-xl p-5 space-y-3 font-mono text-[11px] tracking-widest text-muted hover:border-accent/50 transition-all duration-500 cursor-default"
-            style={{
-              boxShadow: "0 4px 30px rgba(0,0,0,0.4)",
-            }}
-          >
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/40 to-transparent rounded-t-xl" />
-
-            <div className="flex justify-between items-center pb-2.5 border-b border-border-subtle/60">
-              <span className="text-accent flex items-center gap-2">
-                <Cpu size={10} className="text-accent" />
-                SYSTEM_METRICS
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-muted/70">
-                  <GraduationCap size={10} className="text-accent/70" />
-                  CGPA:
-                </span>
-                <span className="text-foreground">{bioData.cgpa} / 10.0</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-muted/70">
-                  <Code2 size={10} className="text-accent/70" />
-                  CORE:
-                </span>
-                <span className="text-foreground">AI & MACHINE LEARNING</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-muted/70">
-                  <Cpu size={10} className="text-accent/70" />
-                  FOCUS:
-                </span>
-                <span className="text-foreground">SYSTEMS DESIGN</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-muted/70">
-                  <MapPin size={10} className="text-accent/70" />
-                  BASE:
-                </span>
-                <span className="text-foreground">CHENNAI, INDIA</span>
-              </div>
-            </div>
+          <div className="font-sans text-[11px] text-muted/70 tracking-wider uppercase pt-2 border-t border-border-subtle/50 font-medium">
+            Explore Details Below
           </div>
+        </BentoTile>
+      </div>
+
+      {/* ─── Scroll Cue ─── */}
+      <div className="flex items-center justify-center pt-3 pb-1 relative z-base select-none">
+        <div className="flex flex-col items-center gap-1.5 text-muted/60 font-sans text-xs font-medium tracking-wide animate-bounce">
+          <ArrowDown size={14} />
+          <span>Scroll to Explore</span>
         </div>
       </div>
 
-      {/* ─── Scroll cue ─── */}
-      <div className="flex items-center justify-center py-4 relative z-base select-none">
-        <div className="flex flex-col items-center gap-1.5 text-muted/40 font-mono text-[9px] tracking-widest uppercase animate-bounce">
-          <ArrowDown size={13} />
-          SCROLL TO EXPLORE
-        </div>
-      </div>
-
-      {/* ─── Infinite scrolling technology marquee ─── */}
-      <div className="w-full flex flex-col relative z-base">
-        <div className="w-full overflow-hidden border-t border-b border-border-subtle/50 bg-surface-1/25 backdrop-blur-sm py-3.5 relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      {/* ─── Infinite Technology Marquee ─── */}
+      <div className="w-full flex flex-col relative z-base mt-auto">
+        <div className="w-full overflow-hidden border-t border-b border-border-subtle/50 bg-surface-1/30 backdrop-blur-sm py-3 relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#020108] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#020108] to-transparent z-10 pointer-events-none" />
 
           <div className="flex whitespace-nowrap animate-marquee">
             {marqueeList.map((item, idx) => (
               <span
                 key={idx}
-                className="font-mono text-[10px] text-muted/60 tracking-widest uppercase mx-8 inline-flex items-center gap-3 select-none"
+                className="font-sans text-xs font-medium text-muted/70 tracking-wider uppercase mx-8 inline-flex items-center gap-3 select-none"
               >
-                <span className="text-accent/60 text-[7px]">◆</span>
+                <span className="text-cyan-400/80 text-[7px]">◆</span>
                 {item}
               </span>
             ))}

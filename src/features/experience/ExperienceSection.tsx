@@ -39,7 +39,7 @@ export function ExperienceSection() {
     <Section
       ref={containerRef}
       chapter="experience"
-      className="relative w-full bg-background border-t border-border-subtle py-28 md:py-36 overflow-hidden"
+      className="relative w-full bg-background border-t border-border-subtle py-16 md:py-24 overflow-hidden"
     >
       {/* Backing WebGL Canvas Viewport */}
       <div className="absolute inset-0 z-base pointer-events-none opacity-35">
@@ -57,15 +57,15 @@ export function ExperienceSection() {
       <div className="max-w-7xl mx-auto px-0 space-y-14 relative z-hover">
 
         {/* Header */}
-        <div className="space-y-5 max-w-2xl select-none">
-          <div className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase">
-            [ CH.03 // PROFESSIONAL EXPERIENCE ]
+        <div className="space-y-4 max-w-2xl select-none">
+          <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10 uppercase">
+            Career Journey
           </div>
           <h2
             className="font-display font-extrabold uppercase tracking-tight leading-none"
             style={{
               fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #818cf8 100%)",
+              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #22d3ee 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -85,8 +85,7 @@ export function ExperienceSection() {
             </span>
           </h2>
           <p className="text-muted text-base leading-relaxed max-w-md font-sans">
-            Collaborating with cross-functional teams inside production-grade environments.
-            Select a timeline milestone to calibrate telemetry parameters.
+            Collaborating with cross-functional engineering teams inside production-grade environments.
           </p>
         </div>
 
@@ -103,16 +102,16 @@ export function ExperienceSection() {
               <button
                 key={item.company}
                 onClick={() => setActiveIndex(idx)}
-                onMouseEnter={() => handleMouseEnter(`ACTIVATE // ${item.company.toUpperCase()}`)}
+                onMouseEnter={() => handleMouseEnter(item.company)}
                 onMouseLeave={handleMouseLeave}
                 className={cn(
-                  "flex-1 py-3 px-6 font-mono text-xs tracking-widest uppercase rounded-lg border transition-all duration-300 cursor-pointer focus:outline-none",
+                  "flex-1 py-3 px-6 font-sans text-xs font-semibold uppercase tracking-wider rounded-lg border transition-all duration-300 cursor-pointer focus:outline-none",
                   isActive
-                    ? "bg-gradient-to-br from-purple-600 to-indigo-600 text-white border-purple-600 shadow-lg shadow-purple-900/40 font-semibold"
-                    : "bg-transparent text-muted border-transparent hover:text-foreground hover:bg-surface-2/40 hover:border-border-subtle/50"
+                    ? "bg-gradient-to-r from-purple-600 to-cyan-600 text-white border-purple-500 shadow-lg shadow-purple-900/40 font-bold"
+                    : "bg-transparent text-muted border-transparent hover:text-white hover:bg-surface-2/40 hover:border-border-subtle/50"
                 )}
               >
-                0{idx + 1} {"//"} {item.company}
+                0{idx + 1} · {item.company}
               </button>
             );
           })}
@@ -165,13 +164,13 @@ export function ExperienceSection() {
 
                 {/* Grid performance telemetry */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-border-subtle/50 font-mono text-xs text-muted relative z-base">
-                  <div className="space-y-1.5">
-                    <span className="text-accent text-[10px]">BENCHMARK.01 //</span>
-                    <p className="text-foreground tracking-wide">{item.metrics.metric1}</p>
+                  <div className="space-y-1.5 p-3 rounded-lg bg-surface-2/60 border border-border-subtle/40">
+                    <span className="text-amber-400 text-[10px] tracking-widest uppercase">BENCHMARK.01 //</span>
+                    <p className="text-amber-300 font-bold tracking-wide">{item.metrics.metric1}</p>
                   </div>
-                  <div className="space-y-1.5">
-                    <span className="text-accent text-[10px]">BENCHMARK.02 //</span>
-                    <p className="text-foreground tracking-wide">{item.metrics.metric2}</p>
+                  <div className="space-y-1.5 p-3 rounded-lg bg-surface-2/60 border border-border-subtle/40">
+                    <span className="text-cyan-400 text-[10px] tracking-widest uppercase">BENCHMARK.02 //</span>
+                    <p className="text-cyan-300 font-bold tracking-wide">{item.metrics.metric2}</p>
                   </div>
                 </div>
 
@@ -180,7 +179,7 @@ export function ExperienceSection() {
                   {item.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 font-mono text-[9px] border border-border-subtle/70 bg-surface-2/70 text-muted uppercase rounded-lg hover:border-accent/40 hover:text-foreground transition-colors duration-200"
+                      className="px-3 py-1 font-mono text-[9px] border border-border-subtle/70 bg-surface-2/70 text-muted uppercase rounded-lg hover:border-cyan-400/40 hover:text-white transition-colors duration-200"
                     >
                       {tech}
                     </span>

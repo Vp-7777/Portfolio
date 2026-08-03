@@ -5,6 +5,7 @@ import { useLenis } from "lenis/react";
 import { useSystemStore } from "@/store/useSystemStore";
 import { X } from "lucide-react";
 import projectsData from "@/lib/content/projects.json";
+import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import gsap from "gsap";
 
 export function ProjectDetail() {
@@ -119,16 +120,10 @@ export function ProjectDetail() {
             
             <div className="space-y-2">
               <span className="font-mono text-xs text-foreground uppercase tracking-widest block">
-                01 // THE CHALLENGE
-              </span>
-              <p className="text-foreground">{project.challenge}</p>
-            </div>
-
-            <div className="space-y-2">
-              <span className="font-mono text-xs text-foreground uppercase tracking-widest block">
                 02 // THE ARCHITECTURE
               </span>
               <p>{project.narrative.problem}</p>
+              <ArchitectureDiagram projectId={project.id} />
               <div className="bg-surface-2 border border-border-subtle p-4 font-mono text-xs text-accent rounded-sm uppercase tracking-wide my-4">
                 {project.narrative.architecture}
               </div>

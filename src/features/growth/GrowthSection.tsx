@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSystemStore } from "@/store/useSystemStore";
 import { Section } from "@/features/ui/Section";
 import { ProfileCards } from "./ProfileCards";
+import { useCountUp } from "@/lib/hooks/useCountUp";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,7 +19,6 @@ const metrics = [
     value: "9.70",
     unit: "CGPA",
     desc: "Computer Science Engineering with specialized focus in Artificial Intelligence and Machine Learning models.",
-    color: "from-purple-500 to-violet-600",
   },
   {
     index: "02",
@@ -26,7 +26,6 @@ const metrics = [
     value: "10+",
     unit: "SYSTEMS",
     desc: "Engineered and sandbox tested models ranging from offline prediction engines to distributed computer vision pipelines.",
-    color: "from-indigo-500 to-blue-600",
   },
   {
     index: "03",
@@ -34,7 +33,6 @@ const metrics = [
     value: "12+",
     unit: "PUBLIC REPOS",
     desc: "Maintained active repositories featuring full-stack applications, ML notebooks, and custom system tools.",
-    color: "from-violet-500 to-purple-600",
   },
   {
     index: "04",
@@ -42,9 +40,65 @@ const metrics = [
     value: "100%",
     unit: "REFACTOR RATE",
     desc: "Iterative design philosophy ensuring algorithms and layouts are continuously benchmarked and calibrated.",
-    color: "from-fuchsia-500 to-pink-600",
   },
 ];
+
+function MetricCardItem({
+  m,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  m: (typeof metrics)[0];
+  onMouseEnter: (title: string) => void;
+  onMouseLeave: () => void;
+}) {
+  const { displayValue, elementRef } = useCountUp(m.value, { end: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+  };
+
+  return (
+    <div
+      ref={elementRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => onMouseEnter(m.title)}
+      onMouseLeave={onMouseLeave}
+      className="metric-card spotlight-card group p-7 rounded-xl space-y-8 flex flex-col justify-between cursor-default transition-all duration-300 hover:border-amber-500/50"
+      style={{
+        boxShadow: "0 4px 30px rgba(0,0,0,0.4)",
+      }}
+    >
+      <div className="space-y-4 relative z-base">
+        <span className="font-mono text-[10px] text-muted/70 block tracking-widest uppercase">
+          PARAM.{m.index} {"//"} {m.title}
+        </span>
+
+        {/* Large metric value with amber gradient */}
+        <div
+          className="font-display font-extrabold tracking-tight leading-none text-amber-400"
+          style={{
+            fontSize: "clamp(2rem, 4vw, 3rem)",
+          }}
+        >
+          {displayValue}
+          <span className="text-base font-mono font-normal text-cyan-400 ml-2">{m.unit}</span>
+        </div>
+      </div>
+
+      <p className="text-muted text-xs md:text-sm font-sans leading-relaxed pt-4 border-t border-border-subtle/45 relative z-base group-hover:text-foreground/80 transition-colors duration-300">
+        {m.desc}
+      </p>
+
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/0 to-transparent group-hover:via-amber-500/50 transition-all duration-500 rounded-b-xl" />
+    </div>
+  );
+}
 
 export function GrowthSection() {
   const containerRef = useRef<HTMLElement>(null);
@@ -83,15 +137,6 @@ export function GrowthSection() {
     return () => ctx.revert();
   }, [reducedMotion]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${y}px`);
-  };
-
   const handleMouseEnter = (title: string) => {
     setCursorVariant("hover");
     setCursorLabel(`BENCHMARK // ${title}`);
@@ -106,7 +151,7 @@ export function GrowthSection() {
     <Section
       ref={containerRef}
       chapter="growth"
-      className="relative bg-background border-t border-border-subtle py-28 md:py-36 overflow-hidden"
+      className="relative bg-background border-t border-border-subtle py-16 md:py-24 overflow-hidden"
     >
       {/* Background ambient blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -117,15 +162,15 @@ export function GrowthSection() {
       <div className="max-w-7xl mx-auto space-y-16 relative">
 
         {/* Header */}
-        <div className="space-y-5 max-w-2xl select-none">
-          <div className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase">
-            [ CH.05 // MOMENTUM & GROWTH ]
+        <div className="space-y-4 max-w-2xl select-none">
+          <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10 uppercase">
+            Growth & Momentum
           </div>
           <h2
             className="font-display font-extrabold uppercase tracking-tight leading-[0.9]"
             style={{
               fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #818cf8 100%)",
+              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #22d3ee 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -150,50 +195,18 @@ export function GrowthSection() {
           </p>
         </div>
 
-        {/* Metrics Grid */}
+        {/* Metrics Grid with animated numbers */}
         <div
           ref={cardsRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
         >
           {metrics.map((m) => (
-            <div
+            <MetricCardItem
               key={m.index}
-              onMouseMove={handleMouseMove}
-              onMouseEnter={() => handleMouseEnter(m.title)}
+              m={m}
+              onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="metric-card spotlight-card group p-7 rounded-xl space-y-8 flex flex-col justify-between cursor-default transition-all duration-300 hover:border-purple-700/50"
-              style={{
-                opacity: reducedMotion ? 1 : undefined,
-                boxShadow: "0 4px 30px rgba(0,0,0,0.4)",
-              }}
-            >
-              <div className="space-y-4 relative z-base">
-                <span className="font-mono text-[10px] text-muted/70 block tracking-widest uppercase">
-                  PARAM.{m.index} {"//"} {m.title}
-                </span>
-
-                {/* Large metric value with gradient */}
-                <div
-                  className="font-display font-extrabold tracking-tight leading-none"
-                  style={{
-                    fontSize: "clamp(2rem, 4vw, 3rem)",
-                    background: `linear-gradient(135deg, #ffffff, #c084fc)`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  {m.value}
-                  <span className="text-base font-mono font-normal text-accent ml-2">{m.unit}</span>
-                </div>
-              </div>
-
-              <p className="text-muted text-xs md:text-sm font-sans leading-relaxed pt-4 border-t border-border-subtle/45 relative z-base group-hover:text-foreground/80 transition-colors duration-300">
-                {m.desc}
-              </p>
-
-              <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/0 to-transparent group-hover:via-purple-500/50 transition-all duration-500 rounded-b-xl" />
-            </div>
+            />
           ))}
         </div>
 

@@ -83,7 +83,7 @@ export function PhilosophySection() {
     <Section
       ref={containerRef}
       chapter="philosophy"
-      className="relative bg-background border-t border-border-subtle py-28 md:py-36 overflow-hidden"
+      className="relative bg-background border-t border-border-subtle py-16 md:py-24 overflow-hidden"
     >
       {/* Ambient background blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -100,8 +100,8 @@ export function PhilosophySection() {
           style={{ opacity: reducedMotion ? 1 : 0 }}
         >
           <div className="space-y-4 max-w-lg">
-            <div className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase">
-              [ CH.02 // ENGINEERING PHILOSOPHY ]
+            <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10 uppercase">
+              Engineering Philosophy
             </div>
             <h2
               className="font-display font-extrabold uppercase tracking-tight leading-none"
@@ -154,7 +154,7 @@ export function PhilosophySection() {
                   background: isHovered ? "rgba(168,85,247,0.04)" : "transparent",
                 }}
               >
-                <div className="grid grid-cols-12 gap-4 md:gap-8 items-center py-6 md:py-8 px-2">
+                <div className="grid grid-cols-12 gap-4 md:gap-8 items-center py-6 md:py-8 px-2 relative z-base">
 
                   {/* Large decorative index number */}
                   <div className="col-span-2 md:col-span-1">
@@ -163,12 +163,12 @@ export function PhilosophySection() {
                       style={{
                         fontSize: "clamp(1.5rem, 3.5vw, 2.8rem)",
                         background: isHovered
-                          ? "linear-gradient(135deg, #c084fc, #818cf8)"
+                          ? "linear-gradient(135deg, #22d3ee, #9333ea)"
                           : "transparent",
                         WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: isHovered ? "transparent" : "rgba(255,255,255,0.12)",
+                        WebkitTextFillColor: isHovered ? "transparent" : "rgba(255,255,255,0.15)",
                         backgroundClip: "text",
-                        color: isHovered ? "transparent" : "rgba(255,255,255,0.12)",
+                        color: isHovered ? "transparent" : "rgba(255,255,255,0.15)",
                       }}
                     >
                       {indexStr}
@@ -181,7 +181,7 @@ export function PhilosophySection() {
                       className="font-display font-bold uppercase tracking-tight transition-all duration-300"
                       style={{
                         fontSize: "clamp(1.1rem, 2.5vw, 1.7rem)",
-                        color: isHovered ? "#ffffff" : "rgba(255,255,255,0.7)",
+                        color: isHovered ? "#ffffff" : "rgba(255,255,255,0.75)",
                       }}
                     >
                       {step.step}
@@ -193,7 +193,7 @@ export function PhilosophySection() {
                     <p
                       className="font-sans text-sm md:text-base leading-relaxed transition-colors duration-300"
                       style={{
-                        color: isHovered ? "rgba(255,255,255,0.75)" : "rgba(139,133,163,0.8)",
+                        color: isHovered ? "rgba(255,255,255,0.9)" : "rgba(148,144,170,0.85)",
                       }}
                     >
                       {step.description}
@@ -203,14 +203,21 @@ export function PhilosophySection() {
 
                 {/* Hover left accent bar */}
                 <div
-                  className="absolute left-0 top-0 bottom-0 w-[2px] transition-all duration-300 rounded-r"
+                  className="absolute left-0 top-0 bottom-0 w-[3px] transition-all duration-300 rounded-r"
                   style={{
                     background: isHovered
-                      ? "linear-gradient(180deg, #a855f7, #6366f1)"
+                      ? "linear-gradient(180deg, #22d3ee, #9333ea)"
                       : "transparent",
                     opacity: isHovered ? 1 : 0,
                   }}
                 />
+
+                {/* Ghost background watermark text on hover */}
+                {isHovered && (
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 font-display font-black text-7xl md:text-9xl text-white/[0.03] select-none pointer-events-none uppercase tracking-tighter">
+                    {step.step}
+                  </div>
+                )}
               </div>
             );
           })}

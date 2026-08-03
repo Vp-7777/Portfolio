@@ -4,6 +4,7 @@ import { SmoothScroller } from "@/features/motion/SmoothScroller";
 import { GlobalCanvas } from "@/features/webgl/GlobalCanvas";
 import { Navbar } from "@/features/ui/Navbar";
 import { SystemInitializer } from "@/features/ui/SystemInitializer";
+import { BootPreloader } from "@/features/ui/BootPreloader";
 import { ChapterObserver } from "@/features/motion/ChapterObserver";
 import { CustomCursor } from "@/features/cursor/CustomCursor";
 import "./globals.css";
@@ -54,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sansFont.variable} ${displayFont.variable} ${monoFont.variable} antialiased`}>
       <body className="bg-background text-foreground selection:bg-accent selection:text-background min-h-screen relative">
+        <BootPreloader />
         <SystemInitializer />
         <CustomCursor />
         <Navbar />

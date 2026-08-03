@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #030209;
+  --color-background: #020108;
   --color-foreground: #ededed;
-  --color-accent: #a855f7;
-  --color-accent-muted: rgba(168, 85, 247, 0.08);
-  --color-muted: #8b85a3;
-  --color-surface-1: #080614;
-  --color-surface-2: #0f0b24;
-  --color-surface-3: #161135;
-  --color-border-subtle: #181236;
+  --color-accent: #9333ea;
+  --color-accent-secondary: #22d3ee;
+  --color-accent-warm: #f59e0b;
+  --color-accent-muted: rgba(147, 51, 234, 0.08);
+  --color-muted: #9490aa;
+  --color-surface-1: #060412;
+  --color-surface-2: #0c0820;
+  --color-surface-3: #140d30;
+  --color-border-subtle: #1a1040;
 
   --font-display: var(--font-display), sans-serif;
   --font-sans: var(--font-sans), sans-serif;
@@ -125,3 +127,57 @@
 .spotlight-card:hover::after {
   opacity: 1;
 }
+
+/* Bento Grid Glassmorphic Card */
+.bento-tile {
+  position: relative;
+  background: rgba(12, 8, 32, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.bento-tile:hover {
+  border-color: rgba(147, 51, 234, 0.4);
+  box-shadow: 0 12px 40px rgba(147, 51, 234, 0.15), 0 0 0 1px rgba(34, 211, 238, 0.2);
+}
+
+.bento-tile::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(147, 51, 234, 0.6),
+    rgba(34, 211, 238, 0.3) 45%,
+    transparent 80%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  z-index: 2;
+}
+
+.bento-tile:hover::before {
+  opacity: 1;
+}
+
+/* Custom orbit animation for cursor label */
+@keyframes cursor-orbit {
+  from { transform: rotate(0deg) translateY(-24px) rotate(0deg); }
+  to { transform: rotate(360deg) translateY(-24px) rotate(-360deg); }
+}
+
+.animate-cursor-orbit {
+  animation: cursor-orbit 8s linear infinite;
+}
+

@@ -85,7 +85,7 @@ export function OutlookSection() {
     <Section
       ref={containerRef}
       chapter="forward"
-      className="relative bg-background border-t border-border-subtle py-28 md:py-36 overflow-hidden"
+      className="relative bg-background border-t border-border-subtle py-16 md:py-24 overflow-hidden"
     >
       {/* Background ambient blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -96,15 +96,15 @@ export function OutlookSection() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-28 relative">
 
         {/* Left Side: Ambition Statement */}
-        <div className="lg:col-span-5 space-y-8">
-          <div className="font-mono text-[10px] text-accent tracking-[0.3em] uppercase">
-            [ CH.06 // FUTURE ROADMAP ]
+        <div className="lg:col-span-5 space-y-6">
+          <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10 uppercase">
+            Future Vision
           </div>
           <h2
             className="font-display font-extrabold uppercase tracking-tight leading-none"
             style={{
               fontSize: "clamp(2.8rem, 6vw, 5.5rem)",
-              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #818cf8 100%)",
+              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #22d3ee 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -141,27 +141,27 @@ export function OutlookSection() {
               style={{ opacity: reducedMotion ? 1 : undefined }}
             >
               {/* Animated dot */}
-              <div className="absolute left-0 top-1 w-2 h-2 rounded-full border border-border-subtle bg-surface-2 group-hover:bg-accent group-hover:border-accent group-hover:shadow-[0_0_10px_rgba(168,85,247,0.5)] transition-all duration-400" />
+              <div className="absolute left-0 top-1 w-2.5 h-2.5 rounded-full border border-border-subtle bg-surface-2 group-hover:bg-cyan-400 group-hover:border-cyan-400 group-hover:shadow-[0_0_10px_rgba(34,211,238,0.5)] transition-all duration-400" />
               {/* Vertical connector line */}
               {idx < focusAreas.length - 1 && (
-                <div className="absolute left-[3px] top-5 w-[1px] h-[calc(100%+1.5rem)] bg-gradient-to-b from-border-subtle/50 to-transparent" />
+                <div className="absolute left-[4px] top-6 w-[1px] h-[calc(100%+1.5rem)] bg-gradient-to-b from-border-subtle/50 to-transparent" />
               )}
 
               <span
-                className="font-mono text-xs tracking-widest uppercase flex items-center gap-2"
+                className="font-sans text-sm font-bold uppercase tracking-wider flex items-center gap-2"
                 style={{
-                  background: "linear-gradient(90deg, #c084fc, #818cf8)",
+                  background: "linear-gradient(90deg, #c084fc, #22d3ee)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                 }}
               >
-                <area.Icon size={13} style={{ color: "#c084fc", minWidth: 13 }} />
-                ROADMAP.{area.index} {"//"} {area.field}
+                <area.Icon size={14} style={{ color: "#c084fc", minWidth: 14 }} />
+                0{idx + 1} · {area.field}
               </span>
 
-              <span className="font-mono text-[10px] text-muted/60 tracking-wider uppercase block">
-                RESEARCH ENV // {area.tech}
+              <span className="font-sans text-xs text-muted/80 tracking-wide font-medium uppercase block">
+                Research Field: {area.tech}
               </span>
 
               <p className="text-foreground/80 text-base md:text-lg leading-relaxed font-sans max-w-xl group-hover:text-foreground transition-colors duration-300">
