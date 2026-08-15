@@ -1,44 +1,64 @@
 {
   "name": "Vishal Patel",
   "specialization": "Artificial Intelligence & Machine Learning",
-  "cgpa": "9.70",
-  "location": "Chennai, India",
+  "degree": "B.Tech in Computer Science Engineering (AI & ML Specialization)",
+  "institution": "SRM Institute of Science and Technology, Chennai",
+  "expectedGraduation": "May 2028",
+  "cgpa": "9.74",
+  "percentage": "97.4%",
+  "semester2Gpa": "10/10",
+  "location": "Chennai, Tamil Nadu",
+  "phone": "+91-7043624030",
   "email": "vishal17305@gmail.com",
   "github": "https://github.com/Vp-7777",
   "linkedin": "https://linkedin.com/in/vishalp7777",
-  "tagline": "Engineering repeatable, reliable systems that bridge AI decision pipelines and visual software experiences.",
-  "philosophy": [
+  "resumeUrl": "https://drive.google.com/file/d/1sIUMPCsEkG-eYdYjc6UHmq9fnaBWQque/view?usp=drive_link",
+  "tagline": "Passionate about building scalable AI systems, full-stack web platforms, and mobile apps with clean engineering practices.",
+  "certifications": [
     {
-      "step": "Observe",
-      "description": "Understand systemic inefficiencies and patterns in existing environments."
+      "name": "AWS Cloud Practitioner Essentials",
+      "issuer": "AWS Training & Certification",
+      "date": "July 2026",
+      "type": "Cloud Architecture"
     },
     {
-      "step": "Research",
-      "description": "Examine state-of-the-art architectures and alternative algorithmic solutions."
+      "name": "Geodata Processing using Python and Machine Learning",
+      "issuer": "Indian Institute of Remote Sensing (IIRS), ISRO",
+      "date": "May 2026",
+      "type": "Geospatial ML"
     },
     {
-      "step": "Architect",
-      "description": "Map logical dependencies, schema constraints, and pipeline layouts."
+      "name": "BNY Spectrum Program",
+      "issuer": "BNY Mellon",
+      "date": "2026",
+      "type": "Enterprise FinTech & Agile"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Top 20 Finalist (257+ Teams)",
+      "event": "QRaptors National Hackathon",
+      "description": "Selected among top teams nationally for innovative AI solutions."
     },
     {
-      "step": "Experiment",
-      "description": "Prototype models and sandbox endpoints to validate system assumptions."
+      "title": "Top 20 Finalist",
+      "event": "Ashna AI Agent Hackathon",
+      "description": "Demonstrated autonomous intelligent agent and machine learning capabilities."
     },
     {
-      "step": "Build",
-      "description": "Write clean, type-safe, and modular code optimized for performance."
+      "title": "Organizer & Mentor",
+      "event": "Team SRM Hackathon",
+      "description": "Organized technical events and mentored hackathon participants (Aug 2025 – Apr 2026)."
     },
     {
-      "step": "Deploy",
-      "description": "Ship containerized services with continuous telemetry and monitoring."
+      "title": "Student Member",
+      "event": "Indian Society for Technical Education",
+      "description": "Active member contributing to technical workshops and engineering culture."
     },
     {
-      "step": "Iterate",
-      "description": "Refine throughput, reduce response latencies, and prune parameters."
-    },
-    {
-      "step": "Learn",
-      "description": "Incorporate feedback loops and update systemic parameters."
+      "title": "Perfect 10/10 Semester GPA",
+      "event": "Academic Excellence @ SRM IST",
+      "description": "Achieved a flawless 10.0/10 GPA in Semester 2 with overall 9.74 CGPA."
     }
   ]
 }

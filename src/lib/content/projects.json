@@ -1,47 +1,56 @@
 [
   {
     "id": "autismind",
-    "name": "AutisMind AI",
-    "description": "Intelligent healthcare system designed to assist in developmental monitoring and behavioral trend prediction.",
-    "role": "Independent Creator",
-    "technologies": ["React", "TypeScript", "Python", "Scikit-Learn", "FastAPI"],
-    "challenge": "Providing clinical-grade behavioral predictions under strict privacy constraints and lightweight memory profiles.",
-    "solution": "Built offline-capable inference workflows using compiled light models running locally inside sandbox worker threads.",
+    "name": "AutisMind-AI",
+    "tagline": "AI-Powered Autism Screening & Assistance Platform",
+    "description": "Full-stack AI-powered platform for early autism screening featuring an interactive user interface and intelligent prediction modules with real-time assessment workflows.",
+    "role": "Creator & Lead Developer",
+    "liveUrl": "https://autis-mind-ai.vercel.app/",
+    "githubUrl": "https://github.com/Vp-7777",
+    "technologies": ["Python", "Machine Learning", "Computer Vision", "Generative AI", "React", "FastAPI"],
+    "challenge": "Providing clinical-grade behavioral predictions with sub-50ms execution delay under strict user privacy constraints.",
+    "solution": "Developed REST API-based communication between frontend and backend services for real-time assessment workflows and intelligent prediction pipelines.",
     "narrative": {
-      "problem": "Traditional behavioral tools are subjective and require complex, expensive setups. AI tools require remote APIs that present user privacy risks.",
-      "architecture": "Configured a sandboxed evaluation runtime that loads quantized prediction matrices locally, keeping patient information fully on the client device.",
-      "decisions": "Selected local inference over server-side models to meet HIPAA-grade privacy constraints and eliminate remote network points of failure.",
-      "metrics": "100% offline predictability with sub-50ms execution delay."
+      "problem": "Early autism screening tools are often inaccessible or non-interactive. Traditional platforms lack integrated prediction pipelines that parents and clinicians can easily navigate.",
+      "architecture": "Engineered full-stack architecture coupling interactive React interfaces with Python machine learning and computer vision inference modules via asynchronous REST APIs.",
+      "decisions": "Leveraged client-side interactive workflows with high-throughput API endpoints to guarantee instant assessment feedback without latency.",
+      "metrics": "Live on Vercel with real-time interactive assessment workflows."
     }
   },
   {
-    "id": "terasight",
-    "name": "TeraSight / PrithviQ",
-    "description": "AI-powered environmental intelligence platform turning satellite and environmental imagery into actionable analytics.",
-    "role": "Lead Architect & Engineer",
-    "technologies": ["Next.js", "TypeScript", "Python", "PyTorch", "FastAPI", "PostgreSQL"],
-    "challenge": "Processing high-resolution spatial imagery and delivering sub-second visual updates on client maps without browser bottlenecks.",
-    "solution": "Decoupled rendering from data ingestion, using custom multi-threaded Python workers for image tiling and rendering tiles on demand.",
+    "id": "prithviq",
+    "name": "PrithviQ",
+    "tagline": "AI Waste Detection & Recycling Optimization System",
+    "description": "AI-driven monitoring system using computer vision to detect, classify, and quantify plastic waste using smartphone and drone imagery, paired with an analytical dashboard for NGOs.",
+    "role": "Creator & AI Engineer",
+    "liveUrl": null,
+    "githubUrl": "https://github.com/Vp-7777/PrithviQ",
+    "technologies": ["Python", "Machine Learning", "Computer Vision", "PyTorch", "FastAPI", "Geo-Analytics"],
+    "challenge": "Accurately identifying and categorizing plastic waste densities across heterogeneous drone and smartphone aerial imagery angles.",
+    "solution": "Developed computer vision detection models and built an analytical dashboard for NGOs and government agencies to optimize cleanup operations (aligned with UN SDG 12 & SDG 14).",
     "narrative": {
-      "problem": "Satellite imagery datasets are massive and non-standardized. Statically rendering these on web maps causes high latency, blocking client execution threads.",
-      "architecture": "Implemented a tile-on-demand strategy. A Python (FastAPI) ingestion pipeline splits and normalizes spatial formats, feeding custom R3F map overlays that lazy-load coordinates based on viewport bounds.",
-      "decisions": "Chose FastAPI for CPU-bound image operations due to its async speed, and Next.js App Router to fetch metadata frames cleanly.",
-      "metrics": "Achieved sub-200ms render speeds for custom map layers."
+      "problem": "Municipalities and NGOs lack automated spatial data to identify plastic waste accumulation zones and route cleanup resources efficiently.",
+      "architecture": "Implemented computer vision pipeline trained on aerial drone feeds and handheld imagery, serving classified density overlays to an administrative dashboard.",
+      "decisions": "Aligned data structures with UN SDG 12 (Responsible Consumption) and SDG 14 (Life Below Water) for direct NGO policy applicability.",
+      "metrics": "Automated waste classification and spatial analytics dashboard."
     }
   },
   {
     "id": "campuswap",
     "name": "CampuSwap",
-    "description": "Student-focused marketplace providing peer-to-peer textbook and resource transactions with integrated search routing.",
-    "role": "Creator & Full-stack Developer",
-    "technologies": ["Next.js", "Node.js", "Express", "MongoDB", "Socket.io"],
-    "challenge": "Designing a reliable real-time transaction negotiation framework with low database connection overhead under high peak traffic.",
-    "solution": "Implemented cached socket mappings in-memory and unified API requests with optimistic updates on the client UI.",
+    "tagline": "Campus Marketplace Platform",
+    "description": "Full-stack marketplace platform enabling university students to buy, sell, and exchange textbooks and campus resources securely with authenticated transaction workflows.",
+    "role": "Creator & Full-Stack Developer",
+    "liveUrl": null,
+    "githubUrl": "https://github.com/Vp-7777/CampuSwap",
+    "technologies": ["React.js", "JavaScript", "Node.js", "Express.js", "PostgreSQL", "REST APIs"],
+    "challenge": "Designing a secure, responsive student exchange platform with authenticated user access and low-latency database queries.",
+    "solution": "Designed responsive frontend interfaces, integrated backend services through RESTful APIs, and structured scalable PostgreSQL models supporting efficient data storage and retrieval.",
     "narrative": {
-      "problem": "University marketplaces suffer from high transaction drops due to slow message delivery and stale item listings.",
-      "architecture": "Engineered a real-time negotiation engine using WebSocket clusters alongside optimistic client states to give instant UI feedback.",
-      "decisions": "Chose Document-oriented schemas for highly flexible item specifications and set up strict index filters to optimize queries.",
-      "metrics": "Reduced message latency to <15ms with 99.9% delivery rate."
+      "problem": "University students face high fees and unreliable informal channels when trading textbooks, electronics, and study materials on campus.",
+      "architecture": "Engineered modular full-stack application with Express.js REST APIs, PostgreSQL relational schemas, user authentication, and product listing workflows.",
+      "decisions": "Utilized PostgreSQL for ACID-compliant transaction records and strict relational integrity across student users and product inventory.",
+      "metrics": "Full-stack authenticated marketplace with scalable relational database."
     }
   }
 ]

@@ -146,7 +146,7 @@ export function ContactSection() {
                   icon: <Mail size={16} className="text-amber-400" />,
                 },
                 {
-                  href: "#",
+                  href: bioData.resumeUrl,
                   text: "Resume",
                   icon: <FileText size={16} className="text-emerald-400" />,
                 },

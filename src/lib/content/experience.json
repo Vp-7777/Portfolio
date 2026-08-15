@@ -1,34 +1,38 @@
 [
   {
-    "company": "QRaptor",
-    "role": "AI Engineering Intern",
-    "period": "Jun 2025 - Present",
-    "location": "Remote",
-    "metrics": {
-      "metric1": "Automated pipelines for AI integrations",
-      "metric2": "Designed scalable API frameworks"
-    },
-    "atmosphere": "analytical",
-    "technologies": ["Python", "Vertex AI", "FastAPI", "TypeScript"],
-    "details": [
-      "Designed and developed key services for QRaptor, an AI-native app builder platform.",
-      "Optimized model pipeline orchestration to scale workflow automations and decision-making logic."
-    ]
-  },
-  {
     "company": "RideAbit",
     "role": "Software Engineering Intern",
-    "period": "Jan 2025 - May 2025",
-    "location": "Chennai, TN",
-    "metrics": {
-      "metric1": "Optimized React Native rendering performance",
-      "metric2": "Streamlined backend API payload sizing"
-    },
-    "atmosphere": "kinetic",
-    "technologies": ["React Native", "TypeScript", "Node.js", "Express"],
+    "period": "Jun 2026 – Present (3 months)",
+    "location": "Remote",
+    "type": "Mobile & Full-Stack",
     "details": [
-      "Collaborated with the core engineering team to develop high-performance transportation tools.",
-      "Built resilient client features and integrated real-time location metrics with server APIs."
-    ]
+      "Developed and maintained cross-platform mobile application features using React Native and Expo for a production ride-sharing platform.",
+      "Collaborated within Agile software development teams using Git and GitHub for version control, feature branching, pull requests, and collaborative code integration.",
+      "Developed, debugged, tested, and optimized React Native application features while improving application performance and user experience.",
+      "Active in end-to-end feature implementation, unit testing, debugging, and peer code reviews."
+    ],
+    "metrics": {
+      "metric1": "Production Cross-Platform Ride-Sharing App",
+      "metric2": "Agile Feature Delivery with React Native & Expo"
+    },
+    "technologies": ["React Native", "Expo", "TypeScript", "JavaScript", "Mobile App Dev", "Git & GitHub", "Agile"]
+  },
+  {
+    "company": "QRaptor",
+    "role": "AI Engineering Intern",
+    "period": "Feb 2026 – Present (6 months)",
+    "location": "Remote",
+    "type": "AI & Backend Engineering",
+    "details": [
+      "Developed software features and AI-powered modules for full-stack web applications using modern software engineering practices.",
+      "Collaborated with cross-functional teams to design scalable backend services, REST APIs, and application architectures.",
+      "Worked on data processing pipelines, backend integrations, intelligent automation modules, and prototype product development.",
+      "Participated in debugging, testing, feature integration, and iterative product improvements within an agile development environment."
+    ],
+    "metrics": {
+      "metric1": "Scalable REST APIs & Intelligent Automation",
+      "metric2": "AI-Powered Modules for Web Applications"
+    },
+    "technologies": ["Python", "Machine Learning", "REST APIs", "FastAPI", "Data Pipelines", "Full Stack Development", "Agile"]
   }
 ]

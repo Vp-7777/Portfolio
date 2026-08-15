@@ -4,37 +4,50 @@ import { useRef } from "react";
 import { useSystemStore } from "@/store/useSystemStore";
 import { ProfileCards } from "./ProfileCards";
 import { useCountUp } from "@/lib/hooks/useCountUp";
-import { GraduationCap, Cpu, GitFork, Award, TrendingUp, Sparkles } from "lucide-react";
+import bioData from "@/lib/content/bio.json";
+import {
+  GraduationCap,
+  Cpu,
+  Award,
+  TrendingUp,
+  Sparkles,
+  ShieldCheck,
+  CheckCircle2,
+  Trophy,
+  Users,
+  Compass,
+  FileCheck,
+} from "lucide-react";
 
 const metrics = [
   {
     index: "01",
     title: "Academic Excellence",
-    value: "9.70",
+    value: "9.74",
     unit: "CGPA",
-    subtitle: "SRM IST Chennai",
-    desc: "B.Tech in Computer Science & Engineering with specialized curriculum focus in Artificial Intelligence and Machine Learning models.",
+    subtitle: "SRM IST (97.4%)",
+    desc: "B.Tech in Computer Science Engineering (AI & ML Specialization) with a flawless 10.0/10 GPA in Semester 2 and zero active backlogs.",
     icon: GraduationCap,
     glow: "amber",
   },
   {
     index: "02",
-    title: "AI & ML Models",
-    value: "10+",
-    unit: "SYSTEMS",
-    subtitle: "Production Ready",
-    desc: "Engineered and benchmarked architectures ranging from offline medical vision engines to high-throughput satellite rendering pipelines.",
-    icon: Cpu,
+    title: "National Hackathons",
+    value: "Top 20",
+    unit: "FINALIST",
+    subtitle: "257+ National Teams",
+    desc: "Recognized as a Top 20 Finalist in both the QRaptors National Hackathon (257+ teams) and the Ashna AI Agent Hackathon.",
+    icon: Trophy,
     glow: "cyan",
   },
   {
     index: "03",
-    title: "Open Source Code",
-    value: "12+",
-    unit: "REPOSITORIES",
-    subtitle: "Public on GitHub",
-    desc: "Active public repositories featuring full-stack applications, deep learning inference notebooks, and custom developer tooling.",
-    icon: GitFork,
+    title: "Industry Certifications",
+    value: "3+",
+    unit: "CREDENTIALS",
+    subtitle: "ISRO, AWS & BNY",
+    desc: "Certified in Geodata Processing using Python & ML (ISRO/IIRS), AWS Cloud Practitioner Essentials, and the BNY Spectrum Program.",
+    icon: FileCheck,
     glow: "purple",
   },
   {
@@ -43,8 +56,8 @@ const metrics = [
     value: "100%",
     unit: "TYPE-SAFE",
     subtitle: "Clean Architecture",
-    desc: "Strict adherence to modular system design, automated testing, and sub-millisecond API execution benchmarks.",
-    icon: Award,
+    desc: "Strict adherence to modular system design, automated testing, and sub-50ms API execution benchmarks.",
+    icon: ShieldCheck,
     glow: "emerald",
   },
 ];
@@ -151,13 +164,13 @@ export function GrowthSection() {
         <div className="space-y-4 max-w-2xl select-none text-left">
           <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-4 py-1 bg-purple-500/10 uppercase">
             <TrendingUp size={14} className="text-cyan-400" />
-            <span>Growth & Calibration</span>
+            <span>Academic & Technical Milestones</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
-            Academic & <span className="text-gradient-purple-cyan">Technical Milestones</span>
+            Academic & <span className="text-gradient-purple-cyan">Leadership Calibration</span>
           </h2>
           <p className="text-muted text-base md:text-lg font-sans leading-relaxed">
-            Quantifiable benchmarks and academic rigor demonstrating consistent continuous technical calibration across algorithms, systems, and open-source contributions.
+            Quantifiable benchmarks, prestigious certifications from ISRO and AWS, and national hackathon leadership demonstrating consistent top-tier execution.
           </p>
         </div>
 
@@ -171,6 +184,81 @@ export function GrowthSection() {
               onMouseLeave={handleMouseLeave}
             />
           ))}
+        </div>
+
+        {/* Professional Certifications & Hackathon Honors Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
+          
+          {/* Left Column: Certifications Showcase */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-2 select-none border-b border-white/10 pb-4">
+              <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-amber-300 uppercase tracking-wide">
+                <FileCheck size={14} className="text-amber-400" />
+                <span>Professional Certifications</span>
+              </div>
+              <h3 className="text-2xl font-display font-bold uppercase text-white">
+                Verified Credentials
+              </h3>
+            </div>
+
+            <div className="space-y-3.5">
+              {bioData.certifications.map((cert) => (
+                <div
+                  key={cert.name}
+                  className="glass-panel p-5 rounded-2xl border border-white/10 space-y-1.5 hover:border-amber-500/40 transition-colors"
+                >
+                  <div className="flex justify-between items-start">
+                    <h4 className="font-display text-base font-bold text-white uppercase tracking-tight">
+                      {cert.name}
+                    </h4>
+                    <span className="text-[10px] font-sans font-bold text-amber-300 bg-amber-950/60 border border-amber-500/30 px-2 py-0.5 rounded-md uppercase">
+                      {cert.date}
+                    </span>
+                  </div>
+                  <p className="font-sans text-xs text-muted/90 flex items-center gap-2">
+                    <span className="text-cyan-300 font-semibold">{cert.issuer}</span>
+                    <span className="text-muted/40">·</span>
+                    <span className="text-purple-300">{cert.type}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Hackathon Honors & Leadership */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-2 select-none border-b border-white/10 pb-4">
+              <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-cyan-300 uppercase tracking-wide">
+                <Trophy size={14} className="text-cyan-400" />
+                <span>Achievements & Leadership</span>
+              </div>
+              <h3 className="text-2xl font-display font-bold uppercase text-white">
+                Hackathons & Community
+              </h3>
+            </div>
+
+            <div className="space-y-3.5">
+              {bioData.achievements.map((item) => (
+                <div
+                  key={item.title}
+                  className="glass-panel p-5 rounded-2xl border border-white/10 space-y-1.5 hover:border-cyan-500/40 transition-colors"
+                >
+                  <div className="flex justify-between items-start">
+                    <h4 className="font-display text-base font-bold text-white uppercase tracking-tight">
+                      {item.title}
+                    </h4>
+                    <span className="text-[10px] font-sans font-bold text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2 py-0.5 rounded-md uppercase">
+                      {item.event}
+                    </span>
+                  </div>
+                  <p className="font-sans text-xs text-muted/90 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
 
         {/* Profile section header */}

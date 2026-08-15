@@ -11,28 +11,27 @@ import {
   Zap,
   Activity,
   Cpu,
-  ShieldCheck,
   MapPin,
   GraduationCap,
-  ChevronDown,
+  Award,
 } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
 import { HeroScene } from "./HeroScene";
 import bioData from "@/lib/content/bio.json";
 
 const techStackList = [
-  { name: "PyTorch", category: "AI / ML" },
-  { name: "FastAPI", category: "Backend" },
-  { name: "Python", category: "Core" },
-  { name: "Transformers", category: "AI / ML" },
-  { name: "Next.js 16", category: "Full-Stack" },
-  { name: "React 19", category: "Frontend" },
-  { name: "ONNX Runtime", category: "Edge AI" },
-  { name: "LangChain & LangGraph", category: "Agentic AI" },
-  { name: "Docker", category: "DevOps" },
-  { name: "PostgreSQL & Vector DBs", category: "Data" },
-  { name: "Three.js & WebGL", category: "3D Graphics" },
-  { name: "TypeScript", category: "Core" },
+  { name: "Python", category: "Core AI & ML" },
+  { name: "React Native", category: "Mobile Apps" },
+  { name: "FastAPI", category: "High-Perf Backend" },
+  { name: "PyTorch", category: "Deep Learning" },
+  { name: "React.js", category: "Frontend" },
+  { name: "PostgreSQL", category: "Database" },
+  { name: "Expo", category: "Cross-Platform" },
+  { name: "Node.js", category: "Backend" },
+  { name: "TypeScript", category: "Type-Safe" },
+  { name: "Java & C++", category: "Algorithms & OOP" },
+  { name: "Computer Vision", category: "AI Systems" },
+  { name: "Docker & Vercel", category: "DevOps & Cloud" },
 ];
 
 const marqueeItems = [...techStackList, ...techStackList, ...techStackList];
@@ -75,7 +74,7 @@ export function Hero() {
       activeNodes: randomNodes,
     });
 
-    setTimeout(() => setIsScanning(false), 800);
+    setTimeout(() => setIsScanning(false), 700);
   };
 
   const handleMouseEnter = (label: string) => {
@@ -104,7 +103,7 @@ export function Hero() {
         transition: "opacity 0.8s ease",
       }}
     >
-      {/* 3D WebGL Background Canvas (Constellation & Aurora Shader) */}
+      {/* 3D WebGL Background Canvas */}
       <div className="absolute inset-0 z-canvas pointer-events-none opacity-75">
         <View className="w-full h-full">
           <HeroScene />
@@ -122,64 +121,78 @@ export function Hero() {
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16 my-auto relative z-base select-none py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* ─── LEFT COLUMN: Title & Authority ─── */}
-          <div className="lg:col-span-7 space-y-7 text-left">
+          {/* ─── LEFT COLUMN: High-Impact Typography & Narrative ─── */}
+          <div className="lg:col-span-7 space-y-6 text-left">
             
-            {/* Live Availability Status Pill */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.15)]">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span className="font-sans text-xs font-semibold text-emerald-300 tracking-wide">
-                Available for AI & Machine Learning Roles
-              </span>
+            {/* Top Badge & Live Status */}
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-purple-500/40 bg-purple-950/50 backdrop-blur-md shadow-[0_0_15px_rgba(147,51,234,0.2)]">
+                <Sparkles size={13} className="text-cyan-400" />
+                <span className="font-sans text-xs font-bold text-purple-200 uppercase tracking-wider">
+                  AI Systems & Software Engineer
+                </span>
+              </div>
+
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="font-sans text-xs font-semibold text-emerald-300">
+                  Open to AI & Software Roles
+                </span>
+              </div>
             </div>
 
-            {/* Main Headline */}
+            {/* Massive Punchy Statement Typography */}
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-display font-extrabold tracking-tight leading-[1.05] text-white">
-                Engineering <br className="hidden sm:inline" />
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-display font-extrabold tracking-tight leading-[1.05] text-white">
+                Architecting <br className="hidden sm:inline" />
                 <span className="text-gradient-purple-cyan">
-                  Autonomous AI
+                  Intelligence.
                 </span>{" "}
                 <br className="hidden sm:inline" />
-                & Robust Systems.
+                Deploying <span className="italic font-light text-cyan-300">Scalable Systems</span>.
               </h1>
 
+              {/* Engaging Narrative Story */}
               <p className="text-muted text-base sm:text-lg max-w-xl leading-relaxed font-sans font-normal pt-1">
-                Hi, I&apos;m <span className="text-white font-semibold">{bioData.name}</span> — an AI & Machine Learning Engineer specializing in deep learning inference pipelines, intelligent agentic workflows, and high-performance full-stack architectures.
+                I&apos;m <span className="text-white font-bold">{bioData.name}</span> — a Computer Science Engineer specializing in <span className="text-purple-300 font-medium">Artificial Intelligence & Machine Learning</span> at SRM IST. Experienced across full-stack web architectures, React Native mobile apps, and deep learning pipelines.
               </p>
             </div>
 
-            {/* Academic & Competency Badges */}
-            <div className="flex flex-wrap gap-2.5 pt-1">
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-1 border border-border-subtle/80 font-sans text-xs font-semibold text-amber-300">
-                <GraduationCap size={14} className="text-amber-400" />
-                <span>CGPA 9.70 · SRM IST</span>
+            {/* Live Telemetry Status Bar with 9.74 CGPA & Perfect 10 Sem 2 */}
+            <div className="p-3.5 rounded-2xl bg-surface-1/90 border border-white/10 flex flex-wrap items-center gap-y-2 gap-x-5 font-sans text-xs max-w-xl">
+              <div className="flex items-center gap-1.5 text-amber-300 font-semibold">
+                <GraduationCap size={15} className="text-amber-400" />
+                <span>9.74 CGPA (97.4%) · SRM IST</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-1 border border-border-subtle/80 font-sans text-xs font-semibold text-cyan-300">
+              <div className="flex items-center gap-1.5 text-emerald-300 font-semibold">
+                <Award size={14} className="text-emerald-400" />
+                <span>Sem 2: 10/10 Perfect GPA</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-cyan-300 font-semibold">
                 <Cpu size={14} className="text-cyan-400" />
-                <span>10+ Production AI Models</span>
+                <span>ISRO & AWS Certified</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-1 border border-border-subtle/80 font-sans text-xs font-semibold text-purple-300">
+              <div className="flex items-center gap-1.5 text-purple-300 font-semibold">
                 <MapPin size={14} className="text-purple-400" />
                 <span>Chennai, India</span>
               </div>
             </div>
 
             {/* Action CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-3">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <button
                 onClick={() => scrollToSection("projects")}
                 onMouseEnter={() => handleMouseEnter("Explore Projects")}
                 onMouseLeave={handleMouseLeave}
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-sans text-xs sm:text-sm font-bold uppercase tracking-wider text-white cursor-pointer transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-purple-600/30"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-sans text-xs sm:text-sm font-bold uppercase tracking-wider text-white cursor-pointer transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-purple-600/35"
                 style={{
                   background: "linear-gradient(135deg, #9333ea, #6366f1, #22d3ee)",
                 }}
               >
-                <span>Explore AI Systems</span>
+                <span>Explore Engineered Systems</span>
                 <ArrowRight size={16} />
               </button>
 
@@ -190,17 +203,19 @@ export function Hero() {
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider text-white border border-border-subtle hover:border-cyan-400/60 bg-surface-1/70 backdrop-blur-md hover:bg-surface-2 transition-all duration-300 cursor-pointer"
               >
                 <Mail size={15} className="text-cyan-400" />
-                <span>Get In Touch</span>
+                <span>Let&apos;s Connect</span>
               </a>
 
               <a
-                href="#"
-                onMouseEnter={() => handleMouseEnter("Download Resume")}
+                href={bioData.resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                onMouseEnter={() => handleMouseEnter("View Resume")}
                 onMouseLeave={handleMouseLeave}
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider text-muted hover:text-white border border-border-subtle/60 bg-surface-1/40 hover:bg-surface-1 transition-all duration-300 cursor-pointer"
               >
                 <Download size={14} className="text-purple-400" />
-                <span>Resume</span>
+                <span>View Resume</span>
               </a>
             </div>
 
@@ -220,11 +235,11 @@ export function Hero() {
                 <div className="flex items-center justify-between border-b border-white/10 pb-3 font-sans text-xs">
                   <div className="flex items-center gap-2 text-cyan-400 font-semibold uppercase tracking-wider">
                     <Zap size={14} className="animate-bounce" />
-                    <span>Neural Core v4.2</span>
+                    <span>Engineering Core</span>
                   </div>
                   <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-[11px]">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    <span>STATE: OPTIMIZED</span>
+                    <span>CGPA: 9.74 / 10</span>
                   </div>
                 </div>
 
@@ -239,35 +254,35 @@ export function Hero() {
                         priority
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       />
-                      {/* Subtly animated scanning line */}
+                      {/* Scanning effect */}
                       {isScanning && (
                         <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/0 via-cyan-400/30 to-purple-500/0 animate-pulse pointer-events-none" />
                       )}
                     </div>
                   </div>
 
-                  {/* Orbiting Tech Floating Badges */}
-                  <div className="absolute -left-2 top-4 px-3 py-1 rounded-lg bg-surface-2/90 border border-purple-500/40 text-[11px] font-sans font-bold text-purple-300 shadow-md backdrop-blur-md">
-                    PyTorch 2.0
+                  {/* Floating Tech Badges */}
+                  <div className="absolute -left-2 top-4 px-3 py-1 rounded-lg bg-surface-2/95 border border-purple-500/40 text-[11px] font-sans font-bold text-purple-300 shadow-md backdrop-blur-md">
+                    Python · PyTorch
                   </div>
-                  <div className="absolute -right-2 bottom-8 px-3 py-1 rounded-lg bg-surface-2/90 border border-cyan-500/40 text-[11px] font-sans font-bold text-cyan-300 shadow-md backdrop-blur-md">
-                    FastAPI · ONNX
+                  <div className="absolute -right-2 bottom-8 px-3 py-1 rounded-lg bg-surface-2/95 border border-cyan-500/40 text-[11px] font-sans font-bold text-cyan-300 shadow-md backdrop-blur-md">
+                    React Native · Expo
                   </div>
                 </div>
 
-                {/* Live Real-Time Telemetry Readout */}
+                {/* Telemetry Metrics */}
                 <div className="grid grid-cols-3 gap-2.5 p-3.5 rounded-2xl bg-surface-2/80 border border-white/5 font-sans text-center">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] text-muted uppercase font-medium block">Latency</span>
-                    <span className="text-cyan-400 font-bold text-xs">{scanTelemetry.latency}</span>
+                    <span className="text-[10px] text-muted uppercase font-medium block">Internships</span>
+                    <span className="text-cyan-400 font-bold text-xs">RideAbit & QRaptor</span>
                   </div>
                   <div className="space-y-0.5 border-x border-white/10">
-                    <span className="text-[10px] text-muted uppercase font-medium block">Accuracy</span>
-                    <span className="text-emerald-400 font-bold text-xs">{scanTelemetry.accuracy}</span>
+                    <span className="text-[10px] text-muted uppercase font-medium block">Hackathons</span>
+                    <span className="text-emerald-400 font-bold text-xs">Top 20 Finalist</span>
                   </div>
                   <div className="space-y-0.5">
-                    <span className="text-[10px] text-muted uppercase font-medium block">Nodes</span>
-                    <span className="text-purple-300 font-bold text-xs">{scanTelemetry.activeNodes} Active</span>
+                    <span className="text-[10px] text-muted uppercase font-medium block">Education</span>
+                    <span className="text-purple-300 font-bold text-xs">SRM IST (2028)</span>
                   </div>
                 </div>
 
@@ -277,7 +292,7 @@ export function Hero() {
                   className="w-full py-2.5 rounded-xl font-sans text-xs font-semibold uppercase tracking-wider text-white border border-purple-500/40 bg-purple-950/40 hover:bg-purple-900/50 hover:border-cyan-400/60 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Activity size={14} className={isScanning ? "animate-spin text-cyan-400" : "text-purple-400"} />
-                  <span>{isScanning ? "Evaluating Synaptic Weights..." : "Trigger Live Neural Benchmark"}</span>
+                  <span>{isScanning ? "Evaluating System State..." : "Trigger System Calibration"}</span>
                 </button>
 
               </div>

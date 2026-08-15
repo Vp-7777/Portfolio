@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
 import { cn } from "@/lib/utils";
+import bioData from "@/lib/content/bio.json";
 
 const navLinks = [
   { id: "hero",       label: "Home",       Icon: Zap },
@@ -133,13 +134,15 @@ export function Navbar() {
         {/* Action Button: Download CV */}
         <div className="hidden md:flex items-center">
           <a
-            href="#"
-            onMouseEnter={() => handleMouseEnter("Download CV")}
+            href={bioData.resumeUrl}
+            target="_blank"
+            rel="noreferrer"
+            onMouseEnter={() => handleMouseEnter("View Resume")}
             onMouseLeave={handleMouseLeave}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-sans text-xs font-semibold uppercase tracking-wider text-white border border-border-subtle hover:border-cyan-400/50 hover:bg-surface-2 transition-all duration-300 shadow-md cursor-pointer"
           >
             <Download size={13} className="text-cyan-400" />
-            <span>Download CV</span>
+            <span>Resume</span>
           </a>
         </div>
 
