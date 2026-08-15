@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <main className="relative bg-background">
       <Hero />
-      <ExperienceSection />
       <ProjectsSection />
+      <ExperienceSection />
       <GrowthSection />
       <OutlookSection />
       <ContactSection />

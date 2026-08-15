@@ -85,12 +85,12 @@ export function OutlookSection() {
     <Section
       ref={containerRef}
       chapter="forward"
-      className="relative bg-background border-t border-border-subtle py-16 md:py-24 overflow-hidden"
+      className="relative bg-[#05040d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 overflow-hidden"
     >
       {/* Background ambient blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[10%] right-[5%] w-[400px] h-[400px] rounded-full bg-violet-700 opacity-10 blur-[160px]" />
-        <div className="absolute bottom-[5%] left-[10%] w-[350px] h-[350px] rounded-full bg-indigo-700 opacity-10 blur-[140px]" />
+        <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-purple-900/15 blur-[180px]" />
+        <div className="absolute bottom-[5%] left-[10%] w-[450px] h-[450px] rounded-full bg-cyan-900/15 blur-[170px]" />
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-28 relative">

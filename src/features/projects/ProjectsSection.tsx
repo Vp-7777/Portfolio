@@ -1,21 +1,19 @@
 "use client";
 
 import { useRef } from "react";
-import { View } from "@react-three/drei";
 import { useSystemStore } from "@/store/useSystemStore";
-import { ProjectsScene } from "./ProjectsScene";
 import { Button } from "@/features/ui/Button";
 import { ProjectDetail } from "./ProjectDetail";
 import { BentoTile } from "@/features/ui/BentoTile";
 import { ProjectSimulator } from "./ProjectSimulator";
 import projectsData from "@/lib/content/projects.json";
+import { Sparkles, Layers, ArrowUpRight, Cpu } from "lucide-react";
 
 export function ProjectsSection() {
   const containerRef = useRef<HTMLElement>(null);
   const setActiveProject = useSystemStore((state) => state.setActiveProject);
   const setCursorVariant = useSystemStore((state) => state.setCursorVariant);
   const setCursorLabel = useSystemStore((state) => state.setCursorLabel);
-  const fadeRef = useRef({ val: 0 });
 
   const handleMouseEnter = (label: string) => {
     setCursorVariant("hover");
@@ -31,92 +29,61 @@ export function ProjectsSection() {
     <section
       ref={containerRef}
       data-chapter="projects"
-      className="relative w-full bg-background text-foreground border-t border-border-subtle py-16 md:py-24 overflow-hidden"
+      className="relative bg-[#05040d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 overflow-hidden"
     >
-      {/* 3D Background Ported Viewport */}
-      <div className="absolute inset-0 z-base pointer-events-none flex items-center justify-center opacity-20 mix-blend-screen">
-        <div className="absolute w-[70vw] h-[70vw] md:w-[45vw] md:h-[45vw]">
-          <View className="w-full h-full">
-            <ProjectsScene fadeRef={fadeRef} />
-          </View>
-        </div>
-      </div>
-
-      {/* Background ambient blobs */}
+      {/* Ambient background light blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[15%] left-[5%] w-[500px] h-[500px] rounded-full bg-purple-700 opacity-10 blur-[180px]" />
-        <div className="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full bg-cyan-700 opacity-10 blur-[150px]" />
+        <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full bg-purple-900/15 blur-[180px]" />
+        <div className="absolute bottom-[15%] right-[5%] w-[550px] h-[550px] rounded-full bg-cyan-900/15 blur-[170px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-14 relative z-hover space-y-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-base space-y-16">
 
         {/* Section Header */}
-        <div className="space-y-4 max-w-2xl select-none">
-          <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10 uppercase">
-            Featured Projects
+        <div className="space-y-4 max-w-2xl select-none text-left">
+          <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-4 py-1 bg-purple-500/10 uppercase">
+            <Cpu size={14} className="text-cyan-400" />
+            <span>AI & Systems Lab</span>
           </div>
-          <h2
-            className="font-display font-extrabold uppercase tracking-tight leading-none"
-            style={{
-              fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #22d3ee 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            ENGINEERED{" "}
-            <span
-              className="italic font-light"
-              style={{
-                background: "linear-gradient(135deg, #c084fc, #a78bfa)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              SYSTEMS
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
+            Featured <span className="text-gradient-purple-cyan">Engineered Systems</span>
           </h2>
-          <p className="text-muted text-base leading-relaxed max-w-md font-sans">
-            Production-ready applications and machine learning engines built with explicit privacy,
-            low latency, and systemic architecture in mind.
+          <p className="text-muted text-base md:text-lg font-sans leading-relaxed">
+            Production-grade machine learning models and scalable software platforms engineered with explicit focus on sub-millisecond latency, data privacy, and clean architecture.
           </p>
         </div>
 
-        {/* Projects Showcase Cards Vertical Layout */}
-        <div className="space-y-8">
+        {/* Vertical Bento Showcase List */}
+        <div className="flex flex-col gap-10">
           {projectsData.map((project, i) => (
             <BentoTile
               key={project.id}
               glowColor={i % 2 === 0 ? "purple" : "cyan"}
               cursorLabel={`EXPLORE // ${project.id.toUpperCase()}`}
-              className="spotlight-card p-8 md:p-12 rounded-2xl space-y-6 w-full relative group cursor-default"
+              className="glass-panel p-8 md:p-12 rounded-[28px] space-y-7 w-full relative group cursor-default"
             >
               {/* Ghost background index number */}
-              <div className="absolute right-8 top-4 font-display font-black text-8xl md:text-9xl text-white/[0.03] select-none pointer-events-none uppercase tracking-tighter">
+              <div className="absolute right-8 top-4 font-display font-black text-8xl md:text-9xl text-white/[0.02] select-none pointer-events-none uppercase tracking-tighter">
                 0{i + 1}
               </div>
 
-              {/* Project Title & Role */}
-              <div className="space-y-2 relative z-base">
-                <div className="font-mono text-[10px] text-muted tracking-widest uppercase flex items-center gap-2">
-                  <span className="text-cyan-400">PROJECT 0{i + 1}</span>
-                  <span className="text-muted/40">//</span>
-                  <span>{project.role}</span>
+              {/* Project Header Row */}
+              <div className="flex flex-wrap items-center justify-between gap-3 relative z-base border-b border-white/10 pb-4">
+                <div className="space-y-1">
+                  <div className="font-sans text-xs font-semibold text-cyan-400 tracking-wide uppercase flex items-center gap-2">
+                    <span>Project 0{i + 1}</span>
+                    <span className="text-muted/40">·</span>
+                    <span className="text-purple-300">{project.role}</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold uppercase tracking-tight text-white pt-1">
+                    {project.name}
+                  </h3>
                 </div>
-                <h3
-                  className="font-display font-extrabold uppercase tracking-tight leading-none"
-                  style={{
-                    fontSize: "clamp(2rem, 4.5vw, 3.8rem)",
-                    background: "linear-gradient(135deg, #ffffff 0%, #c084fc 60%, #22d3ee 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  {project.name}
-                </h3>
+
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-surface-2 border border-amber-500/30 text-amber-300 font-sans text-xs font-bold uppercase">
+                  <span>Impact:</span>
+                  <span className="text-white">{project.narrative.metrics}</span>
+                </div>
               </div>
 
               {/* Description */}
@@ -124,38 +91,33 @@ export function ProjectsSection() {
                 {project.description}
               </p>
 
-              {/* Interactive Simulator */}
-              <ProjectSimulator projectId={project.id} />
+              {/* High-Fidelity Interactive Project Simulator */}
+              <div className="relative z-base">
+                <ProjectSimulator projectId={project.id} />
+              </div>
 
-              {/* Metrics Badge & Tech Tags Row */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-border-subtle/50 relative z-base">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-2/80 border border-amber-500/30 text-amber-300 font-sans text-xs font-bold uppercase">
-                  <span>Key Metric:</span>
-                  <span className="text-white">{project.narrative.metrics}</span>
-                </div>
-
+              {/* Tech Stack Chips & Action CTA */}
+              <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-white/10 relative z-base">
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-xs font-sans font-medium text-muted px-3 py-1.5 border border-border-subtle/60 bg-surface-2/60 uppercase rounded-lg hover:border-cyan-400/50 hover:text-white transition-colors duration-200"
+                      className="text-xs font-sans font-medium text-muted/90 px-3.5 py-1.5 border border-white/10 bg-surface-2/70 uppercase rounded-xl hover:border-cyan-400/50 hover:text-white transition-colors duration-200"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-              </div>
 
-              {/* Action Button */}
-              <div className="pt-2 relative z-base">
-                <Button
+                <button
                   onClick={() => setActiveProject(project.id)}
-                  onMouseEnter={() => handleMouseEnter(`OPEN // ${project.id.toUpperCase()}`)}
+                  onMouseEnter={() => handleMouseEnter(`View ${project.name}`)}
                   onMouseLeave={handleMouseLeave}
-                  className="cursor-pointer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-sans text-xs font-bold uppercase tracking-wider text-white border border-purple-500/40 bg-purple-950/40 hover:bg-purple-900/60 hover:border-cyan-400/60 transition-all duration-300 cursor-pointer shadow-md"
                 >
-                  Explore System Architecture
-                </Button>
+                  <span>Explore Architecture</span>
+                  <ArrowUpRight size={15} className="text-cyan-400" />
+                </button>
               </div>
             </BentoTile>
           ))}

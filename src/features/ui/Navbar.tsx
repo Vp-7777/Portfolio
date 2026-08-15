@@ -16,11 +16,11 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { id: "hero",       label: "Home",       Icon: Zap },
+  { id: "projects",   label: "AI Systems", Icon: FolderKanban },
   { id: "experience", label: "Experience", Icon: Briefcase },
-  { id: "projects",   label: "Projects",   Icon: FolderKanban },
-  { id: "growth",     label: "Growth",     Icon: TrendingUp },
-  { id: "forward",    label: "Outlook",    Icon: Telescope },
-  { id: "connect",    label: "Connect",    Icon: Send },
+  { id: "growth",     label: "Milestones", Icon: TrendingUp },
+  { id: "forward",    label: "Vision",     Icon: Telescope },
+  { id: "connect",    label: "Contact",    Icon: Send },
 ];
 
 export function Navbar() {
@@ -59,11 +59,11 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 w-full z-nav px-8 py-3.5 transition-transform duration-500 ease-precision",
-        "bg-[#020108]/40 backdrop-blur-xl border-b border-purple-900/25",
+        "fixed top-0 left-0 w-full z-nav px-6 sm:px-10 py-4 transition-transform duration-500 ease-precision",
+        "bg-[#05040d]/75 backdrop-blur-2xl border-b border-white/10",
         isHidden ? "-translate-y-full" : "translate-y-0"
       )}
-      style={{ boxShadow: "0 1px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(147,51,234,0.04)" }}
+      style={{ boxShadow: "0 4px 30px rgba(0,0,0,0.6)" }}
     >
       {/* Scroll Progress Line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-surface-2 overflow-hidden pointer-events-none">
