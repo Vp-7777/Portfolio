@@ -63,7 +63,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#05040d] border-t border-white/10 py-16 px-6 md:px-12 lg:px-16">
+    <footer className="w-full bg-[#07080d] border-t border-white/10 py-16 px-6 md:px-12 lg:px-16">
       <div className="max-w-7xl mx-auto space-y-12">
 
         {/* Top row */}

@@ -59,12 +59,12 @@ export function ContactSection() {
   return (
     <Section
       chapter="connect"
-      className="relative bg-[#05040d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 flex flex-col justify-between overflow-hidden"
+      className="relative bg-[#07080d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 flex flex-col justify-between overflow-hidden"
     >
       {/* Background ambient blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[10%] left-[15%] w-[550px] h-[550px] rounded-full bg-purple-700/15 blur-[180px]" />
-        <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full bg-indigo-700/15 blur-[160px]" />
+        <div className="absolute top-[10%] left-[15%] w-[550px] h-[550px] rounded-full bg-purple-600/10 blur-[180px]" />
+        <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 blur-[160px]" />
       </div>
 
       <div className="max-w-7xl mx-auto w-full space-y-16 relative z-base">

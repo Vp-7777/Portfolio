@@ -27,12 +27,12 @@ export function ProjectsSection() {
     <section
       ref={containerRef}
       data-chapter="projects"
-      className="relative bg-[#05040d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 overflow-hidden"
+      className="relative bg-[#07080d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 overflow-hidden"
     >
       {/* Ambient background light blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full bg-purple-900/15 blur-[180px]" />
-        <div className="absolute bottom-[15%] right-[5%] w-[550px] h-[550px] rounded-full bg-cyan-900/15 blur-[170px]" />
+        <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full bg-purple-600/10 blur-[180px]" />
+        <div className="absolute bottom-[15%] right-[5%] w-[550px] h-[550px] rounded-full bg-cyan-600/10 blur-[170px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-base space-y-16">

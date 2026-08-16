@@ -24,12 +24,12 @@ export function ExperienceSection() {
   return (
     <section
       data-chapter="experience"
-      className="relative bg-[#05040d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 overflow-hidden"
+      className="relative bg-[#07080d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 overflow-hidden"
     >
       {/* Background ambient lighting */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-purple-900/15 blur-[180px]" />
-        <div className="absolute bottom-[10%] left-[5%] w-[450px] h-[450px] rounded-full bg-cyan-900/15 blur-[160px]" />
+        <div className="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[180px]" />
+        <div className="absolute bottom-[10%] left-[5%] w-[450px] h-[450px] rounded-full bg-cyan-600/10 blur-[160px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 space-y-14 relative z-base">
