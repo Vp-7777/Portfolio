@@ -76,32 +76,22 @@ export function CustomCursor() {
 
     if (cursorVariant === "hover") {
       gsap.to(outerEl, {
-        width: 52,
-        height: 52,
-        backgroundColor: "rgba(34, 211, 238, 0.08)",
-        borderColor: "#22d3ee",
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    } else if (cursorVariant === "drag") {
-      gsap.to(outerEl, {
-        width: 60,
-        height: 60,
-        backgroundColor: "rgba(147, 51, 234, 0.15)",
-        borderColor: "#9333ea",
-        borderRadius: "12px",
-        duration: 0.3,
+        width: 48,
+        height: 48,
+        backgroundColor: "rgba(79, 70, 229, 0.08)",
+        borderColor: "#4f46e5",
+        duration: 0.25,
         ease: "power2.out",
       });
     } else {
       // Default ring state
       gsap.to(outerEl, {
-        width: 32,
-        height: 32,
+        width: 28,
+        height: 28,
         backgroundColor: "transparent",
-        borderColor: "rgba(255, 255, 255, 0.35)",
+        borderColor: "rgba(15, 23, 42, 0.25)",
         borderRadius: "50%",
-        duration: 0.3,
+        duration: 0.25,
         ease: "power2.out",
       });
     }
@@ -114,13 +104,12 @@ export function CustomCursor() {
       {/* Outer Ring */}
       <div
         ref={outerRef}
-        className={`fixed top-0 left-0 w-8 h-8 rounded-full border border-white/35 pointer-events-none -translate-x-1/2 -translate-y-1/2 z-cursor transition-opacity duration-300 flex items-center justify-center ${
+        className={`fixed top-0 left-0 w-7 h-7 rounded-full border border-slate-400/40 pointer-events-none -translate-x-1/2 -translate-y-1/2 z-cursor transition-opacity duration-200 flex items-center justify-center ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
-        style={{ boxShadow: "0 0 15px rgba(34,211,238,0.15)" }}
       >
         {cursorLabel && (
-          <span className="absolute whitespace-nowrap text-[8px] font-mono tracking-widest text-cyan-300 uppercase animate-cursor-orbit">
+          <span className="absolute whitespace-nowrap text-[8px] font-mono font-bold tracking-wider text-indigo-brand uppercase -top-5">
             {cursorLabel}
           </span>
         )}
@@ -129,7 +118,7 @@ export function CustomCursor() {
       {/* Inner Dot */}
       <div
         ref={innerRef}
-        className={`fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-cyan-400 pointer-events-none -translate-x-1/2 -translate-y-1/2 z-cursor transition-opacity duration-300 ${
+        className={`fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-indigo-brand pointer-events-none -translate-x-1/2 -translate-y-1/2 z-cursor transition-opacity duration-200 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       />

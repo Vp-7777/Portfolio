@@ -1,129 +1,134 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: #07080d;
-    --surface-1: rgba(15, 17, 26, 0.75);
-    --surface-2: rgba(22, 26, 40, 0.8);
-    --surface-3: rgba(30, 35, 55, 0.85);
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.16);
-    --border-accent: rgba(56, 189, 248, 0.3);
-    --foreground: #f8fafc;
-    --muted: #94a3b8;
-    --accent: #38bdf8;
-    --accent-violet: #a855f7;
-    --accent-emerald: #10b981;
-    --accent-amber: #fbbf24;
-  }
+/* ═══════════════════════════════════════════════════════════════
+   PURE MINIMALIST STUDIO DESIGN SYSTEM (v12.0)
+   Bright, Crisp, Elegant & High-Contrast Light Theme for Vishal Patel
+   ═══════════════════════════════════════════════════════════════ */
+
+@theme {
+  --color-canvas: #f8fafc;
+  --color-canvas-white: #ffffff;
+  --color-canvas-subtle: #f1f5f9;
+  --color-canvas-card: #ffffff;
+  --color-canvas-border: #e2e8f0;
+
+  --color-ink: #0f172a;
+  --color-ink-secondary: #334155;
+  --color-ink-muted: #64748b;
+  --color-ink-faint: #94a3b8;
+
+  --color-indigo-brand: #4f46e5;
+  --color-indigo-hover: #4338ca;
+  --color-indigo-light: #eef2ff;
+
+  --color-emerald-brand: #059669;
+  --color-emerald-light: #ecfdf5;
+
+  --color-amber-brand: #d97706;
+  --color-amber-light: #fffbeb;
+
+  --color-sky-brand: #0284c7;
+  --color-sky-light: #f0f9ff;
+
+  --font-sans: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-mono), 'Space Grotesk', monospace;
+
+  --z-canvas: 0;
+  --z-base: 10;
+  --z-hover: 20;
+  --z-nav: 50;
+  --z-drawer: 90;
+  --z-cursor: 100;
 }
 
-html, body {
-  background-color: #07080d;
-  color: #f8fafc;
-  overflow-x: hidden;
-  font-family: 'Plus Jakarta Sans', var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+/* ── Base Reset & Defaults ── */
+html {
   scroll-behavior: smooth;
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
 ::selection {
-  background-color: #0284c7;
-  color: #ffffff;
+  background-color: rgba(79, 70, 229, 0.15);
+  color: #1e1b4b;
 }
 
-/* Luminous Background Grid */
-.bg-grid-pattern {
+/* ── Studio Card System ── */
+.studio-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.studio-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  transform: translateY(-2px);
+}
+
+/* ── Subtle Light Grid ── */
+.bg-light-grid {
+  background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 44px 44px;
+    linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
 }
 
-/* Frosted Titanium Glass Panel */
-.glass-panel {
-  background: rgba(13, 16, 26, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 30px -1px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-.glass-panel:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-}
-
-/* Spotlight Card with Mouse Glow Tracking */
-.spotlight-card {
-  position: relative;
-  background: rgba(13, 16, 26, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-}
-
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(56, 189, 248, 0.07),
-    transparent 40%
-  );
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 1;
-}
-
-/* Refined Gradient Text Utilities */
-.text-gradient-cyan-purple {
-  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #c084fc 100%);
+/* ── Refined Gradient Text ── */
+.text-brand-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #4338ca 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.text-gradient-amber {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+.text-indigo-gradient {
+  background: linear-gradient(135deg, #4f46e5 0%, #0284c7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Marquee animation */
+/* ── Infinite Smooth Marquee ── */
 @keyframes marquee {
   0% { transform: translateX(0%); }
-  100% { transform: translateX(-33.333%); }
+  100% { transform: translateX(-50%); }
 }
 
-.animate-marquee {
+.animate-marquee-smooth {
   display: flex;
   width: max-content;
-  animation: marquee 35s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-marquee-smooth:hover {
   animation-play-state: paused;
 }
 
-/* Custom scrollbar */
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #07080d;
+  background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e2438;
-  border-radius: 3px;
+  background: #cbd5e1;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }

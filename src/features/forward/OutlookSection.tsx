@@ -1,79 +1,39 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Bot, Cpu, Globe } from "lucide-react";
+import { Bot, Cpu, Globe, ArrowUpRight, Sparkles } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
-import { Section } from "@/features/ui/Section";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const focusAreas = [
   {
     index: "01",
-    field: "AGENTIC SYSTEM ORCHESTRATION",
-    tech: "LangGraph, LangChain, Vector Databases",
-    desc: "Designing secure, tool-enabled AI agents capable of autonomous execution, planning, and multi-turn collaboration under strict guardrails.",
-    Icon: Bot,
+    field: "AGENTIC AI & AUTONOMOUS ORCHESTRATION",
+    tech: "LangGraph · Vector Memory · Tool Loops",
+    desc: "Architecting self-correcting agent loops with verifiable guardrails, persistent memory structures, and autonomous multi-agent consensus protocols.",
+    icon: Bot,
   },
   {
     index: "02",
-    field: "EDGE INFERENCE & COMPILATION",
-    tech: "ONNX Runtime, Quantization, WebAssembly",
-    desc: "Compiling and deploying deep learning models locally inside client browsers and low-power IoT architectures, bypassing remote API points of failure.",
-    Icon: Cpu,
+    field: "EDGE DEEP LEARNING & ON-DEVICE COMPILATION",
+    tech: "ONNX Runtime · INT8 Quantization · WebAssembly",
+    desc: "Compiling neural networks to execute on local consumer hardware (mobile CPUs, WebGPU, and embedded microcontrollers) with sub-15ms inference guarantees.",
+    icon: Cpu,
   },
   {
     index: "03",
-    field: "DISTRIBUTED SPATIAL COMPUTING",
-    tech: "PyTorch, FastAPI, GPU Ingestion Pipelines",
-    desc: "Optimizing high-throughput geo-spatial and visual datasets using custom multi-threaded loaders to deliver real-time visual maps.",
-    Icon: Globe,
+    field: "DISTRIBUTED GEOSPATIAL & COMPUTER VISION",
+    tech: "PyTorch · Tiling Pipelines · Real-Time Segmentation",
+    desc: "Scaling high-throughput visual pipelines for satellite imagery and drone telemetry to deliver actionable environmental and climate analytics.",
+    icon: Globe,
   },
 ];
 
 export function OutlookSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-
   const setCursorVariant = useSystemStore((state) => state.setCursorVariant);
   const setCursorLabel = useSystemStore((state) => state.setCursorLabel);
-  const reducedMotion = useSystemStore((state) => state.reducedMotion);
 
-  useEffect(() => {
-    if (reducedMotion) return;
-    if (!containerRef.current || !listRef.current) return;
-
-    const items = listRef.current.querySelectorAll(".outlook-item");
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        items,
-        { opacity: 0, x: -30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1.0,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-            once: true,
-          },
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [reducedMotion]);
-
-  const handleMouseEnter = (field: string) => {
+  const handleMouseEnter = (label: string) => {
     setCursorVariant("hover");
-    setCursorLabel(`EXPLORE // ${field}`);
+    setCursorLabel(label);
   };
 
   const handleMouseLeave = () => {
@@ -82,95 +42,78 @@ export function OutlookSection() {
   };
 
   return (
-    <Section
-      ref={containerRef}
-      chapter="forward"
-      className="relative bg-[#05040d] bg-grid-pattern border-t border-white/10 py-20 md:py-28 overflow-hidden"
+    <section
+      data-chapter="forward"
+      className="relative w-full min-h-screen bg-canvas py-28 sm:py-36 px-6 sm:px-10 lg:px-12 overflow-hidden border-t border-slate-200"
     >
-      {/* Background ambient blobs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-purple-900/15 blur-[180px]" />
-        <div className="absolute bottom-[5%] left-[10%] w-[450px] h-[450px] rounded-full bg-cyan-900/15 blur-[170px]" />
-      </div>
-
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-28 relative">
-
-        {/* Left Side: Ambition Statement */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-purple-300 tracking-wide border border-purple-500/30 rounded-full px-3.5 py-1 bg-purple-500/10 uppercase">
-            Future Vision
+      <div className="max-w-7xl mx-auto relative z-base space-y-16">
+        
+        {/* Header */}
+        <div className="space-y-4 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-200 bg-white shadow-xs">
+            <Sparkles size={13} className="text-indigo-brand" />
+            <span className="font-mono text-xs font-bold text-ink-muted uppercase tracking-wider">
+              Research Horizons
+            </span>
           </div>
-          <h2
-            className="font-display font-extrabold uppercase tracking-tight leading-none"
-            style={{
-              fontSize: "clamp(2.8rem, 6vw, 5.5rem)",
-              background: "linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #22d3ee 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            LOOKING{" "}
-            <br />
-            <span
-              className="italic font-light"
-              style={{
-                background: "linear-gradient(135deg, #c084fc, #a78bfa)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              FORWARD
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight text-ink leading-tight">
+            Architecting for Tomorrow&apos;s <br />
+            <span className="text-indigo-gradient">
+              Intelligent Paradigms
             </span>
           </h2>
-          <p className="text-muted text-base leading-relaxed max-w-sm font-sans">
-            Instead of building for today&apos;s frameworks, we design architectures ready for
-            tomorrow&apos;s parameter scale. Here are the core fields currently being researched and sandboxed.
+
+          <p className="text-ink-secondary text-base sm:text-lg leading-relaxed font-sans">
+            Sandboxing and testing architectures designed to exploit the next leap in hardware, context windows, and autonomous software engineering.
           </p>
         </div>
 
-        {/* Right Side: Focus Areas */}
-        <div ref={listRef} className="lg:col-span-7 space-y-10">
-          {focusAreas.map((area, idx) => (
-            <div
-              key={area.index}
-              onMouseEnter={() => handleMouseEnter(area.field)}
-              onMouseLeave={handleMouseLeave}
-              className="outlook-item group relative pl-10 md:pl-14 pb-10 border-b border-border-subtle/40 flex flex-col space-y-3 cursor-default"
-              style={{ opacity: reducedMotion ? 1 : undefined }}
-            >
-              {/* Animated dot */}
-              <div className="absolute left-0 top-1 w-2.5 h-2.5 rounded-full border border-border-subtle bg-surface-2 group-hover:bg-cyan-400 group-hover:border-cyan-400 group-hover:shadow-[0_0_10px_rgba(34,211,238,0.5)] transition-all duration-400" />
-              {/* Vertical connector line */}
-              {idx < focusAreas.length - 1 && (
-                <div className="absolute left-[4px] top-6 w-[1px] h-[calc(100%+1.5rem)] bg-gradient-to-b from-border-subtle/50 to-transparent" />
-              )}
-
-              <span
-                className="font-sans text-sm font-bold uppercase tracking-wider flex items-center gap-2"
-                style={{
-                  background: "linear-gradient(90deg, #c084fc, #22d3ee)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
+        {/* 3 Research Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {focusAreas.map((area) => {
+            const Icon = area.icon;
+            return (
+              <div
+                key={area.index}
+                onMouseEnter={() => handleMouseEnter(`Research // ${area.index}`)}
+                onMouseLeave={handleMouseLeave}
+                className="studio-card p-8 sm:p-10 space-y-6 flex flex-col justify-between group bg-white"
               >
-                <area.Icon size={14} style={{ color: "#c084fc", minWidth: 14 }} />
-                0{idx + 1} · {area.field}
-              </span>
+                <div className="space-y-5">
+                  <div className="flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-indigo-light border border-indigo-200 text-indigo-brand group-hover:scale-105 transition-transform">
+                      <Icon size={24} />
+                    </div>
+                    <span className="font-mono text-sm font-bold text-ink-faint">
+                      {area.index}
+                    </span>
+                  </div>
 
-              <span className="font-sans text-xs text-muted/80 tracking-wide font-medium uppercase block">
-                Research Field: {area.tech}
-              </span>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-sans font-bold text-ink group-hover:text-indigo-brand transition-colors">
+                      {area.field}
+                    </h3>
+                    <span className="font-mono text-xs text-indigo-brand bg-indigo-light px-3 py-1 rounded-full border border-indigo-200 block w-fit">
+                      {area.tech}
+                    </span>
+                  </div>
 
-              <p className="text-foreground/80 text-base md:text-lg leading-relaxed font-sans max-w-xl group-hover:text-foreground transition-colors duration-300">
-                {area.desc}
-              </p>
-            </div>
-          ))}
+                  <p className="text-sm text-ink-secondary leading-relaxed font-sans">
+                    {area.desc}
+                  </p>
+                </div>
+
+                <div className="pt-5 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-indigo-brand font-semibold uppercase">
+                  <span>Active Investigation</span>
+                  <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </div>
+            );
+          })}
         </div>
+
       </div>
-    </Section>
+    </section>
   );
 }

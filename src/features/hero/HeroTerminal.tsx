@@ -1,188 +1,210 @@
 "use client";
 
 import { useState } from "react";
-import { Terminal, Play, CheckCircle2, Cpu, ShieldCheck, Sparkles, CornerDownLeft } from "lucide-react";
-import bioData from "@/lib/content/bio.json";
+import { Sparkles, Activity, Cpu, Database, Play, CheckCircle2, ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { useSystemStore } from "@/store/useSystemStore";
 
-interface CommandResult {
-  command: string;
-  output: string | React.ReactNode;
-  time: string;
+interface ArtifactTab {
+  id: "autismind" | "prithviq" | "campuswap";
+  name: string;
+  category: string;
+  tagline: string;
+  icon: typeof Cpu;
 }
 
+const tabs: ArtifactTab[] = [
+  { id: "autismind", name: "AutisMind-AI", category: "Edge Diagnostic ML", tagline: "ONNX MobileNetV3 · Sub-15ms Latency", icon: Activity },
+  { id: "prithviq", name: "PrithviQ Vision", category: "Geospatial Analytics", tagline: "Aerial Drone Tiling · UN SDG 12/14", icon: Cpu },
+  { id: "campuswap", name: "CampuSwap", category: "Relational P2P Engine", tagline: "PostgreSQL ACID · Scalable REST", icon: Database },
+];
+
 export function HeroTerminal() {
-  const [activeCommand, setActiveCommand] = useState<string>("run_model('AutisMind')");
-  const [inputVal, setInputVal] = useState<string>("");
-  const [isExecuting, setIsExecuting] = useState<boolean>(false);
-  const [history, setHistory] = useState<CommandResult[]>([
-    {
-      command: "run_model('AutisMind')",
-      output: (
-        <div className="space-y-1 text-[11px] font-mono">
-          <div className="text-emerald-400">✓ Model Loaded: MobileNetV3 Quantized (ONNX Runtime)</div>
-          <div className="text-muted">· Execution Target: Local Client Thread (100% Offline)</div>
-          <div className="text-cyan-300">· Latency Benchmark: 14.2 ms | Memory: 4.2 MB RAM</div>
-          <div className="text-amber-300">· Status: Operational @ https://autis-mind-ai.vercel.app/</div>
-        </div>
-      ),
-      time: "21:04:12",
-    },
-  ]);
+  const [activeTab, setActiveTab] = useState<"autismind" | "prithviq" | "campuswap">("autismind");
+  const [isRunning, setIsRunning] = useState(false);
+  const setCursorVariant = useSystemStore((state) => state.setCursorVariant);
+  const setCursorLabel = useSystemStore((state) => state.setCursorLabel);
+  const setActiveProject = useSystemStore((state) => state.setActiveProject);
 
-  const executeCommand = (cmd: string) => {
-    const trimmed = cmd.trim();
-    if (!trimmed) return;
-    setIsExecuting(true);
-
+  const simulateExecution = () => {
+    setIsRunning(true);
     setTimeout(() => {
-      let outputNode: React.ReactNode;
-      const lower = trimmed.toLowerCase();
-
-      if (lower.includes("autismind") || lower.includes("model")) {
-        outputNode = (
-          <div className="space-y-1 text-[11px] font-mono">
-            <div className="text-emerald-400">✓ Model Loaded: MobileNetV3 Quantized (ONNX Runtime)</div>
-            <div className="text-muted">· Execution Target: Local Client Thread (100% Offline)</div>
-            <div className="text-cyan-300">· Latency Benchmark: 14.2 ms | Memory: 4.2 MB RAM</div>
-            <div className="text-amber-300">· Status: Live @ https://autis-mind-ai.vercel.app/</div>
-          </div>
-        );
-      } else if (lower.includes("credential") || lower.includes("education") || lower.includes("cgpa")) {
-        outputNode = (
-          <div className="space-y-1 text-[11px] font-mono">
-            <div className="text-amber-300">🎓 Degree: B.Tech CSE (AI & ML Specialization) @ SRM IST</div>
-            <div className="text-emerald-400">🏆 CGPA: 9.74 / 10 (97.4%) · Semester 2: 10.0 / 10 Perfect GPA</div>
-            <div className="text-cyan-300">📜 Certifications: ISRO/IIRS (Geodata ML), AWS Cloud Practitioner, BNY Spectrum</div>
-          </div>
-        );
-      } else if (lower.includes("resume") || lower.includes("cv")) {
-        window.open(bioData.resumeUrl, "_blank");
-        outputNode = (
-          <div className="text-[11px] font-mono text-cyan-300">
-            ✓ Official Google Drive Resume opened in a new tab.
-          </div>
-        );
-      } else if (lower.includes("contact") || lower.includes("email") || lower.includes("hire")) {
-        const el = document.querySelector('[data-chapter="connect"]');
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-        outputNode = (
-          <div className="text-[11px] font-mono text-purple-300">
-            ✓ Navigating to contact portal · Email: {bioData.email}
-          </div>
-        );
-      } else if (lower.includes("clear")) {
-        setHistory([]);
-        setIsExecuting(false);
-        return;
-      } else {
-        outputNode = (
-          <div className="text-[11px] font-mono text-rose-400">
-            Command not recognized. Try: run_model(&apos;AutisMind&apos;), inspect_credentials(), open_resume(), or contact_vishal()
-          </div>
-        );
-      }
-
-      setHistory((prev) => [
-        ...prev.slice(-2),
-        {
-          command: trimmed,
-          output: outputNode,
-          time: new Date().toLocaleTimeString("en-US", { hour12: false }),
-        },
-      ]);
-      setIsExecuting(false);
-      setInputVal("");
-    }, 200);
-  };
-
-  const handlePresetClick = (cmd: string) => {
-    setActiveCommand(cmd);
-    executeCommand(cmd);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      executeCommand(inputVal);
-    }
+      setIsRunning(false);
+    }, 500);
   };
 
   return (
-    <div className="rounded-2xl glass-panel border border-cyan-500/20 shadow-2xl overflow-hidden font-mono text-xs select-none">
-      {/* Terminal Title Bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0a0d17] border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+    <div className="w-full studio-card p-6 sm:p-7 relative overflow-hidden space-y-5 bg-white border border-slate-200">
+      
+      {/* Top Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+        <div className="flex items-center gap-2.5">
+          <div className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+            <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+            <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
           </div>
-          <span className="text-[11px] text-muted/80 ml-2 flex items-center gap-1.5 font-semibold">
-            <Terminal size={12} className="text-cyan-400" />
-            <span>vishal@neural-hub:~</span>
+          <span className="font-mono text-xs text-ink-muted font-bold uppercase tracking-wider pl-2 flex items-center gap-1.5">
+            <Sparkles size={13} className="text-indigo-brand" />
+            Interactive Systems Architecture
           </span>
         </div>
 
-        <span className="text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-md uppercase font-bold">
-          Interactive AI Sandbox
-        </span>
+        <button
+          onClick={simulateExecution}
+          disabled={isRunning}
+          onMouseEnter={() => {
+            setCursorVariant("hover");
+            setCursorLabel("Test Pipeline");
+          }}
+          onMouseLeave={() => {
+            setCursorVariant("default");
+            setCursorLabel(null);
+          }}
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold text-indigo-brand bg-indigo-light hover:bg-indigo-50 border border-indigo-200 transition-all cursor-pointer disabled:opacity-50"
+        >
+          <Play size={12} className="fill-indigo-brand text-indigo-brand" />
+          <span>{isRunning ? "Running Benchmark..." : "Run Live Simulation"}</span>
+        </button>
       </div>
 
-      {/* Preset Action Chips */}
-      <div className="px-4 py-2 bg-[#0d101d]/60 border-b border-white/5 flex flex-wrap gap-1.5">
-        {[
-          { label: "run_model('AutisMind')", cmd: "run_model('AutisMind')" },
-          { label: "inspect_credentials()", cmd: "inspect_credentials()" },
-          { label: "open_resume()", cmd: "open_resume()" },
-          { label: "contact_vishal()", cmd: "contact_vishal()" },
-        ].map((p) => (
-          <button
-            key={p.cmd}
-            onClick={() => handlePresetClick(p.cmd)}
-            className="text-[10px] px-2.5 py-1 rounded-md bg-surface-2 border border-white/10 text-muted hover:text-cyan-300 hover:border-cyan-400/40 transition-colors cursor-pointer"
-          >
-            {p.label}
-          </button>
-        ))}
+      {/* Interactive Tabs */}
+      <div className="grid grid-cols-3 gap-2.5">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`p-3.5 rounded-2xl text-left transition-all duration-200 cursor-pointer flex flex-col justify-between ${
+                isActive
+                  ? "bg-indigo-light/70 border border-indigo-300 shadow-sm"
+                  : "bg-slate-50 border border-slate-200/80 hover:border-slate-300 hover:bg-slate-100/70"
+              }`}
+            >
+              <div className="flex items-center justify-between w-full mb-2">
+                <Icon size={16} className={isActive ? "text-indigo-brand" : "text-ink-muted"} />
+                {isActive && <span className="w-2 h-2 rounded-full bg-indigo-brand" />}
+              </div>
+              <div>
+                <span className={`text-xs font-sans font-bold block truncate ${isActive ? "text-indigo-950" : "text-ink"}`}>
+                  {tab.name}
+                </span>
+                <span className="text-[10px] text-ink-muted block truncate font-mono">
+                  {tab.category}
+                </span>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Terminal Output Log Area */}
-      <div className="p-4 space-y-3 max-h-48 overflow-y-auto bg-[#070913]/90">
-        {history.map((h, idx) => (
-          <div key={idx} className="space-y-1">
-            <div className="flex items-center gap-2 text-muted/70 text-[10px]">
-              <span className="text-cyan-400 font-bold">&gt;</span>
-              <span className="text-white font-semibold">{h.command}</span>
-              <span className="ml-auto opacity-50">{h.time}</span>
+      {/* Live Pipeline State Screen */}
+      <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 font-mono text-xs">
+        {activeTab === "autismind" && (
+          <div className="space-y-3">
+            <div className="flex justify-between items-center text-[11px]">
+              <span className="text-ink font-bold">MODEL: Quantized MobileNetV3 + Vision Transformer</span>
+              <span className="text-emerald-brand font-bold bg-emerald-light px-2 py-0.5 rounded-md border border-emerald-200">READY (ONNX)</span>
             </div>
-            <div className="pl-3">{h.output}</div>
-          </div>
-        ))}
-
-        {isExecuting && (
-          <div className="text-cyan-400 text-[11px] animate-pulse">
-            Computing neural tensor weights...
+            <div className="grid grid-cols-3 gap-2 text-[10px]">
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Inference Delay</span>
+                <span className="text-emerald-brand font-bold text-xs">{isRunning ? "Testing..." : "14.2 ms"}</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Diagnostic AUC</span>
+                <span className="text-indigo-brand font-bold text-xs">92.4%</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Privacy Standard</span>
+                <span className="text-ink font-bold text-xs">100% On-Device</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-ink-muted pt-1">
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck size={14} className="text-emerald-brand shrink-0" />
+                <span>Full-stack REST API with real-time screening workflows.</span>
+              </div>
+              <button
+                onClick={() => setActiveProject("autismind")}
+                className="text-indigo-brand font-bold hover:underline cursor-pointer text-[10px] uppercase"
+              >
+                Inspect Blueprint →
+              </button>
+            </div>
           </div>
         )}
-      </div>
 
-      {/* Terminal Input Line */}
-      <div className="px-4 py-2.5 bg-[#0a0d17] border-t border-white/10 flex items-center gap-2">
-        <span className="text-cyan-400 font-bold">&gt;</span>
-        <input
-          type="text"
-          placeholder="Type command (e.g. inspect_credentials) or click presets above..."
-          value={inputVal}
-          onChange={(e) => setInputVal(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="w-full bg-transparent text-white text-xs font-mono placeholder:text-muted/40 focus:outline-none"
-        />
-        <button
-          onClick={() => executeCommand(inputVal)}
-          className="p-1 rounded bg-cyan-950 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-900 transition-colors cursor-pointer"
-          title="Run command"
-        >
-          <CornerDownLeft size={12} />
-        </button>
+        {activeTab === "prithviq" && (
+          <div className="space-y-3">
+            <div className="flex justify-between items-center text-[11px]">
+              <span className="text-ink font-bold">PIPELINE: Aerial Geo-Spatial Tiling & Density Mask</span>
+              <span className="text-sky-brand font-bold bg-sky-light px-2 py-0.5 rounded-md border border-sky-200">UN SDG 12/14</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-[10px]">
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Throughput</span>
+                <span className="text-sky-brand font-bold text-xs">{isRunning ? "Ingesting..." : "120 FPS"}</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Precision mAP</span>
+                <span className="text-emerald-brand font-bold text-xs">96.8%</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Target</span>
+                <span className="text-ink font-bold text-xs">Drone & Mobile</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-ink-muted pt-1">
+              <div className="flex items-center gap-1.5">
+                <Zap size={14} className="text-amber-brand shrink-0" />
+                <span>Multi-angle drone feed ingestion with automated NGO analytics dashboards.</span>
+              </div>
+              <button
+                onClick={() => setActiveProject("prithviq")}
+                className="text-indigo-brand font-bold hover:underline cursor-pointer text-[10px] uppercase"
+              >
+                Inspect Blueprint →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "campuswap" && (
+          <div className="space-y-3">
+            <div className="flex justify-between items-center text-[11px]">
+              <span className="text-ink font-bold">DATABASE: PostgreSQL ACID Relational Schemas</span>
+              <span className="text-emerald-brand font-bold bg-emerald-light px-2 py-0.5 rounded-md border border-emerald-200">JWT AUTH</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-[10px]">
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Query Latency</span>
+                <span className="text-emerald-brand font-bold text-xs">{isRunning ? "Querying..." : "2.1 ms"}</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Integrity</span>
+                <span className="text-indigo-brand font-bold text-xs">Strict ACID</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white border border-slate-200">
+                <span className="text-ink-muted block">Stack</span>
+                <span className="text-ink font-bold text-xs">Node / Express</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-ink-muted pt-1">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 size={14} className="text-emerald-brand shrink-0" />
+                <span>Peer-to-peer student marketplace with authenticated resource exchange.</span>
+              </div>
+              <button
+                onClick={() => setActiveProject("campuswap")}
+                className="text-indigo-brand font-bold hover:underline cursor-pointer text-[10px] uppercase"
+              >
+                Inspect Blueprint →
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
