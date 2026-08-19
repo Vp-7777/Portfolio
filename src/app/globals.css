@@ -1,37 +1,33 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════
-   PURE MINIMALIST STUDIO DESIGN SYSTEM (v12.0)
-   Bright, Crisp, Elegant & High-Contrast Light Theme for Vishal Patel
+   THE KINETIC BENTO STUDIO DESIGN SYSTEM (v18.0)
+   Deep Space Aurora Obsidian · Specular Glass · Electric Accents
    ═══════════════════════════════════════════════════════════════ */
 
 @theme {
-  --color-canvas: #f8fafc;
-  --color-canvas-white: #ffffff;
-  --color-canvas-subtle: #f1f5f9;
-  --color-canvas-card: #ffffff;
-  --color-canvas-border: #e2e8f0;
+  --color-canvas: #090d16;
+  --color-canvas-card: #111827;
+  --color-canvas-card-hover: #1e293b;
+  --color-canvas-subtle: #0d1424;
 
-  --color-ink: #0f172a;
-  --color-ink-secondary: #334155;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(99, 102, 241, 0.35);
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+
+  --color-ink-primary: #f8fafc;
+  --color-ink-secondary: #94a3b8;
   --color-ink-muted: #64748b;
-  --color-ink-faint: #94a3b8;
+  --color-ink-faint: #475569;
 
-  --color-indigo-brand: #4f46e5;
-  --color-indigo-hover: #4338ca;
-  --color-indigo-light: #eef2ff;
+  --color-indigo-brand: #6366f1;
+  --color-indigo-hover: #4f46e5;
+  --color-cyan-speed: #06b6d4;
+  --color-emerald-live: #10b981;
+  --color-amber-honor: #f59e0b;
+  --color-rose-accent: #f43f5e;
 
-  --color-emerald-brand: #059669;
-  --color-emerald-light: #ecfdf5;
-
-  --color-amber-brand: #d97706;
-  --color-amber-light: #fffbeb;
-
-  --color-sky-brand: #0284c7;
-  --color-sky-light: #f0f9ff;
-
-  --font-sans: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
   --font-mono: var(--font-mono), 'Space Grotesk', monospace;
 
   --z-canvas: 0;
@@ -39,67 +35,80 @@
   --z-hover: 20;
   --z-nav: 50;
   --z-drawer: 90;
-  --z-cursor: 100;
 }
 
-/* ── Base Reset & Defaults ── */
+/* ── Base ── */
 html {
   scroll-behavior: smooth;
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #090d16;
+  color: #f8fafc;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #090d16;
+  color: #f8fafc;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
 ::selection {
-  background-color: rgba(79, 70, 229, 0.15);
-  color: #1e1b4b;
+  background-color: rgba(99, 102, 241, 0.3);
+  color: #ffffff;
 }
 
-/* ── Studio Card System ── */
-.studio-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+/* ── Kinetic Bento Card Materiality ── */
+.bento-card {
+  background-color: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 8px 32px -4px rgba(0, 0, 0, 0.4);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.studio-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
-  transform: translateY(-2px);
+.bento-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 16px 48px -8px rgba(99, 102, 241, 0.18);
+  transform: translateY(-3px);
 }
 
-/* ── Subtle Light Grid ── */
-.bg-light-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
+/* ── Aurora Lighting Mesh ── */
+.aurora-glow {
+  background: radial-gradient(650px circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 70%),
+              radial-gradient(500px circle at 80% 30%, rgba(6, 182, 212, 0.12), transparent 70%),
+              radial-gradient(600px circle at 20% 60%, rgba(16, 185, 129, 0.08), transparent 70%);
 }
 
-/* ── Refined Gradient Text ── */
+/* ── Specular Inner Border ── */
+.specular-border {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* ── Gradient Typography ── */
 .text-brand-gradient {
-  background: linear-gradient(135deg, #0f172a 0%, #4338ca 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(135deg, #818cf8 0%, #38bdf8 50%, #34d399 100%);
 }
 
-.text-indigo-gradient {
-  background: linear-gradient(135deg, #4f46e5 0%, #0284c7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.text-gold-gradient {
   background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+}
+
+/* ── Subtle Background Grid ── */
+.bg-dark-grid {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
 /* ── Infinite Smooth Marquee ── */
@@ -111,7 +120,7 @@ body {
 .animate-marquee-smooth {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee 35s linear infinite;
 }
 
 .animate-marquee-smooth:hover {
@@ -123,12 +132,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #090d16;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #1e293b;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #334155;
 }

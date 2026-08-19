@@ -1,112 +1,110 @@
 "use client";
 
-import { Bot, Cpu, Globe, ArrowUpRight, Sparkles } from "lucide-react";
-import { useSystemStore } from "@/store/useSystemStore";
+import { ArrowUpRight, Cpu, Globe, Layers, Sparkles } from "lucide-react";
 
-const focusAreas = [
+const outlooks = [
   {
-    index: "01",
-    field: "AGENTIC AI & AUTONOMOUS ORCHESTRATION",
-    tech: "LangGraph · Vector Memory · Tool Loops",
-    desc: "Architecting self-correcting agent loops with verifiable guardrails, persistent memory structures, and autonomous multi-agent consensus protocols.",
-    icon: Bot,
+    id: "01",
+    title: "Agentic AI & Autonomous Orchestration",
+    tagline: "LangGraph · Vector Memory · Tool Loops",
+    description:
+      "Architecting self-correcting agent loops with verifiable guardrails, persistent memory structures, and autonomous multi-agent consensus protocols.",
+    icon: Layers,
+    accent: "text-indigo-400",
+    borderHover: "hover:border-indigo-500/50",
   },
   {
-    index: "02",
-    field: "EDGE DEEP LEARNING & ON-DEVICE COMPILATION",
-    tech: "ONNX Runtime · INT8 Quantization · WebAssembly",
-    desc: "Compiling neural networks to execute on local consumer hardware (mobile CPUs, WebGPU, and embedded microcontrollers) with sub-15ms inference guarantees.",
+    id: "02",
+    title: "Edge Deep Learning & On-Device Compilation",
+    tagline: "ONNX Runtime · INT8 Quantization · WebAssembly",
+    description:
+      "Compiling neural networks to execute on local consumer hardware (mobile CPUs, WebGPU, and embedded microcontrollers) with sub-15ms inference guarantees.",
     icon: Cpu,
+    accent: "text-cyan-400",
+    borderHover: "hover:border-cyan-500/50",
   },
   {
-    index: "03",
-    field: "DISTRIBUTED GEOSPATIAL & COMPUTER VISION",
-    tech: "PyTorch · Tiling Pipelines · Real-Time Segmentation",
-    desc: "Scaling high-throughput visual pipelines for satellite imagery and drone telemetry to deliver actionable environmental and climate analytics.",
+    id: "03",
+    title: "Distributed Geospatial & Computer Vision",
+    tagline: "PyTorch · Tiling Pipelines · Real-Time Segmentation",
+    description:
+      "Scaling high-throughput visual pipelines for satellite imagery and drone telemetry to deliver actionable environmental and climate analytics.",
     icon: Globe,
+    accent: "text-emerald-400",
+    borderHover: "hover:border-emerald-500/50",
   },
 ];
 
 export function OutlookSection() {
-  const setCursorVariant = useSystemStore((state) => state.setCursorVariant);
-  const setCursorLabel = useSystemStore((state) => state.setCursorLabel);
-
-  const handleMouseEnter = (label: string) => {
-    setCursorVariant("hover");
-    setCursorLabel(label);
-  };
-
-  const handleMouseLeave = () => {
-    setCursorVariant("default");
-    setCursorLabel(null);
-  };
-
   return (
     <section
       data-chapter="forward"
-      className="relative w-full min-h-screen bg-canvas py-28 sm:py-36 px-6 sm:px-10 lg:px-12 overflow-hidden border-t border-slate-200"
+      className="relative w-full py-28 px-6 sm:px-10 lg:px-12 bg-[#090d16] bg-dark-grid"
     >
-      <div className="max-w-7xl mx-auto relative z-base space-y-16">
+      {/* Background Radial Lights */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+        <div className="absolute top-[20%] right-[10%] w-[600px] h-[600px] rounded-full bg-indigo-600/10 blur-[150px]" />
+        <div className="absolute bottom-[20%] left-[10%] w-[500px] h-[500px] rounded-full bg-cyan-600/10 blur-[140px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
         
-        {/* Header */}
-        <div className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-200 bg-white shadow-xs">
-            <Sparkles size={13} className="text-indigo-brand" />
-            <span className="font-mono text-xs font-bold text-ink-muted uppercase tracking-wider">
+        {/* Section Header */}
+        <div className="space-y-4 text-left">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 shadow-xs">
+            <Sparkles size={13} className="text-indigo-400" />
+            <span className="font-sans text-xs font-bold text-slate-200 uppercase tracking-wider">
               Research Horizons
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight text-ink leading-tight">
-            Architecting for Tomorrow&apos;s <br />
-            <span className="text-indigo-gradient">
-              Intelligent Paradigms
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-extrabold tracking-tight text-white">
+            Architecting for Tomorrow&apos;s <br className="hidden sm:inline" />
+            <span className="text-brand-gradient">Intelligent Paradigms</span>
           </h2>
 
-          <p className="text-ink-secondary text-base sm:text-lg leading-relaxed font-sans">
+          <p className="text-slate-400 text-sm sm:text-base max-w-2xl font-sans">
             Sandboxing and testing architectures designed to exploit the next leap in hardware, context windows, and autonomous software engineering.
           </p>
         </div>
 
-        {/* 3 Research Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {focusAreas.map((area) => {
-            const Icon = area.icon;
+        {/* Research Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {outlooks.map((item) => {
+            const Icon = item.icon;
             return (
               <div
-                key={area.index}
-                onMouseEnter={() => handleMouseEnter(`Research // ${area.index}`)}
-                onMouseLeave={handleMouseLeave}
-                className="studio-card p-8 sm:p-10 space-y-6 flex flex-col justify-between group bg-white"
+                key={item.id}
+                className={`bento-card p-8 space-y-6 border border-white/15 ${item.borderHover} transition-all duration-300 flex flex-col justify-between`}
               >
-                <div className="space-y-5">
-                  <div className="flex items-center justify-between">
-                    <div className="p-3.5 rounded-2xl bg-indigo-light border border-indigo-200 text-indigo-brand group-hover:scale-105 transition-transform">
-                      <Icon size={24} />
-                    </div>
-                    <span className="font-mono text-sm font-bold text-ink-faint">
-                      {area.index}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between font-mono text-xs text-slate-500">
+                    <span className="flex items-center gap-2 text-white font-bold">
+                      <Icon size={16} className={item.accent} />
                     </span>
+                    <span className="font-bold text-slate-400">{item.id}</span>
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-lg font-sans font-bold text-ink group-hover:text-indigo-brand transition-colors">
-                      {area.field}
+                    <h3 className="text-lg font-bold text-white font-sans leading-snug">
+                      {item.title}
                     </h3>
-                    <span className="font-mono text-xs text-indigo-brand bg-indigo-light px-3 py-1 rounded-full border border-indigo-200 block w-fit">
-                      {area.tech}
-                    </span>
+                    <p className={`font-mono text-xs ${item.accent} font-semibold`}>
+                      {item.tagline}
+                    </p>
                   </div>
 
-                  <p className="text-sm text-ink-secondary leading-relaxed font-sans">
-                    {area.desc}
+                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-sans">
+                    {item.description}
                   </p>
                 </div>
 
-                <div className="pt-5 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-indigo-brand font-semibold uppercase">
-                  <span>Active Investigation</span>
-                  <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-[11px] text-slate-400">
+                  <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Active Investigation
+                  </span>
+                  <ArrowUpRight size={13} className="text-slate-500" />
                 </div>
               </div>
             );

@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import { SmoothScroller } from "@/features/motion/SmoothScroller";
 import { Navbar } from "@/features/ui/Navbar";
-import { SystemInitializer } from "@/features/ui/SystemInitializer";
-import { ChapterObserver } from "@/features/motion/ChapterObserver";
-import { CustomCursor } from "@/features/cursor/CustomCursor";
+import { CommandMenu } from "@/features/ui/CommandMenu";
 import "./globals.css";
 
 const sansFont = Plus_Jakarta_Sans({
@@ -24,7 +22,7 @@ const monoFont = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Vishal Patel — Software & AI Systems Engineer",
   description:
-    "Portfolio of Vishal Patel. Software & AI Engineer studying CS at SRM IST (9.74 CGPA). Interning @ RideAbit & QRaptor. Building AutisMind-AI, PrithviQ & CampuSwap.",
+    "Portfolio of Vishal Patel. Software & AI Systems Engineer studying CS at SRM IST (9.74 CGPA). Interning @ RideAbit & QRaptor. Building AutisMind-AI, PrithviQ & CampuSwap.",
   openGraph: {
     title: "Vishal Patel — Software & AI Systems Engineer",
     description:
@@ -51,14 +49,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sansFont.variable} ${monoFont.variable} antialiased`}
+      className={`${sansFont.variable} ${monoFont.variable} scroll-smooth antialiased`}
     >
-      <body className="bg-canvas text-ink min-h-screen relative overflow-x-hidden selection:bg-indigo-brand/15 selection:text-ink">
-        <SystemInitializer />
-        <CustomCursor />
+      <body className="bg-[#090d16] text-[#f8fafc] min-h-screen relative overflow-x-hidden selection:bg-indigo-600/30 selection:text-white">
         <Navbar />
+        <CommandMenu />
         <SmoothScroller>
-          <ChapterObserver />
           {children}
         </SmoothScroller>
       </body>

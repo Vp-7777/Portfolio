@@ -5,100 +5,98 @@ import {
   ExternalLink,
   Layers,
   Sparkles,
-  ArrowRight,
-  Shield,
-  Activity,
-  CheckCircle2,
-  Code2,
-  Cpu,
-  Globe,
   ArrowUpRight,
-  CheckCircle,
+  ShieldCheck,
+  Zap,
+  CheckCircle2,
+  Cpu,
+  Activity,
+  Database,
+  Code2,
 } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
-import { ProjectSimulator } from "./ProjectSimulator";
 import { ProjectDetail } from "./ProjectDetail";
 import projectsData from "@/lib/content/projects.json";
 
+function GitHubIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
 export function ProjectsSection() {
-  const [selectedProjectId, setSelectedProjectId] = useState<string>("autismind");
+  const [activeTab, setActiveTab] = useState("autismind");
   const setActiveProject = useSystemStore((state) => state.setActiveProject);
-  const setCursorVariant = useSystemStore((state) => state.setCursorVariant);
-  const setCursorLabel = useSystemStore((state) => state.setCursorLabel);
-
-  const selectedProject =
-    projectsData.find((p) => p.id === selectedProjectId) || projectsData[0];
-
-  const handleMouseEnter = (label: string) => {
-    setCursorVariant("hover");
-    setCursorLabel(label);
-  };
-
-  const handleMouseLeave = () => {
-    setCursorVariant("default");
-    setCursorLabel(null);
-  };
 
   return (
     <section
       data-chapter="projects"
-      className="relative w-full min-h-screen bg-canvas py-28 sm:py-36 px-6 sm:px-10 lg:px-12 overflow-hidden border-t border-slate-200"
+      className="relative w-full py-28 px-6 sm:px-10 lg:px-12 bg-[#090d16] bg-dark-grid"
     >
-      <div className="max-w-7xl mx-auto relative z-base space-y-16">
+      {/* Background Radial Lights */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+        <div className="absolute top-[20%] left-[10%] w-[600px] h-[600px] rounded-full bg-indigo-600/10 blur-[150px]" />
+        <div className="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] rounded-full bg-cyan-600/10 blur-[150px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
         
         {/* Section Header */}
-        <div className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-200 bg-white shadow-xs">
-            <Layers size={13} className="text-indigo-brand" />
-            <span className="font-mono text-xs font-bold text-ink-muted uppercase tracking-wider">
+        <div className="space-y-4 text-left">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 shadow-xs">
+            <Sparkles size={13} className="text-indigo-400" />
+            <span className="font-sans text-xs font-bold text-slate-200 uppercase tracking-wider">
               Featured Software Systems
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight text-ink leading-tight">
-            Case Studies & <br />
-            <span className="text-indigo-gradient">
-              Engineered Deployments
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-extrabold tracking-tight text-white">
+            Case Studies & <br className="hidden sm:inline" />
+            <span className="text-brand-gradient">Engineered Deployments</span>
           </h2>
 
-          <p className="text-ink-secondary text-base sm:text-lg leading-relaxed font-sans">
-            Real-world systems spanning on-device medical diagnostic ML, multi-angle drone computer vision, and relational ACID-compliant marketplaces.
+          <p className="text-slate-400 text-sm sm:text-base max-w-2xl font-sans">
+            Real-world production systems spanning on-device medical diagnostic ML, multi-angle drone computer vision, and relational ACID-compliant marketplaces.
           </p>
         </div>
 
-        {/* Interactive Project Switcher Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Project Selector Tabs */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {projectsData.map((project, idx) => {
-            const isSelected = selectedProjectId === project.id;
+            const isActive = activeTab === project.id;
             return (
               <button
                 key={project.id}
-                onClick={() => setSelectedProjectId(project.id)}
-                onMouseEnter={() => handleMouseEnter(`Switch // ${project.name}`)}
-                onMouseLeave={handleMouseLeave}
-                className={`p-6 rounded-3xl text-left transition-all duration-200 relative overflow-hidden cursor-pointer border ${
-                  isSelected
-                    ? "bg-white border-indigo-400 shadow-md translate-y-[-2px]"
-                    : "bg-white/70 border-slate-200 hover:border-slate-300 hover:bg-white"
+                onClick={() => setActiveTab(project.id)}
+                className={`p-5 rounded-3xl text-left transition-all duration-300 cursor-pointer border ${
+                  isActive
+                    ? "bg-[#111827] border-indigo-500/50 shadow-xl shadow-indigo-600/15"
+                    : "bg-[#111827]/60 border-white/10 hover:border-white/20 hover:bg-[#111827]/90"
                 }`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-xs font-bold text-indigo-brand">
-                    0{idx + 1}
-                  </span>
-                  {isSelected && (
-                    <span className="flex items-center gap-1.5 text-[11px] font-mono font-semibold text-emerald-brand bg-emerald-light border border-emerald-200 px-2.5 py-0.5 rounded-full">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-brand" />
+                <div className="flex items-center justify-between mb-3 font-mono text-xs">
+                  <span className="text-indigo-400 font-bold">0{idx + 1}</span>
+                  {isActive && (
+                    <span className="px-2 py-0.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-[10px] font-semibold">
                       Active Spread
                     </span>
                   )}
                 </div>
-
-                <h3 className="text-xl font-sans font-bold text-ink mb-1">
+                <h3 className="font-sans font-bold text-base text-white">
                   {project.name}
                 </h3>
-                <p className="text-xs text-ink-muted font-sans line-clamp-2">
+                <p className="font-sans text-xs text-slate-400 mt-1 line-clamp-1">
                   {project.tagline}
                 </p>
               </button>
@@ -106,67 +104,129 @@ export function ProjectsSection() {
           })}
         </div>
 
-        {/* Selected Project Showcase Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left Column: Project Narrative & Direct Action Links */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="studio-card p-8 sm:p-10 space-y-6 bg-white">
-              
-              {/* Top Tags */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs font-semibold text-ink">
-                  {selectedProject.role}
-                </span>
-                {selectedProject.liveUrl && (
-                  <span className="px-3 py-1 rounded-xl bg-emerald-light border border-emerald-200 font-mono text-xs font-semibold text-emerald-brand flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-brand" />
-                    Live Production App
-                  </span>
-                )}
+        {/* Active Project Bento Spread */}
+        {projectsData.map((project) => {
+          if (project.id !== activeTab) return null;
+
+          return (
+            <div
+              key={project.id}
+              className="bento-card p-7 sm:p-10 lg:p-12 space-y-10 border border-white/15"
+            >
+              {/* Top Card Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-mono text-xs text-indigo-400 font-bold uppercase tracking-wider">
+                      {project.role}
+                    </span>
+                    {project.liveUrl && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-semibold text-emerald-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        Live Production App
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-extrabold text-white">
+                    {project.name} — {project.tagline}
+                  </h3>
+                </div>
+
+                {/* Top Action Suite */}
+                <div className="flex flex-wrap items-center gap-2.5">
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-sans font-bold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 shadow-md shadow-indigo-600/30 hover:scale-105 transition-all cursor-pointer"
+                    >
+                      <ExternalLink size={13} />
+                      <span>Launch Live App</span>
+                      <ArrowUpRight size={12} className="opacity-70" />
+                    </a>
+                  )}
+
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-sans font-semibold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 hover:border-white/30 transition-all cursor-pointer"
+                  >
+                    <GitHubIcon className="w-3.5 h-3.5 text-slate-200" />
+                    <span>Source Code</span>
+                  </a>
+
+                  <button
+                    onClick={() => setActiveProject(project.id)}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-sans font-semibold text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all cursor-pointer hover:scale-105"
+                  >
+                    <Layers size={13} />
+                    <span>Inspect Blueprint</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Title & Detailed Narrative */}
-              <div className="space-y-3">
-                <h3 className="text-2xl sm:text-3xl font-sans font-bold text-ink">
-                  {selectedProject.name} — {selectedProject.tagline}
-                </h3>
-                <p className="text-ink-secondary text-sm sm:text-base leading-relaxed font-sans">
-                  {selectedProject.description}
-                </p>
-              </div>
+              {/* Description & Narrative */}
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-4xl font-sans">
+                {project.description}
+              </p>
 
-              {/* Challenge & Solution Bento */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 font-sans text-xs">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
-                  <span className="text-indigo-950 font-mono font-bold uppercase tracking-wider block">
+              {/* Challenge vs Solution Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-[#090d16]/90 border border-white/10 space-y-2">
+                  <span className="font-mono text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-rose-500" />
                     Engineering Challenge
                   </span>
-                  <p className="text-ink-secondary leading-relaxed">
-                    {selectedProject.challenge}
+                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                    {project.narrative.problem}
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
-                  <span className="text-indigo-brand font-mono font-bold uppercase tracking-wider block">
+                <div className="p-6 rounded-2xl bg-[#090d16]/90 border border-indigo-500/30 space-y-2">
+                  <span className="font-mono text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-indigo-500" />
                     Architectural Solution
                   </span>
-                  <p className="text-ink-secondary leading-relaxed">
-                    {selectedProject.solution}
+                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                    {project.narrative.architecture}
                   </p>
                 </div>
               </div>
 
-              {/* Tech Stack Pills */}
-              <div className="space-y-2 pt-2">
-                <span className="text-xs font-mono font-medium text-ink-muted uppercase tracking-wider block">
+              {/* Live Spec & Metric Highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                  <span className="text-slate-400 text-[11px] block">Verified Latency</span>
+                  <span className="text-emerald-400 font-bold text-base">
+                    {project.id === "autismind" ? "14.2 ms (Local Edge CPU)" : project.id === "prithviq" ? "120 FPS (Drone Ingestion)" : "2.1 ms (Postgres ACID)"}
+                  </span>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                  <span className="text-slate-400 text-[11px] block">Core Impact Metric</span>
+                  <span className="text-indigo-400 font-bold text-base">
+                    {project.narrative.metrics}
+                  </span>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                  <span className="text-slate-400 text-[11px] block">Execution Environment</span>
+                  <span className="text-white font-bold text-base">
+                    {project.id === "autismind" ? "100% On-Device ONNX" : project.id === "prithviq" ? "UN SDG 12/14 Aligned" : "Strict ACID Isolation"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Technology Chips */}
+              <div className="space-y-3 pt-2">
+                <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider block">
                   Core Technologies & Frameworks
                 </span>
                 <div className="flex flex-wrap gap-2">
-                  {selectedProject.technologies.map((tech) => (
+                  {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-xl bg-slate-100 border border-slate-200 font-mono text-xs text-ink"
+                      className="px-3 py-1.5 rounded-xl font-mono text-xs font-semibold bg-white/5 border border-white/10 text-slate-300 hover:border-indigo-500/40 transition-colors"
                     >
                       {tech}
                     </span>
@@ -174,63 +234,13 @@ export function ProjectsSection() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3.5 pt-4 border-t border-slate-100">
-                {selectedProject.liveUrl && (
-                  <a
-                    href={selectedProject.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    onMouseEnter={() => handleMouseEnter(`Launch ${selectedProject.name}`)}
-                    onMouseLeave={handleMouseLeave}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-sans text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-indigo-brand hover:bg-indigo-hover hover:scale-[1.02] transition-all cursor-pointer shadow-sm"
-                  >
-                    <span>Launch Live App</span>
-                    <ExternalLink size={14} />
-                  </a>
-                )}
-
-                {selectedProject.githubUrl && (
-                  <a
-                    href={selectedProject.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    onMouseEnter={() => handleMouseEnter("View GitHub Repo")}
-                    onMouseLeave={handleMouseLeave}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider text-ink bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 transition-all cursor-pointer shadow-xs"
-                  >
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                      <path d="M9 18c-4.51 2-5-2-7-2" />
-                    </svg>
-                    <span>Source Code</span>
-                  </a>
-                )}
-
-                <button
-                  onClick={() => setActiveProject(selectedProject.id)}
-                  onMouseEnter={() => handleMouseEnter("Inspect Architecture Blueprint")}
-                  onMouseLeave={handleMouseLeave}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider text-indigo-brand bg-indigo-light hover:bg-indigo-50 border border-indigo-200 transition-all cursor-pointer"
-                >
-                  <Layers size={14} className="text-indigo-brand" />
-                  <span>Inspect Blueprint</span>
-                </button>
-              </div>
-
             </div>
-          </div>
-
-          {/* Right Column: Technical Blueprint Simulator Component */}
-          <div className="lg:col-span-5">
-            <ProjectSimulator projectId={selectedProject.id} />
-          </div>
-
-        </div>
+          );
+        })}
 
       </div>
 
-      {/* Blueprint Detail Drawer Modal */}
+      {/* Slide-Over Blueprint Modal Drawer */}
       <ProjectDetail />
     </section>
   );
