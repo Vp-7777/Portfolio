@@ -1,170 +1,162 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useLenis } from "lenis/react";
+import { useEffect } from "react";
+import { CheckCircle2, Code2, ExternalLink, X, Zap } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
-import { X, Layers } from "lucide-react";
 import projectsData from "@/lib/content/projects.json";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
-import gsap from "gsap";
 
 export function ProjectDetail() {
   const activeProject = useSystemStore((state) => state.activeProject);
   const setActiveProject = useSystemStore((state) => state.setActiveProject);
-  const reducedMotion = useSystemStore((state) => state.reducedMotion);
 
-  const drawerRef = useRef<HTMLDivElement>(null);
-  const backdropRef = useRef<HTMLDivElement>(null);
-  const lenis = useLenis();
-
-  // Find the selected project from static data
-  const project = projectsData.find((p) => p.id === activeProject);
-
-  // Lock scrolling when details panel is active
   useEffect(() => {
-    if (activeProject) {
-      lenis?.stop();
-    } else {
-      lenis?.start();
-    }
-    return () => {
-      lenis?.start();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveProject(null);
+      }
     };
-  }, [activeProject, lenis]);
 
-  // Entrance animations for the drawer
-  useEffect(() => {
-    if (!activeProject || reducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        backdropRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3, ease: "power2.out" }
-      );
-      gsap.fromTo(
-        drawerRef.current,
-        { xPercent: 100 },
-        { xPercent: 0, duration: 0.4, ease: "cubic-bezier(0.16, 1, 0.3, 1)" }
-      );
-    });
-
-    return () => ctx.revert();
-  }, [activeProject, reducedMotion]);
-
-  const handleClose = () => {
-    if (reducedMotion) {
-      setActiveProject(null);
-      return;
+    if (activeProject) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "";
     }
-    
-    gsap.to(drawerRef.current, {
-      xPercent: 100,
-      duration: 0.3,
-      ease: "cubic-bezier(0.16, 1, 0.3, 1)",
-      onComplete: () => setActiveProject(null),
-    });
-    gsap.to(backdropRef.current, {
-      opacity: 0,
-      duration: 0.25,
-      ease: "power2.inOut",
-    });
-  };
 
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeProject, setActiveProject]);
+
+  if (!activeProject) return null;
+
+  const project = projectsData.find((p) => p.id === activeProject);
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end overflow-hidden">
+    <div className="fixed inset-0 z-[100] flex justify-end">
       {/* Backdrop */}
-      <div 
-        ref={backdropRef}
-        onClick={handleClose}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        style={{ opacity: reducedMotion ? 1 : undefined }}
+      <div
+        onClick={() => setActiveProject(null)}
+        className="absolute inset-0 bg-[#1B1710]/50 backdrop-blur-xs transition-opacity duration-300"
       />
 
-      {/* Drawer */}
-      <div 
-        ref={drawerRef}
-        className="relative w-full max-w-2xl bg-[#111827] border-l border-white/15 h-full shadow-2xl z-10 p-8 md:p-12 overflow-y-auto flex flex-col justify-between"
-        style={{ transform: reducedMotion ? "translateX(0)" : undefined }}
-      >
-        <div className="space-y-8">
-          
-          {/* Top telemetry and close */}
-          <div className="flex justify-between items-center font-mono text-xs uppercase tracking-wider">
-            <span className="text-indigo-400 font-bold flex items-center gap-1.5">
-              <Layers size={14} />
-              Architecture Blueprint · {project.name}
+      {/* Slide-over Drawer */}
+      <div className="relative w-full max-w-2xl h-full bg-[#F6F1E7] border-l border-[rgba(27,23,16,0.2)] p-6 sm:p-10 overflow-y-auto z-10 shadow-2xl space-y-8 animate-in slide-in-from-right duration-300">
+        
+        {/* Top Header & Close Button */}
+        <div className="flex items-center justify-between border-b border-[rgba(27,23,16,0.15)] pb-5">
+          <div className="space-y-0.5">
+            <span className="font-mono text-xs font-bold text-[#A9793C] uppercase tracking-wider block">
+              ARCHITECTURE SPEC & BLUEPRINT
             </span>
-            <button 
-              onClick={handleClose}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/10 hover:border-white/25 hover:bg-white/5 transition-colors cursor-pointer text-xs text-slate-300"
-            >
-              <span>Close</span>
-              <X size={14} />
-            </button>
+            <span className="font-mono text-xs text-[#9C9280]">
+              ID: {project.id.toUpperCase()}
+            </span>
           </div>
 
-          {/* Heading */}
-          <div className="space-y-2 border-b border-white/10 pb-6">
-            <h3 className="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-              {project.name}
-            </h3>
-            <p className="font-sans text-xs font-semibold text-indigo-400 uppercase tracking-wide">
-              {project.role} · {project.tagline}
-            </p>
-          </div>
-
-          {/* Details sections */}
-          <div className="space-y-7 font-sans text-sm md:text-base leading-relaxed text-slate-300">
-            
-            {/* The Problem */}
-            <div className="space-y-2">
-              <span className="font-mono text-xs font-bold text-white uppercase tracking-wider block">
-                01 · The Engineering Problem
-              </span>
-              <p className="text-slate-300 leading-relaxed">{project.narrative.problem}</p>
-            </div>
-
-            {/* Architecture Diagram */}
-            <div className="space-y-3">
-              <span className="font-mono text-xs font-bold text-white uppercase tracking-wider block">
-                02 · System Architecture Blueprint
-              </span>
-              <ArchitectureDiagram projectId={project.id} />
-              <div className="bg-[#090d16] border border-white/10 p-4 font-sans text-xs text-slate-300 rounded-2xl leading-relaxed">
-                {project.narrative.architecture}
-              </div>
-            </div>
-
-            {/* Engineering Decisions */}
-            <div className="space-y-2">
-              <span className="font-mono text-xs font-bold text-white uppercase tracking-wider block">
-                03 · Technical Trade-offs & Decisions
-              </span>
-              <p className="text-slate-300 leading-relaxed">{project.narrative.decisions}</p>
-            </div>
-
-          </div>
-
+          <button
+            onClick={() => setActiveProject(null)}
+            className="p-2 border border-[rgba(27,23,16,0.15)] hover:border-[#A9793C] bg-[#EEE6D4] text-[#1B1710] hover:text-[#7C5A2C] transition-colors cursor-pointer"
+            aria-label="Close drawer"
+          >
+            <X size={16} />
+          </button>
         </div>
 
-        {/* Footer Metrics Panel */}
-        <div className="pt-6 mt-8 border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
-          <div className="space-y-1">
-            <span className="font-mono text-[10px] text-slate-400 uppercase tracking-wider block">
-              Measured Milestone
+        {/* Project Title & Tagline */}
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-xs font-semibold px-2.5 py-1 bg-[#EEE6D4] text-[#7C5A2C] border border-[rgba(27,23,16,0.12)]">
+              {project.role}
             </span>
-            <div className="font-sans text-sm font-bold text-emerald-400 uppercase">
-              {project.narrative.metrics}
+          </div>
+
+          <h2 className="font-display italic font-normal text-3xl sm:text-4xl text-[#1B1710] leading-tight">
+            {project.name}
+          </h2>
+
+          <p className="font-sans text-base text-[#5C5344] leading-relaxed">
+            {project.description}
+          </p>
+        </div>
+
+        {/* Live / Code Action Links */}
+        <div className="flex flex-wrap gap-3 pt-1">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="px-5 py-2.5 bg-[#1B1710] hover:bg-[#7C5A2C] text-[#F6F1E7] font-mono text-xs uppercase tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <span>Launch Live App</span>
+              <ExternalLink size={13} className="text-[#A9793C]" />
+            </a>
+          )}
+
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="px-5 py-2.5 bg-[#EEE6D4] hover:bg-[#F6F1E7] text-[#1B1710] border border-[rgba(27,23,16,0.2)] font-mono text-xs uppercase tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <Code2 size={13} className="text-[#7C5A2C]" />
+              <span>Source Repository</span>
+            </a>
+          )}
+        </div>
+
+        {/* Architecture Data Flow Diagram */}
+        <div className="space-y-3 pt-4 border-t border-[rgba(27,23,16,0.15)]">
+          <span className="font-mono text-xs font-bold text-[#9C9280] uppercase tracking-wider block">
+            System Data Flow Diagram
+          </span>
+          <ArchitectureDiagram projectId={project.id} />
+        </div>
+
+        {/* Challenges & Solutions */}
+        <div className="space-y-4 pt-4 border-t border-[rgba(27,23,16,0.15)]">
+          <span className="font-mono text-xs font-bold text-[#9C9280] uppercase tracking-wider block">
+            Engineering Decisions
+          </span>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-4 bg-[#EEE6D4]/50 border border-[rgba(27,23,16,0.15)] space-y-2">
+              <span className="font-mono text-xs font-bold text-[#6E2A34] uppercase tracking-wider flex items-center gap-1.5">
+                <Zap size={12} />
+                Core Bottleneck
+              </span>
+              <p className="font-sans text-xs sm:text-sm text-[#5C5344] leading-relaxed">
+                {project.challenge}
+              </p>
+            </div>
+
+            <div className="p-4 bg-[#EEE6D4]/50 border border-[rgba(27,23,16,0.15)] space-y-2">
+              <span className="font-mono text-xs font-bold text-[#7C5A2C] uppercase tracking-wider flex items-center gap-1.5">
+                <CheckCircle2 size={12} />
+                Architectural Solution
+              </span>
+              <p className="font-sans text-xs sm:text-sm text-[#5C5344] leading-relaxed">
+                {project.solution}
+              </p>
             </div>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+        </div>
+
+        {/* Tech Stack Chips */}
+        <div className="space-y-3 pt-4 border-t border-[rgba(27,23,16,0.15)]">
+          <span className="font-mono text-xs font-bold text-[#9C9280] uppercase tracking-wider block">
+            Complete Stack & Dependencies
+          </span>
+          <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech) => (
-              <span 
-                key={tech} 
-                className="px-2.5 py-1 font-mono text-[11px] border border-white/10 bg-white/5 text-slate-200 uppercase rounded-lg"
+              <span
+                key={tech}
+                className="font-mono text-xs text-[#5C5344] bg-[#EEE6D4] border border-[rgba(27,23,16,0.12)] px-3 py-1"
               >
                 {tech}
               </span>
