@@ -1,20 +1,40 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════
-   THE EDITORIAL INDEX DESIGN SYSTEM (v2.0)
-   Warm Bone Paper · Espresso Ink · Fraunces Serif · Brass Gold
+   THE EDITORIAL GLASS STUDIO DESIGN SYSTEM (v2.5)
+   Warm Bone Paper Canvas · Frosted Ivory Glass · Fraunces Serif · Brass Gold
    ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --color-paper: #F6F1E7;
+  --color-paper-deep: #EEE6D4;
+  --color-paper-glass: rgba(255, 255, 255, 0.68);
+  
+  --color-ink: #1B1710;
+  --color-ink-soft: #5C5344;
+  --color-mist: #9C9280;
+  
+  --color-gold: #A9793C;
+  --color-gold-deep: #7C5A2C;
+  --color-gold-glow: rgba(169, 121, 60, 0.15);
+  --color-oxblood: #6E2A34;
+  --color-line: rgba(27, 23, 16, 0.15);
+}
 
 @theme {
   --color-paper: #F6F1E7;
   --color-paper-deep: #EEE6D4;
+  --color-paper-glass: rgba(255, 255, 255, 0.68);
+  
   --color-ink: #1B1710;
   --color-ink-soft: #5C5344;
   --color-mist: #9C9280;
+  
   --color-gold: #A9793C;
   --color-gold-deep: #7C5A2C;
+  --color-gold-glow: rgba(169, 121, 60, 0.15);
   --color-oxblood: #6E2A34;
-  --color-line: rgba(27, 23, 16, 0.18);
+  --color-line: rgba(27, 23, 16, 0.15);
 
   --font-display: var(--font-fraunces), Georgia, 'Times New Roman', serif;
   --font-sans: var(--font-instrument), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -57,6 +77,39 @@ body {
   font-family: var(--font-mono);
 }
 
+/* ── Elevated Frosted Paper Glass Cards ── */
+.frosted-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 36px -10px rgba(27, 23, 16, 0.06), 0 2px 6px -1px rgba(27, 23, 16, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frosted-card:hover {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(169, 121, 60, 0.4);
+  box-shadow: 0 20px 48px -12px rgba(169, 121, 60, 0.12), 0 4px 12px -2px rgba(27, 23, 16, 0.04);
+  transform: translateY(-2px);
+}
+
+.frosted-pill {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px -2px rgba(27, 23, 16, 0.04);
+  transition: all 0.2s ease;
+}
+
+.frosted-pill:hover {
+  background: #ffffff;
+  border-color: #A9793C;
+  color: #7C5A2C;
+  transform: translateY(-1px);
+}
+
 /* ── Editorial Gold Underline Link ── */
 .nav-link {
   position: relative;
@@ -84,16 +137,6 @@ body {
   width: 100%;
 }
 
-/* ── Editorial Row Hairlines ── */
-.editorial-row {
-  border-bottom: 1px solid rgba(27, 23, 16, 0.18);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.editorial-row:hover {
-  background-color: rgba(238, 230, 212, 0.55);
-}
-
 /* ── Detection Frame Corner Brackets ── */
 .detection-frame {
   position: relative;
@@ -108,7 +151,7 @@ body {
   width: 14px;
   height: 14px;
   border-color: #A9793C;
-  opacity: 0.4;
+  opacity: 0.5;
   transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   z-index: 20;
@@ -152,6 +195,20 @@ body {
 .detection-frame:hover .corner-br {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+/* ── Floating Animation ── */
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float-1 {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-subtle 4.5s ease-in-out infinite 1s;
 }
 
 /* ── Continuous Mono Marquee Ticker ── */

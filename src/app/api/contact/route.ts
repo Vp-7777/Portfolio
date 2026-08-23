@@ -1,29 +1,38 @@
 import { NextResponse } from "next/server";
-import { contactSchema } from "@/features/contact/schema";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
-    // Validate request body
-    const validatedData = contactSchema.parse(body);
+    const { name, email, message } = body;
 
-    // TODO: Implement actual email sending (e.g., using Resend, SendGrid)
-    // For now, just simulate success for Milestone 1 architecture
-    console.log("Contact form payload received:", validatedData);
+    if (!name || typeof name !== "string" || name.trim().length === 0) {
+      return NextResponse.json(
+        { message: "Valid name is required." },
+        { status: 400 }
+      );
+    }
+
+    if (!email || typeof email !== "string" || !email.includes("@")) {
+      return NextResponse.json(
+        { message: "Valid email address is required." },
+        { status: 400 }
+      );
+    }
+
+    if (!message || typeof message !== "string" || message.trim().length === 0) {
+      return NextResponse.json(
+        { message: "Message content cannot be empty." },
+        { status: 400 }
+      );
+    }
+
+    console.log("Contact submission received:", { name, email, message });
 
     return NextResponse.json(
       { message: "Message received successfully." },
       { status: 200 }
     );
   } catch (error) {
-    if (error instanceof Error && error.name === "ZodError") {
-      return NextResponse.json(
-        { message: "Invalid request data", errors: error },
-        { status: 400 }
-      );
-    }
-
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

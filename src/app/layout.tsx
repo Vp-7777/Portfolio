@@ -5,6 +5,7 @@ import { Nav } from "@/features/ui/Nav";
 import { CustomCursor } from "@/features/cursor/CustomCursor";
 import { FilmGrain } from "@/features/ui/FilmGrain";
 import { CommandMenu } from "@/features/ui/CommandMenu";
+import { ScrollChapterRail } from "@/features/motion/ScrollChapterRail";
 import { JsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
@@ -115,6 +116,7 @@ export default function RootLayout({
         <CustomCursor />
         <Nav />
         <CommandMenu />
+        <ScrollChapterRail />
         <SmoothScroller>
           {children}
         </SmoothScroller>
