@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { CheckCircle2, Code2, ExternalLink, X, Zap } from "lucide-react";
+import { CheckCircle2, Code2, ExternalLink, ShieldCheck, X, Zap } from "lucide-react";
 import { useSystemStore } from "@/store/useSystemStore";
 import projectsData from "@/lib/content/projects.json";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
@@ -37,63 +37,63 @@ export function ProjectDetail() {
 
   return (
     <div className="fixed inset-0 z-[100] flex justify-end">
-      {/* Backdrop */}
+      {/* Dark Ambient Backdrop */}
       <div
         onClick={() => setActiveProject(null)}
-        className="absolute inset-0 bg-[#1B1710]/50 backdrop-blur-xs transition-opacity duration-300"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
       />
 
-      {/* Slide-over Drawer */}
-      <div className="relative w-full max-w-2xl h-full bg-[#F6F1E7] border-l border-[rgba(27,23,16,0.2)] p-6 sm:p-10 overflow-y-auto z-10 shadow-2xl space-y-8 animate-in slide-in-from-right duration-300">
+      {/* Slide-over Blueprint Drawer */}
+      <div className="relative w-full max-w-2xl h-full bg-[#0B0B0E] border-l border-[#222430] p-6 sm:p-10 overflow-y-auto z-10 shadow-2xl space-y-8 animate-in slide-in-from-right duration-300 text-[#ECEAE2]">
         
         {/* Top Header & Close Button */}
-        <div className="flex items-center justify-between border-b border-[rgba(27,23,16,0.15)] pb-5">
-          <div className="space-y-0.5">
-            <span className="font-mono text-xs font-bold text-[#A9793C] uppercase tracking-wider block">
-              ARCHITECTURE SPEC & BLUEPRINT
+        <div className="flex items-center justify-between border-b border-white/10 pb-5">
+          <div className="space-y-1">
+            <span className="font-mono text-xs font-bold text-[#C5A059] tracking-wider uppercase block">
+              SYSTEM BLUEPRINT SPEC
             </span>
-            <span className="font-mono text-xs text-[#9C9280]">
-              ID: {project.id.toUpperCase()}
+            <span className="font-mono text-xs text-[#8C887B]">
+              IDENTIFIER: {project.id.toUpperCase()} // PRODUCTION
             </span>
           </div>
 
           <button
             onClick={() => setActiveProject(null)}
-            className="p-2 border border-[rgba(27,23,16,0.15)] hover:border-[#A9793C] bg-[#EEE6D4] text-[#1B1710] hover:text-[#7C5A2C] transition-colors cursor-pointer"
+            className="p-2.5 rounded-full border border-white/10 hover:border-white/40 bg-white/5 hover:bg-white/10 text-white transition-colors cursor-pointer"
             aria-label="Close drawer"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
 
-        {/* Project Title & Tagline */}
+        {/* Project Title & Narrative */}
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-xs font-semibold px-2.5 py-1 bg-[#EEE6D4] text-[#7C5A2C] border border-[rgba(27,23,16,0.12)]">
+            <span className="font-mono text-xs font-semibold px-3 py-1 bg-[#1A1815] text-[#C5A059] border border-[#C5A059]/30 rounded-full">
               {project.role}
             </span>
           </div>
 
-          <h2 className="font-display italic font-normal text-3xl sm:text-4xl text-[#1B1710] leading-tight">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-white leading-tight">
             {project.name}
           </h2>
 
-          <p className="font-sans text-base text-[#5C5344] leading-relaxed">
+          <p className="font-sans text-base text-[#A1A1AA] leading-relaxed">
             {project.description}
           </p>
         </div>
 
-        {/* Live / Code Action Links */}
+        {/* Live App & Repo Action Buttons */}
         <div className="flex flex-wrap gap-3 pt-1">
           {project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="px-5 py-2.5 bg-[#1B1710] hover:bg-[#7C5A2C] text-[#F6F1E7] font-mono text-xs uppercase tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-6 py-3 bg-white hover:bg-[#ECEAE2] text-black rounded-full font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all hover:scale-105 shadow-lg shadow-black/50 cursor-pointer"
             >
               <span>Launch Live App</span>
-              <ExternalLink size={13} className="text-[#A9793C]" />
+              <ExternalLink size={14} className="text-black" />
             </a>
           )}
 
@@ -102,45 +102,45 @@ export function ProjectDetail() {
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="px-5 py-2.5 bg-[#EEE6D4] hover:bg-[#F6F1E7] text-[#1B1710] border border-[rgba(27,23,16,0.2)] font-mono text-xs uppercase tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-6 py-3 bg-[#161720] hover:bg-[#20222E] text-white border border-white/10 hover:border-white/30 rounded-full font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
             >
-              <Code2 size={13} className="text-[#7C5A2C]" />
+              <Code2 size={14} className="text-[#C5A059]" />
               <span>Source Repository</span>
             </a>
           )}
         </div>
 
         {/* Architecture Data Flow Diagram */}
-        <div className="space-y-3 pt-4 border-t border-[rgba(27,23,16,0.15)]">
-          <span className="font-mono text-xs font-bold text-[#9C9280] uppercase tracking-wider block">
+        <div className="space-y-3 pt-4 border-t border-white/10">
+          <span className="font-mono text-xs font-bold text-[#8C887B] uppercase tracking-wider block">
             System Data Flow Diagram
           </span>
           <ArchitectureDiagram projectId={project.id} />
         </div>
 
-        {/* Challenges & Solutions */}
-        <div className="space-y-4 pt-4 border-t border-[rgba(27,23,16,0.15)]">
-          <span className="font-mono text-xs font-bold text-[#9C9280] uppercase tracking-wider block">
-            Engineering Decisions
+        {/* Engineering Decisions & Bottlenecks */}
+        <div className="space-y-4 pt-4 border-t border-white/10">
+          <span className="font-mono text-xs font-bold text-[#8C887B] uppercase tracking-wider block">
+            Engineering Decisions & Bottlenecks
           </span>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 bg-[#EEE6D4]/50 border border-[rgba(27,23,16,0.15)] space-y-2">
-              <span className="font-mono text-xs font-bold text-[#6E2A34] uppercase tracking-wider flex items-center gap-1.5">
-                <Zap size={12} />
+            <div className="p-5 rounded-2xl bg-[#141215] border border-red-500/20 space-y-2">
+              <span className="font-mono text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Zap size={13} />
                 Core Bottleneck
               </span>
-              <p className="font-sans text-xs sm:text-sm text-[#5C5344] leading-relaxed">
+              <p className="font-sans text-xs sm:text-sm text-[#A1A1AA] leading-relaxed">
                 {project.challenge}
               </p>
             </div>
 
-            <div className="p-4 bg-[#EEE6D4]/50 border border-[rgba(27,23,16,0.15)] space-y-2">
-              <span className="font-mono text-xs font-bold text-[#7C5A2C] uppercase tracking-wider flex items-center gap-1.5">
-                <CheckCircle2 size={12} />
+            <div className="p-5 rounded-2xl bg-[#121614] border border-emerald-500/20 space-y-2">
+              <span className="font-mono text-xs font-bold text-[#10B981] uppercase tracking-wider flex items-center gap-1.5">
+                <CheckCircle2 size={13} />
                 Architectural Solution
               </span>
-              <p className="font-sans text-xs sm:text-sm text-[#5C5344] leading-relaxed">
+              <p className="font-sans text-xs sm:text-sm text-[#A1A1AA] leading-relaxed">
                 {project.solution}
               </p>
             </div>
@@ -148,15 +148,15 @@ export function ProjectDetail() {
         </div>
 
         {/* Tech Stack Chips */}
-        <div className="space-y-3 pt-4 border-t border-[rgba(27,23,16,0.15)]">
-          <span className="font-mono text-xs font-bold text-[#9C9280] uppercase tracking-wider block">
+        <div className="space-y-3 pt-4 border-t border-white/10">
+          <span className="font-mono text-xs font-bold text-[#8C887B] uppercase tracking-wider block">
             Complete Stack & Dependencies
           </span>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="font-mono text-xs text-[#5C5344] bg-[#EEE6D4] border border-[rgba(27,23,16,0.12)] px-3 py-1"
+                className="font-mono text-xs font-bold text-[#A1A1AA] bg-[#161720] border border-white/10 px-3.5 py-1.5 rounded-lg"
               >
                 {tech}
               </span>

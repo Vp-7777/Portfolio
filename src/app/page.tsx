@@ -1,4 +1,4 @@
-import { Hero } from "@/features/hero/Hero";
+import { LandingExperience } from "@/features/landing/LandingExperience";
 import { About } from "@/features/about/About";
 import { Experience } from "@/features/experience/Experience";
 import { Projects } from "@/features/projects/Projects";
@@ -9,8 +9,8 @@ import { Footer } from "@/features/ui/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#F6F1E7]">
-      <Hero />
+    <main className="relative min-h-screen bg-[#0A0A0A]">
+      <LandingExperience />
       <About />
       <Experience />
       <Projects />

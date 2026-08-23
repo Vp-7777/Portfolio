@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Instrument_Sans, Space_Mono } from "next/font/google";
 import { SmoothScroller } from "@/features/motion/SmoothScroller";
-import { Nav } from "@/features/ui/Nav";
 import { CustomCursor } from "@/features/cursor/CustomCursor";
 import { FilmGrain } from "@/features/ui/FilmGrain";
-import { CommandMenu } from "@/features/ui/CommandMenu";
-import { ScrollChapterRail } from "@/features/motion/ScrollChapterRail";
+import { Preloader } from "@/features/ui/Preloader";
 import { JsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
@@ -32,8 +30,8 @@ const spaceMono = Space_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#F6F1E7",
-  colorScheme: "light",
+  themeColor: "#0A0A0A",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -106,17 +104,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${instrumentSans.variable} ${spaceMono.variable} scroll-smooth antialiased`}
+      className={`${fraunces.variable} ${instrumentSans.variable} ${spaceMono.variable} scroll-smooth antialiased bg-[#0A0A0A]`}
     >
       <head>
         <JsonLd />
       </head>
-      <body className="bg-[#F6F1E7] text-[#1B1710] min-h-screen relative selection:bg-[#A9793C]/20 selection:text-[#1B1710]">
+      <body className="bg-[#0A0A0A] text-[#ECEAE2] min-h-screen relative selection:bg-[#C5A059]/30 selection:text-[#ECEAE2]">
+        <Preloader />
         <FilmGrain />
         <CustomCursor />
-        <Nav />
-        <CommandMenu />
-        <ScrollChapterRail />
         <SmoothScroller>
           {children}
         </SmoothScroller>

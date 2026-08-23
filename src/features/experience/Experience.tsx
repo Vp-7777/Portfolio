@@ -1,99 +1,235 @@
 "use client";
 
-import { CheckCircle2, MapPin, Sparkles, Smartphone, Server, ShieldCheck } from "lucide-react";
-import experienceData from "@/lib/content/experience.json";
+import { useState } from "react";
+import { CheckCircle2, Cpu, ExternalLink, MapPin, Server, Smartphone, Sparkles, Zap } from "lucide-react";
 import { ScrollReveal } from "@/features/motion/ScrollReveal";
+
+interface ExperienceItem {
+  id: string;
+  role: string;
+  company: string;
+  type: string;
+  location: string;
+  period: string;
+  summary: string;
+  highlights: string[];
+  technologies: string[];
+  metrics: {
+    badge: string;
+    value: string;
+    subtext: string;
+  };
+  wireframe: "mobile" | "backend";
+}
+
+const experiences: ExperienceItem[] = [
+  {
+    id: "rideabit",
+    role: "Software Engineering Intern",
+    company: "RideAbit",
+    type: "Mobile Engineering & Platform",
+    location: "Remote",
+    period: "Jun 2026 – Present (3 mos)",
+    summary: "Architecting cross-platform mobile ride-sharing features with optimized state caching and fluid native navigation.",
+    highlights: [
+      "Engineered full lifecycle React Native & Expo CLI mobile features deployed to production.",
+      "Optimized gesture handlers and responsive layouts achieving smooth 60 FPS client rendering.",
+      "Collaborated in Agile sprints using Git/GitHub feature branching and collaborative code reviews.",
+    ],
+    technologies: ["React Native", "Expo CLI", "TypeScript", "JavaScript", "Mobile App Dev", "Git & GitHub"],
+    metrics: {
+      badge: "PRODUCTION RELEASE",
+      value: "60 FPS Native UI",
+      subtext: "Cross-Platform Ride-Sharing",
+    },
+    wireframe: "mobile",
+  },
+  {
+    id: "qraptor",
+    role: "AI Engineering Intern",
+    company: "QRaptor",
+    type: "AI Backend & Microservices",
+    location: "Remote",
+    period: "Jan 2026 – May 2026 (5 mos)",
+    summary: "Built scalable asynchronous REST APIs and machine learning model evaluation pipelines with strict isolation.",
+    highlights: [
+      "Engineered high-concurrency FastAPI microservices handling real-time AI inference requests.",
+      "Integrated secure JWT authentication and optimized PostgreSQL database connection pooling.",
+      "Conducted automated unit testing, endpoint benchmarking, and cloud API deployment pipelines.",
+    ],
+    technologies: ["Python", "FastAPI", "REST APIs", "Machine Learning", "JWT Auth", "PostgreSQL"],
+    metrics: {
+      badge: "HIGH THROUGHPUT",
+      value: "Sub-15ms Latency",
+      subtext: "FastAPI AI Microservices",
+    },
+    wireframe: "backend",
+  },
+];
 
 export function Experience() {
   return (
-    <section id="experience" className="relative w-full py-24 sm:py-32">
-      <div className="max-w-[1180px] mx-auto px-6 sm:px-8 space-y-16">
+    <section id="experience" className="relative w-full py-28 sm:py-36 bg-[#08080A] text-[#ECEAE2]">
+      <div className="max-w-[1320px] mx-auto px-6 sm:px-10 space-y-20">
         
-        {/* Section Header */}
+        {/* Exact Reference Centered Massive Section Header */}
         <ScrollReveal direction="up">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-[rgba(27,23,16,0.15)] pb-6">
-            <div className="space-y-1">
-              <span className="font-mono text-xs font-bold text-[#A9793C] tracking-[0.08em] uppercase block">
-                COMMERCIAL RECORD
-              </span>
-              <h2 className="font-display font-normal text-3xl sm:text-4xl text-[#1B1710] tracking-tight">
-                Production & Internships
-              </h2>
-            </div>
+          <div className="text-center space-y-4 max-w-4xl mx-auto">
+            <h2 className="font-display font-black text-5xl sm:text-7xl lg:text-[5.8rem] text-white tracking-[-0.04em] uppercase leading-none">
+              EXPERIENCE
+            </h2>
 
-            <p className="font-sans text-xs sm:text-sm text-[#5C5344] max-w-md">
-              Commercial software engineering internships, production mobile releases, and enterprise software programs.
+            <p className="font-mono text-xs sm:text-[13px] text-[#A1A1AA] tracking-[0.06em] uppercase max-w-2xl mx-auto leading-relaxed">
+              COMMERCIAL SOFTWARE ENGINEERING INTERNSHIPS, PRODUCTION MOBILE RELEASES, AND AI MICROSERVICES ARCHITECTURE.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Chronological Frosted Glass Company Cards Container */}
-        <div className="space-y-8">
-          {experienceData.map((exp, idx) => (
-            <ScrollReveal key={idx} direction="up" delay={idx * 150}>
-              <div className="frosted-card p-7 sm:p-9 rounded-none space-y-6 relative group overflow-hidden">
+        {/* Reference-Styled Visual Architecture Company Cards */}
+        <div className="space-y-12">
+          {experiences.map((exp, idx) => (
+            <ScrollReveal key={exp.id} direction="up" delay={idx * 150}>
+              <div className="relative rounded-[32px] sm:rounded-[36px] bg-[#12131A]/95 border border-[#222430] hover:border-[#C5A059]/40 p-8 sm:p-12 lg:p-14 group transition-all duration-500 shadow-2xl shadow-black/80 overflow-hidden">
+                
                 {/* Top Meta Bar */}
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(27,23,16,0.1)] pb-4">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
                   <div className="flex items-center gap-3">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#A9793C] animate-pulse" />
-                    <span className="font-mono text-xs font-bold text-[#7C5A2C] uppercase tracking-wider flex items-center gap-1.5">
-                      {exp.type.includes("Mobile") ? <Smartphone size={13} /> : <Server size={13} />}
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] animate-pulse" />
+                    <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-wider flex items-center gap-2">
+                      {exp.wireframe === "mobile" ? <Smartphone size={14} /> : <Server size={14} />}
                       <span>{exp.type}</span>
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3 font-mono text-xs text-[#5C5344]">
-                    <span className="flex items-center gap-1 text-[#1B1710] font-semibold">
-                      <MapPin size={12} className="text-[#A9793C]" />
+                  <div className="flex items-center gap-3 font-mono text-xs text-[#A1A1AA]">
+                    <span className="flex items-center gap-1.5 text-white font-semibold">
+                      <MapPin size={13} className="text-[#C5A059]" />
                       <span>{exp.location}</span>
                     </span>
-                    <span className="text-[#A9793C]">·</span>
-                    <span className="font-bold text-[#1B1710] bg-[#EEE6D4] px-2.5 py-0.5 border border-[rgba(27,23,16,0.1)]">
+                    <span className="text-[#C5A059]">·</span>
+                    <span className="font-bold text-white bg-white/10 px-3 py-1 rounded-full border border-white/10">
                       {exp.period}
                     </span>
                   </div>
                 </div>
 
-                {/* Role & Company Header */}
-                <div className="space-y-1">
-                  <h3 className="font-display font-normal text-2xl sm:text-3xl text-[#1B1710] group-hover:text-[#7C5A2C] transition-colors">
-                    {exp.role} — <span className="italic font-normal">{exp.company}</span>
-                  </h3>
-                </div>
-
-                {/* Deliverables Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
-                  {exp.details.map((detail, dIdx) => (
-                    <div key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#5C5344] font-sans leading-relaxed">
-                      <CheckCircle2 size={15} className="text-[#A9793C] shrink-0 mt-0.5" />
-                      <span>{detail}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Production Deliverable Highlight & Tech Chips */}
-                <div className="pt-4 border-t border-[rgba(27,23,16,0.1)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                {/* Main 2-Column Content: Left Narrative + Right Interactive Wireframe */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center pt-8">
                   
-                  {/* Deliverable Box */}
-                  <div className="p-3 bg-[#EEE6D4]/50 border border-[rgba(27,23,16,0.1)] space-y-0.5">
-                    <span className="font-mono text-[9.5px] text-[#9C9280] uppercase tracking-wider block">
-                      PRODUCTION IMPACT
-                    </span>
-                    <span className="font-sans text-xs font-bold text-[#1B1710] block">
-                      {exp.metrics.metric1}
-                    </span>
+                  {/* Left Column (7 cols): Role, Company, Summary, Highlights & Tech */}
+                  <div className="lg:col-span-7 space-y-6">
+                    
+                    <div className="space-y-1.5">
+                      <h3 className="font-display font-bold text-3xl sm:text-4xl text-white group-hover:text-[#C5A059] transition-colors leading-tight">
+                        {exp.role} — <span className="text-[#C5A059] font-medium">{exp.company}</span>
+                      </h3>
+                      <p className="font-sans text-sm sm:text-base text-[#A1A1AA] leading-relaxed">
+                        {exp.summary}
+                      </p>
+                    </div>
+
+                    {/* Bullet Highlights */}
+                    <div className="space-y-3 pt-1">
+                      {exp.highlights.map((item, hIdx) => (
+                        <div key={hIdx} className="flex items-start gap-3 text-sm text-[#ECEAE2] font-sans leading-relaxed">
+                          <CheckCircle2 size={16} className="text-[#C5A059] shrink-0 mt-1" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Tech Chips */}
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {exp.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="font-mono text-xs font-bold text-[#A1A1AA] bg-[#181A24] px-3.5 py-1.5 rounded-lg border border-white/10 hover:border-[#C5A059] hover:text-white transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
                   </div>
 
-                  {/* Tech Chips */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {exp.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="font-mono text-[11px] font-medium text-[#5C5344] bg-[#EEE6D4]/80 px-2.5 py-1 border border-[rgba(27,23,16,0.1)] hover:border-[#A9793C] transition-colors"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  {/* Right Column (5 cols): Interactive Visual Telemetry Wireframe Window */}
+                  <div className="lg:col-span-5">
+                    <div className="rounded-2xl bg-[#0E0F14] border border-[#262838] p-6 space-y-5 shadow-2xl shadow-black/90">
+                      
+                      {/* Window Header */}
+                      <div className="flex items-center justify-between border-b border-white/10 pb-3 font-mono text-[10px] text-[#A1A1AA]">
+                        <span className="flex items-center gap-1.5 font-bold text-white uppercase">
+                          <Zap size={12} className="text-[#C5A059]" />
+                          <span>{exp.metrics.badge}</span>
+                        </span>
+                        <span className="text-[#10B981] font-bold bg-[#10B981]/10 px-2.5 py-0.5 rounded-full">
+                          ACTIVE
+                        </span>
+                      </div>
+
+                      {/* Main Metric Spotlight */}
+                      <div className="p-4 rounded-xl bg-[#161720] border border-white/10 space-y-1">
+                        <span className="font-mono text-[10px] text-[#8C887B] uppercase tracking-wider block">
+                          Performance Metric
+                        </span>
+                        <span className="font-display font-bold text-2xl text-white block">
+                          {exp.metrics.value}
+                        </span>
+                        <span className="font-mono text-xs text-[#C5A059] block">
+                          {exp.metrics.subtext}
+                        </span>
+                      </div>
+
+                      {/* Visual System Pipeline Snapshot */}
+                      {exp.wireframe === "mobile" ? (
+                        <div className="space-y-2 font-mono text-xs">
+                          <div className="p-3 bg-black/40 rounded-xl border border-white/5 space-y-1.5">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="text-white font-bold">Expo Native Bridge</span>
+                              <span className="text-[#10B981]">Synchronized</span>
+                            </div>
+                            <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                              <div className="bg-[#C5A059] h-full w-[94%]" />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2 text-[10.5px]">
+                            <div className="p-2.5 bg-white/5 rounded-lg border border-white/5 text-center">
+                              <span className="text-[#8C887B] block">State Caching</span>
+                              <span className="text-white font-bold">Optimized</span>
+                            </div>
+                            <div className="p-2.5 bg-white/5 rounded-lg border border-white/5 text-center">
+                              <span className="text-[#8C887B] block">Component Tree</span>
+                              <span className="text-white font-bold">100% Shared</span>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-2 font-mono text-xs">
+                          <div className="p-3 bg-black/40 rounded-xl border border-white/5 space-y-1.5">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="text-white font-bold">FastAPI Async Loop</span>
+                              <span className="text-[#10B981]">120 FPS Throughput</span>
+                            </div>
+                            <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                              <div className="bg-[#10B981] h-full w-[98%]" />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2 text-[10.5px]">
+                            <div className="p-2.5 bg-white/5 rounded-lg border border-white/5 text-center">
+                              <span className="text-[#8C887B] block">JWT Auth Sessions</span>
+                              <span className="text-white font-bold">Isolated</span>
+                            </div>
+                            <div className="p-2.5 bg-white/5 rounded-lg border border-white/5 text-center">
+                              <span className="text-[#8C887B] block">PostgreSQL Pool</span>
+                              <span className="text-white font-bold">2.1ms Latency</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                    </div>
                   </div>
 
                 </div>
