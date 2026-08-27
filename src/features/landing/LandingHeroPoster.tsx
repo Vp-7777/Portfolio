@@ -87,17 +87,18 @@ export function LandingHeroPoster({
         >
           {/* Inner Matte Avatar Card (Matches Reference Screenshot Style) */}
           <div
-            className="w-full h-full rounded-[26px] sm:rounded-[30px] overflow-hidden bg-[#585B5E] border border-white/20 shadow-2xl shadow-black/95 group cursor-pointer"
+            className="w-full h-full rounded-[26px] sm:rounded-[32px] overflow-hidden bg-[#12131A] border-2 border-white/25 shadow-[0_15px_40px_rgba(0,0,0,0.9)] group cursor-pointer"
             style={{
               transform: `translate3d(${cardOffset.x}px, ${cardOffset.y}px, 0) rotateX(${cardOffset.rotateX}deg) rotateY(${cardOffset.rotateY}deg)`,
               transition: cardOffset.x === 0 ? "transform 0.5s ease-out" : "none",
             }}
           >
             <Image
-              src="/avatar.png"
+              src="/avatar-3d.png"
               alt="Vishal Patel Avatar"
               fill
               priority
+              unoptimized
               sizes="(max-width: 768px) 190px, 220px"
               className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             />

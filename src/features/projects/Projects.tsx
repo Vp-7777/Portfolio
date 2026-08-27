@@ -31,6 +31,7 @@ const projects: ProjectEntry[] = [
     liveUrl: "https://autis-mind-ai.vercel.app/",
     live: true,
     accentColor: "#C5A059",
+    imageSrc: "/autismind-screen.jpg",
   },
   {
     id: "prithviq",
@@ -176,6 +177,7 @@ export function Projects() {
                       projectName={project.name}
                       imageSrc={project.imageSrc}
                       accentColor={project.accentColor}
+                      liveUrl={project.liveUrl}
                     />
                   </div>
 
